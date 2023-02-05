@@ -1,0 +1,68 @@
+#ProfileView {
+  .userInfoContainer {
+    width: 100vw;
+    height: 35vh;
+    position: relative;
+    .user_bg_image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .user_data {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 2;
+      background-color: rgba(0,0,0,.4);
+      .user_basic_info {
+        padding: 0 .4375rem;
+        position: absolute;
+        bottom: .4375rem;
+        // padding: 1.4063rem .4375rem 0;
+        .top_info {
+          display: flex;
+          align-items: center;
+          color: #fff;
+          font-size: 14px;
+        }
+        .info_intro {
+          margin: .25rem 0;
+          .rv-typography {
+            color: rgb(238, 238, 238) !important;
+          }
+        }
+        .info_other {
+          display: flex;
+          align-items: center;
+          .target_item {
+            margin-right: .4688rem;
+            color: #fff;
+            background-color: #ffffff41;
+            padding: .1563rem .3125rem;
+            zoom: .8;
+          }
+        }
+        .info_operation {
+          margin-top: .3125rem;
+          display: flex;
+          align-items: center;
+          .ope_item {
+            color: #fff;
+            padding: .1875rem .4375rem;
+            background-color: #ffffff46;
+          }
+        }
+      }
+    }
+  }
+  .functionListContainer {
+    .rv-grid-item__icon {
+      font-size: 24px;
+    }
+  }
+}

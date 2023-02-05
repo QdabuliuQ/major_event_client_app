@@ -1,0 +1,13 @@
+#CollectView .collectItem {
+  padding: 0.3125rem;
+}
+#CollectView .collectItem:not(:last-child) {
+  border-bottom: 0.25rem solid #f4f4f4;
+}
+#CollectView .collectItem .ArticleItem {
+  padding: 0;
+  border-bottom: 0;
+}
+#CollectView .collectItem .ArticleItem .rv-swipe-cell__right {
+  right: -1px;
+}

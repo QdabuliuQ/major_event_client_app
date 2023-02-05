@@ -1,0 +1,63 @@
+#ProfileView .userInfoContainer {
+  width: 100vw;
+  height: 35vh;
+  position: relative;
+}
+#ProfileView .userInfoContainer .user_bg_image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#ProfileView .userInfoContainer .user_bg_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#ProfileView .userInfoContainer .user_data {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+#ProfileView .userInfoContainer .user_data .user_basic_info {
+  padding: 0 0.4375rem;
+  position: absolute;
+  bottom: 0.4375rem;
+}
+#ProfileView .userInfoContainer .user_data .user_basic_info .top_info {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+}
+#ProfileView .userInfoContainer .user_data .user_basic_info .info_intro {
+  margin: 0.25rem 0;
+}
+#ProfileView .userInfoContainer .user_data .user_basic_info .info_intro .rv-typography {
+  color: #eeeeee !important;
+}
+#ProfileView .userInfoContainer .user_data .user_basic_info .info_other {
+  display: flex;
+  align-items: center;
+}
+#ProfileView .userInfoContainer .user_data .user_basic_info .info_other .target_item {
+  margin-right: 0.4688rem;
+  color: #fff;
+  background-color: #ffffff41;
+  padding: 0.1563rem 0.3125rem;
+  zoom: 0.8;
+}
+#ProfileView .userInfoContainer .user_data .user_basic_info .info_operation {
+  margin-top: 0.3125rem;
+  display: flex;
+  align-items: center;
+}
+#ProfileView .userInfoContainer .user_data .user_basic_info .info_operation .ope_item {
+  color: #fff;
+  padding: 0.1875rem 0.4375rem;
+  background-color: #ffffff46;
+}
+#ProfileView .functionListContainer .rv-grid-item__icon {
+  font-size: 24px;
+}

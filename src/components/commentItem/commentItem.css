@@ -1,0 +1,64 @@
+.CommentItem {
+  display: flex;
+  margin-bottom: 0.3125rem;
+}
+.CommentItem .itemAvatar {
+  flex: 1;
+}
+.CommentItem .itemAvatar .rv-image {
+  width: 0.9375rem;
+  height: 0.9375rem;
+}
+.CommentItem .itemInfo {
+  flex: 9;
+  margin-left: 0.25rem;
+  padding-bottom: 0.3125rem;
+  border-bottom: 1px solid #eaeaea;
+}
+.CommentItem .itemInfo .topInfo {
+  padding: 0.1875rem 0;
+  font-weight: bold;
+  font-size: 0.4219rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.CommentItem .itemInfo .topInfo .rightInfo {
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+}
+.CommentItem .itemInfo .topInfo .rightInfo span {
+  margin-left: 0.1563rem;
+  position: relative;
+  top: 1px;
+}
+.CommentItem .itemInfo .contentInfo {
+  padding: 0.1563rem 0 0.3125rem;
+  font-size: 0.4219rem;
+  word-wrap: break-word;
+  width: 80vw;
+  line-height: 0.625rem;
+}
+.CommentItem .itemInfo .detailInfo {
+  color: #8c8c8c;
+  zoom: 0.9;
+  font-size: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.CommentItem .itemInfo .detailInfo .leftInfo {
+  display: flex;
+  align-items: center;
+}
+.CommentItem .itemInfo .detailInfo .replyInfo {
+  display: flex;
+  align-items: center;
+  margin-right: 0.25rem;
+  font-size: 0.4063rem;
+  padding: 0.1875rem 0.25rem 0.1875rem 0.375rem;
+  border-radius: 0.4688rem;
+  background-color: #f9f9f9;
+  zoom: 0.8;
+}

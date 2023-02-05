@@ -1,0 +1,46 @@
+.ArticleItem {
+  display: flex;
+  justify-content: space-between;
+  padding: .3125rem 0;
+  &:not(:last-child) {
+    border-bottom: 1px solid #e9e9e9;
+  }
+  .articleCover {
+    width: 40%;
+    height: 2.1875rem;
+    border-radius: .1563rem;
+    overflow: hidden;
+  }
+  .articleInfo {
+    width: 55%;
+    margin-right: .3125rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    .articleTitle {
+      font-weight: bold;
+      margin-bottom: .1563rem;
+      .rv-typography__text {
+        font-size: .4688rem;
+      }
+    }
+    .articleContent {
+      .rv-typography__text {
+        font-size: .375rem;
+        color: #767676;
+      }
+    }
+    .articleTime {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #767676;
+      zoom: .8;
+      div {
+        display: flex;
+        align-items: center;
+        margin-right: .3125rem;
+      }
+    }
+  }
+}

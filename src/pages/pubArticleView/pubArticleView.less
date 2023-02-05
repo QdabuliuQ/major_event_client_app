@@ -1,0 +1,117 @@
+.actionSheetClass {
+  .articleContainer {
+    padding: .4688rem .4063rem;
+    .scrollContainer {
+      height: 55vh;
+      overflow-y: scroll;
+      margin-bottom: .3125rem;
+    }
+    .articleTitle {
+      padding: .3125rem 0;
+      box-sizing: border-box;
+      border-bottom: 1px solid #dad9d9;
+
+      input {
+        outline: none;
+        border: 0;
+        font-size: .4063rem;
+
+        &::-webkit-input-placeholder {
+          color: #ccc;
+        }
+
+        &:-moz-placeholder {
+          /* Mozilla Firefox 4 to 18 */
+          color: #ccc;
+        }
+
+        &::-moz-placeholder {
+          /* Mozilla Firefox 19+ */
+          color: #ccc;
+        }
+
+        &:-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          color: #ccc;
+        }
+      }
+    }
+    .itemTitle {
+      font-size: .4063rem;
+      padding-bottom: .1875rem;
+    }
+    .articleTarget {
+      padding: .3125rem 0;
+      .rv-selector__item {
+        margin-right: .1875rem;
+        margin-bottom: .1875rem;
+      }
+    }
+    .articleCategory {
+      padding: .3125rem 0;
+      .rv-cell {
+        padding: .3125rem 0;
+        box-sizing: border-box;
+        border-bottom: 1px solid #dad9d9;
+      }
+    }
+    .btnContainer {
+      position: fixed;
+      bottom: .625rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+#PubArticleView {
+  overflow-x: hidden;
+  .w-e-image-container {
+    img {
+      width: 100%;
+    }
+  }
+  .w-e-textarea-video-container {
+    box-sizing: border-box;
+    video {
+      width: 100%;
+    }
+  }
+  .w-e-text-container {
+    font-size: .4375rem;
+  }
+  .w-e-bar-item-group .w-e-bar-item-menus-container {
+    margin-top: 0;
+  }
+  .w-e-bar {
+    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+    background-color: #fcfcfc;
+    font-size: .4063rem !important;
+    position: static;
+    padding-bottom: .1563rem;
+    .w-e-bar-item {
+      position: static;
+    }
+    .w-e-select-list {
+      margin-top: 5px;
+      top: -260px;
+      // top: 80px;
+      // bottom: 150px;
+    }
+  }
+
+  .toolBarContainer {
+    position: fixed;
+    border-top: 2px solid #eaeaea;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .editorContainer {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}

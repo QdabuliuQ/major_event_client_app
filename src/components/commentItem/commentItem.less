@@ -1,0 +1,65 @@
+.CommentItem {
+  
+  display: flex;
+  margin-bottom: .3125rem;
+  .itemAvatar {
+    flex: 1;
+    .rv-image {
+      width: .9375rem;
+      height: .9375rem;
+    }
+  }
+  .itemInfo {
+    flex: 9;
+    margin-left: .25rem;
+    padding-bottom: .3125rem;
+    border-bottom: 1px solid #eaeaea;
+    .topInfo {
+      padding: .1875rem 0;
+      font-weight: bold;
+      font-size: .4219rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .rightInfo {
+        display: flex;
+        align-items: center;
+        font-weight: normal;
+        span {
+          margin-left: .1563rem;
+          position: relative;
+          top: 1px;
+        }
+      }
+    }
+    .contentInfo {
+      padding: .1563rem 0 .3125rem;
+      font-size: .4219rem;
+      word-wrap:break-word; 
+      width: 80vw;
+      line-height: .625rem;
+    }
+    .detailInfo {
+      color: #8c8c8c;
+      zoom: .9;
+      font-size: .375rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .leftInfo {
+        display: flex;
+        align-items: center;
+      }
+      .replyInfo {
+        display: flex;
+        align-items: center;
+        margin-right: .25rem;
+        font-size: .4063rem;
+        padding: .1875rem .25rem .1875rem .375rem;
+        border-radius: .4688rem;
+        background-color: #f9f9f9;
+        zoom: .8;
+      }
+    }
+  }
+}

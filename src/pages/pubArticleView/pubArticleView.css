@@ -1,0 +1,104 @@
+.actionSheetClass .articleContainer {
+  padding: 0.4688rem 0.4063rem;
+}
+.actionSheetClass .articleContainer .scrollContainer {
+  height: 55vh;
+  overflow-y: scroll;
+  margin-bottom: 0.3125rem;
+}
+.actionSheetClass .articleContainer .articleTitle {
+  padding: 0.3125rem 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #dad9d9;
+}
+.actionSheetClass .articleContainer .articleTitle input {
+  outline: none;
+  border: 0;
+  font-size: 0.4063rem;
+}
+.actionSheetClass .articleContainer .articleTitle input::-webkit-input-placeholder {
+  color: #ccc;
+}
+.actionSheetClass .articleContainer .articleTitle input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #ccc;
+}
+.actionSheetClass .articleContainer .articleTitle input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #ccc;
+}
+.actionSheetClass .articleContainer .articleTitle input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #ccc;
+}
+.actionSheetClass .articleContainer .itemTitle {
+  font-size: 0.4063rem;
+  padding-bottom: 0.1875rem;
+}
+.actionSheetClass .articleContainer .articleTarget {
+  padding: 0.3125rem 0;
+}
+.actionSheetClass .articleContainer .articleTarget .rv-selector__item {
+  margin-right: 0.1875rem;
+  margin-bottom: 0.1875rem;
+}
+.actionSheetClass .articleContainer .articleCategory {
+  padding: 0.3125rem 0;
+}
+.actionSheetClass .articleContainer .articleCategory .rv-cell {
+  padding: 0.3125rem 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #dad9d9;
+}
+.actionSheetClass .articleContainer .btnContainer {
+  position: fixed;
+  bottom: 0.625rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#PubArticleView {
+  overflow-x: hidden;
+}
+#PubArticleView .w-e-image-container img {
+  width: 100%;
+}
+#PubArticleView .w-e-textarea-video-container {
+  box-sizing: border-box;
+}
+#PubArticleView .w-e-textarea-video-container video {
+  width: 100%;
+}
+#PubArticleView .w-e-text-container {
+  font-size: 0.4375rem;
+}
+#PubArticleView .w-e-bar-item-group .w-e-bar-item-menus-container {
+  margin-top: 0;
+}
+#PubArticleView .w-e-bar {
+  flex-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+  background-color: #fcfcfc;
+  font-size: 0.4063rem !important;
+  position: static;
+  padding-bottom: 0.1563rem;
+}
+#PubArticleView .w-e-bar .w-e-bar-item {
+  position: static;
+}
+#PubArticleView .w-e-bar .w-e-select-list {
+  margin-top: 5px;
+  top: -260px;
+}
+#PubArticleView .toolBarContainer {
+  position: fixed;
+  border-top: 2px solid #eaeaea;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+#PubArticleView .editorContainer {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

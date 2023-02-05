@@ -1,0 +1,99 @@
+.articleMenuItem {
+  padding: .3125rem;
+  border-radius: 50%;
+  background-color: #f4f4f4;
+}
+#ArticleView {
+  .rv-nav-bar .rv-icon-ellipsis {
+    color: #000;
+  }
+  .articleInfoContainer {
+    padding: .375rem;
+    
+    .articleTitle {
+      padding-bottom: .3125rem;
+      .rv-typography__text {
+        font-size: .5625rem;
+        font-weight: bold;
+        line-height: .7813rem;
+      }
+    }
+    .articleTarget {
+      padding-bottom: .0625rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      .targetItem {
+        padding: .2188rem .4688rem;
+        border-radius: .625rem;
+        font-size: .375rem;
+        zoom: .8;
+        margin-right: .25rem;
+        margin-bottom: .25rem;
+      }
+      .cateTarget {
+        background-color: #009bfc2e;
+        color: #409eff;
+      }
+      .tItem {
+        background-color: #f4f4f4;
+      }
+    }
+
+    .articleAuthor {
+      display: flex;
+      align-items: center;
+      padding: .3125rem 0;
+      border-top: 1px solid #eaeaea;
+      border-bottom: 1px solid #eaeaea;
+
+      .leftInfo {
+        margin-left: .3125rem;
+
+        .authorNickname {
+          .rv-typography__text {
+            color: #000;
+            font-size: .4063rem;
+            margin-bottom: .0938rem;
+
+            span {
+              color: #a4a4a4;
+            }
+          }
+
+        }
+
+        .authorOther {
+          font-size: .375rem;
+          color: #a4a4a4;
+        }
+      }
+    }
+    .articleContent * {
+      word-wrap: break-word;
+    }
+    .articleContent {
+      padding-bottom: .3125rem;
+      img {
+        width: 100%;
+        aspect-ratio: 2/1.2;
+        object-fit: cover;
+      }
+      video {
+        width: 100%;
+      }
+    }
+    .articleComment {
+      .commentInfo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: .4063rem;
+        margin-bottom: .375rem;
+        .sp2 {
+          color: #a4a4a4;
+        }
+      }
+    }
+  }
+}
