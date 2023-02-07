@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { ClockO, Records, StarO, GoodJobO, Description } from '@react-vant/icons';
+import { WarningO, ClockO, Records, StarO, GoodJobO, Description } from '@react-vant/icons';
 import moment from "moment";
-import { Grid, Typography, Image } from 'react-vant'
+import { Cell, Grid, Typography, Image, Toast } from 'react-vant'
 import city from '@/utils/city'
 import { getUserInfo } from "@/network/profileView/profileView";
 import "./profileView.less"
@@ -34,6 +34,10 @@ export default function ProfileView() {
     name: '浏览记录',
     icon: <ClockO fontSize='20px' />,
     index: '/browse'
+  }, {
+    name: '举报结果',
+    icon: <WarningO fontSize='20px' />,
+    index: '/reportResult'
   }])
   const [info, setInfo] = useState<any>({})
 
@@ -50,6 +54,16 @@ export default function ProfileView() {
       }
     }
     return ''
+  }
+
+  const loginOut = () => {
+    localStorage.removeItem('info')
+    localStorage.removeItem('token')
+    localStorage.removeItem('id')
+    Toast.success('以退出登录')
+    router('/login', {
+      replace: true
+    })
   }
 
   useEffect(() => {
@@ -122,6 +136,9 @@ export default function ProfileView() {
             }
           </Grid>
         }
+        <div className='cellList'>
+          <Cell onClick={loginOut} title='退出登录' isLink />
+        </div>
       </div>
     </div>
   )

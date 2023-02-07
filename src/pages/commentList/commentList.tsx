@@ -6,6 +6,7 @@ import CommentItem from "@/components/commentItem/commentItem";
 import { getCommentDetail, getCommentFloor } from "@/network/commentList/commentList";
 import { pubArticleComment } from "@/network/articleView/navBar";
 import { getReportReason } from "@/network/reportView/reportView";
+import { useCallbackState } from "@/hooks/useCbState";
 import "./commentList.less"
 
 export default function CommentList() {
@@ -20,6 +21,8 @@ export default function CommentList() {
   const [height, setHeight] = useState(0)
   const [count, setCount] = useState(0)
   const [comment, setComment] = useState<any>(null)
+  // const [comment, setComment] = useCallbackState(null)
+  // const [commentList, setCommentList] = useCallbackState([])
   const [commentList, setCommentList] = useState<{
     content: string
     time: number
@@ -33,9 +36,10 @@ export default function CommentList() {
   }[]>([])
 
   const onKeyUpEvent = () => {
-    
     let val = (inputRef.current as HTMLInputElement).value.trim()
     if(val == '' || val.length > 100) return
+    console.log(comment.art_id, comment.comment_id);
+    
     pubArticleComment({
       art_id: comment.art_id,
       content: val,
@@ -48,20 +52,22 @@ export default function CommentList() {
       Toast.success('发表成功')
       offset = 1
       setCommentList([])
-      getData()
+      getData(comment.art_id, comment.comment_id)
     })
   }
 
-  const getData = () => {
+  const getData = (art_id: string, comment_id: string) => {
     getCommentFloor({
-      art_id: artId,
-      comment_id: commentId,
+      art_id,
+      comment_id,
       offset,
       limit: 15,
     }).then((res: any) => {
-      
       setCount(res.count)
-      setCommentList([...commentList, ...res.data])
+      if(offset == 1) setCommentList(res.data)
+      else {
+        setCommentList([...commentList, ...res.data])
+      }
     })
   }
 
@@ -74,15 +80,14 @@ export default function CommentList() {
         router(-1)
       }
       setComment(res.data)
-      artId = res.data.art_id
-      commentId = res.data.comment_id
-      getData()
+      getData(res.data.art_id, res.data.comment_id)
     })
 
     getReportReason({
       type: '2'
     }).then((res: any) => {
       setReason(res.data)
+
     })
 
     setHeight(document.documentElement.clientHeight - 46 - document.getElementsByClassName('inputContainer')[0].clientHeight)

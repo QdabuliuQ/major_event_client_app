@@ -15,6 +15,8 @@ const CommentList = lazy(() => import("@/pages/commentList/commentList"))
 const PraiseView = lazy(() => import("@/pages/praiseView/praiseView"))
 const InfoView = lazy(() => import("@/pages/infoView/infoView"))
 const UserListView = lazy(() => import("@/pages/userListView/userListView"))
+const VideoView = lazy(() => import("@/pages/videoView/videoView"))
+const ReportResult = lazy(() => import("@/pages/reportView/reportResult/reportResult"))
 
 
 export default [
@@ -36,6 +38,13 @@ export default [
           p_index: 'home'
         },
         element: <IndexView/>
+      },
+      {
+        path: 'video',
+        meta: {
+          p_index: 'video'
+        },
+        element: <VideoView/>
       },
       {
         path: 'profile',
@@ -69,6 +78,10 @@ export default [
   {
     path: '/report/:id',
     element: <ReportView/>
+  },
+  {
+    path: '/reportResult',
+    element: <ReportResult/>
   },
   {
     path: '/info',

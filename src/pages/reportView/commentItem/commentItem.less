@@ -1,0 +1,25 @@
+._CommentItem {
+  padding: .375rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+  border-radius: .25rem;
+  margin-bottom: .3125rem;
+  &:not(:last-child) {
+    border-bottom: 1px solid #ebebeb;
+  }
+  .itemInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .375rem;
+    &:not(:last-child) {
+      padding-bottom: .1875rem;
+    }
+    .itemLeft {
+      color: #b1b1b1;
+    }
+    .itemRight {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

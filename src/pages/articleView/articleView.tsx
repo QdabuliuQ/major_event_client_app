@@ -53,7 +53,7 @@ export default function ArticleView() {
       }
       setCommentList([...commentList, ...res.data])
       setMore(res.more)
-      offset ++
+      offset++
     })
   }
 
@@ -85,7 +85,7 @@ export default function ArticleView() {
       setHeight(document.documentElement.clientHeight - document.getElementsByClassName('rv-nav-bar')[0].clientHeight - (document.getElementById('NavBar') as HTMLDivElement).clientHeight)
     }, 100);
 
-    
+
   }, [])
 
   return (
@@ -115,7 +115,7 @@ export default function ArticleView() {
       {
         status == 0 && info ? (
           <div>
-            <ScrollList 
+            <ScrollList
               cb={getCommentData}
               hasMore={more}
               height={height}>
@@ -162,7 +162,8 @@ export default function ArticleView() {
                 <div className='articleComment'>
                   <div className='commentInfo'>
                     <span className='sp1'>评论 {params && params.comment_count}</span>
-                    <span className='sp2'>{params && params.praise_count} 赞 <label style={{ margin: '0 6px' }}></label>  {info.collect_count} 收藏</span>
+                    <span className='sp2'>{params && params.praise_count} 赞 
+                    <label style={{ margin: '0 6px' }}></label>  {params && params.collect_count} 收藏</span>
                   </div>
                   {
                     commentList.length ? (

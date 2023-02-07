@@ -4,6 +4,7 @@ body {
 }
 
 :root:root {
+  --rv-tag-large-font-size: .375rem;
   --rv-action-sheet-item-font-size: .4375rem;
   --rv-primary-color: #409eff;
   --rv-badge-background-color: #409eff;

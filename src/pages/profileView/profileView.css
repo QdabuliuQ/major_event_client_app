@@ -61,3 +61,6 @@
 #ProfileView .functionListContainer .rv-grid-item__icon {
   font-size: 24px;
 }
+#ProfileView .functionListContainer .cellList {
+  border-top: 0.1875rem solid #fbfbfb;
+}

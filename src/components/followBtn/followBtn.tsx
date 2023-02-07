@@ -15,8 +15,6 @@ export default function FollowBtn(props: IProps) {
     props.clickEvent && props.clickEvent(props.is_follow ? 0 : 1)
   }
 
-  console.log(localStorage.getItem('id') != props.id);
-
   return (
     <div className='FollowBtn'>
       {
@@ -25,7 +23,11 @@ export default function FollowBtn(props: IProps) {
             已关注
           </button>
           :
-          <button onClick={followUser} className='unFollowBtn btnItem'>
+          <button onClick={(e) => {
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
+            followUser()
+          }} className='unFollowBtn btnItem'>
             <Plus fontSize={14} /> <span style={{ marginLeft: '3px' }}>关注</span>
           </button>
         )

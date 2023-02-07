@@ -1,0 +1,41 @@
+#VideoContent {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#VideoContent video {
+  width: 100%;
+}
+#VideoContent .timeMask {
+  position: absolute;
+  bottom: 0;
+  height: 20vh;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  font-size: 0.6875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s opacity linear;
+  background-image: linear-gradient(transparent, #000);
+}
+#VideoContent .sliderContainer {
+  position: absolute;
+  z-index: 2;
+  bottom: 3vh;
+  left: 4vw;
+  right: 4vw;
+}
+#VideoContent .sliderContainer .rv-slider {
+  background-color: rgba(255, 255, 255, 0.461);
+}
+#VideoContent .sliderContainer .sliderBtn {
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background-color: #fff;
+}

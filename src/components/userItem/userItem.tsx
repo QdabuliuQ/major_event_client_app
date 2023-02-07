@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { Image, Typography } from 'react-vant'
+import { Toast, Image, Typography } from 'react-vant'
 import FollowBtn from "@/components/followBtn/followBtn";
+import {  updateFollowUser } from "@/network/infoView/infoView";
 import "./userItem.less"
 
 interface IProps {
@@ -14,6 +15,24 @@ interface IProps {
 
 export default function UserItem(props: IProps) {
   const router = useNavigate()
+
+  const [follow, setFollow] = useState(0)
+
+  const clickEvent = (followSate: number) => {
+    updateFollowUser({
+      follow_id: props.id,
+      is_follow: followSate
+    }).then((res: any) => {
+      if (res.status) {
+        return Toast.fail(res.msg)
+      }
+      setFollow(followSate)
+    })
+  }
+
+  useEffect(() => {
+    setFollow(props.is_follow)
+  }, [props.is_follow])
 
   return (
     <div onClick={() => router('/info', {
@@ -35,7 +54,11 @@ export default function UserItem(props: IProps) {
         </div>
       </div>
       <div className='itemBtn'>
-        <FollowBtn id={props.id} followColor='rgb(206 206 206)' is_follow={props.is_follow} />
+        <FollowBtn 
+          clickEvent={clickEvent}
+          id={props.id} 
+          followColor='rgb(206 206 206)' 
+          is_follow={follow} />
       </div>
     </div>
   )

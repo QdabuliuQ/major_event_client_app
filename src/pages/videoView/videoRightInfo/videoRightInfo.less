@@ -1,0 +1,28 @@
+#VideoRightInfo {
+  width: 60vw;
+  position: absolute;
+  z-index: 3;
+  bottom: 6vh;
+  left: .3125rem;
+  font-size: .4375rem;
+  transition: .3s opacity linear;
+  .infoItem {
+    .rv-typography__ellipsis {
+      font-size: .4375rem;
+      color: #fff;
+    }
+    &:not(:last-child) {
+      margin-bottom: .3125rem;
+    }
+  }
+  .itemName {
+    font-weight: bold;
+  }
+  .itemTime {
+    font-size: .4063rem;
+    color: #ccc;
+  }
+  .itemTitle {
+    margin-bottom: .25rem !important;
+  }
+}
