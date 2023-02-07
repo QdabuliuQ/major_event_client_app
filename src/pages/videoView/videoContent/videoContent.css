@@ -6,6 +6,15 @@
   align-items: center;
   justify-content: center;
 }
+#VideoContent .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  color: rgba(255, 255, 255, 0.619);
+  transition: 0.2s opacity linear;
+}
 #VideoContent video {
   width: 100%;
 }

@@ -1,38 +1,64 @@
-import React from 'react'
-import { Swiper } from 'react-vant';
+import React, { useEffect, useRef, useState } from 'react'
+import { Toast, Swiper } from 'react-vant';
 import VideoNav from "./videoNav/videoNav";
+import { getVideoList } from "@/network/videoView/videoView";
 import VideoContent from "./videoContent/videoContent";
 import "./videoView.less"
 
+let offset = 1
+
 export default function VideoView() {
+
+  const [idx, setIdx] = useState(0)
+  const [list, setList] = useState<{
+    cover_img: string
+    id: string
+    nickname: string
+    state: string
+    time: number
+    title: string
+    user_id: string
+    user_pic: string
+    duration: number
+    video_url: string
+  }[]>([])
+
+  const getData = () => {
+    getVideoList({
+      offset
+    }).then((res: any) => {
+      if (res.status) {
+        return Toast.fail(res.msg)
+      }
+      setList(res.data)
+    })
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
   return (
     <div id='VideoView'>
       <VideoNav />
       <Swiper indicator={false} loop={false} vertical style={{ height: '100%' }}>
-        <Swiper.Item>
-          <VideoContent 
-            length={30.5}
-            nickname={'喵喵喵'}
-            title={'视频标题~~~'}
-            time={1675604402401}
-            avatar={'http://127.0.0.1:8080/avatars/1674183958198.jpg'}
-            praise_count={1241}
-            comment_count={532}
-            collect_count={612}
-            video_url={'http://vjs.zencdn.net/v/oceans.mp4'} />
-        </Swiper.Item>
-        <Swiper.Item>
-          <VideoContent 
-            length={30.5}
-            nickname={'喵喵喵'}
-            title={'视频标题~~~'}
-            time={1675604402401}
-            avatar={'http://127.0.0.1:8080/avatars/1674183958198.jpg'}
-            praise_count={241}
-            comment_count={132}
-            collect_count={62}
-            video_url={'http://vjs.zencdn.net/v/oceans.mp4'} />
-        </Swiper.Item>
+        {
+          list.map((item,index) => (
+            <Swiper.Item key={item.id}>
+              <VideoContent
+                isPlay={index == idx}
+                length={item.duration}
+                nickname={item.nickname}
+                title={item.title}
+                time={item.time}
+                avatar={item.user_pic}
+                praise_count={1241}
+                comment_count={532}
+                collect_count={612}
+                video_url={item.video_url} />
+            </Swiper.Item>
+          ))
+        }
       </Swiper>
     </div>
   )

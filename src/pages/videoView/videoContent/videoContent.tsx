@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Slider } from 'react-vant';
+import { Play } from '@react-vant/icons';
 import VideoRightInfo from "../videoRightInfo/videoRightInfo";
 import VideoLeftBtn from "../videoLeftBtn/videoLeftBtn"
 import "./videoContent.less"
@@ -15,13 +16,15 @@ interface IProps {
   nickname: string
   time: number
   length: number
+  isPlay: boolean
 }
 
-let race = 0
-
 export default function VideoContent(props: IProps) {
-
+  // let race = 0
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [playState, setPlayState] = useState(true)
+  const [race, setRace] = useState(0)
+  const [tRace, setTRace] = useState(0)
   const [value, setValue] = useState(0)
   const [visible, setVisible] = useState(true)
   const [allLength, setAllLength] = useState('')
@@ -52,15 +55,40 @@ export default function VideoContent(props: IProps) {
   const onDragEnd = () => {
     setVisible(true)
   }
+  // 监听视频播放
+  const onTimeUpdate = () => {
+    // console.log(videoRef.current?.currentTime);
+    setValue(tRace * (videoRef.current as HTMLVideoElement).currentTime)
+    
+  }
 
   useEffect(() => {
     setAllLength(getTimes(props.length))
 
-    race = props.length / 100
-  }, [props.length])
+    setRace(props.length / 100)
+    setTRace(100 / props.length)
+    if (props.isPlay) {
+      videoRef.current?.play()
+    } else {
+      (videoRef.current as HTMLVideoElement).currentTime = 0
+      videoRef.current?.play()
+    }
+
+  }, [props.length, props.isPlay])
 
   return (
-    <div id='VideoContent'>
+    <div onClick={() => {
+      let p = !playState
+      if(p) {
+        videoRef.current?.play()
+      } else {
+        videoRef.current?.pause()
+      }
+      setPlayState(!playState)
+    }} id='VideoContent'>
+      <div style={{opacity: playState ? '0' : '1'}} className='icon'>
+        <Play fontSize={80} />
+      </div>
       <VideoRightInfo
         visible={visible}
         nickname={props.nickname}
@@ -73,8 +101,7 @@ export default function VideoContent(props: IProps) {
         praise_count={props.praise_count}
         comment_count={props.comment_count}
         collect_count={props.collect_count} />
-      <video loop ref={videoRef} autoPlay src={props.video_url}></video>
-      {/*  style={{opacity: visible ? 0 : 1}} */}
+      <video onTimeUpdate={onTimeUpdate} muted loop ref={videoRef} autoPlay src={props.video_url}></video>
       <div style={{opacity: visible ? 0 : 1}} className='timeMask'>
         <span style={{color: '#409eff'}}>{nowLength} </span> <label style={{margin: '0 4px'}}>/</label> <span>{allLength}</span>
       </div>

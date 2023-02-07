@@ -1,0 +1,34 @@
+#PubVideoView .videoUploadClass {
+  width: 100%;
+  aspect-ratio: 2/1.3;
+}
+#PubVideoView .videoUploadClass .rv-uploader {
+  width: 100%;
+  height: 100%;
+}
+#PubVideoView .videoUploadClass .rv-uploader .rv-uploader__wrapper {
+  width: 100%;
+  height: 100%;
+}
+#PubVideoView .videoUploadClass .rv-uploader .rv-uploader__wrapper .rv-uploader__upload {
+  width: 100%;
+  height: 100%;
+}
+#PubVideoView .videoUploadClass .rv-uploader .rv-uploader__wrapper .rv-uploader__preview {
+  width: 100%;
+  height: 100%;
+}
+#PubVideoView .videoUploadClass .rv-uploader .rv-uploader__wrapper .rv-uploader__preview .rv-uploader__file {
+  width: 100% !important;
+  height: 100% !important;
+}
+#PubVideoView .videoUploadClass .rv-uploader .rv-uploader__wrapper .rv-uploader__preview .rv-uploader__file .rv-icon {
+  display: none;
+}
+#PubVideoView .videoUploadClass .rv-uploader .rv-uploader__wrapper .rv-uploader__preview .rv-uploader__file-name {
+  display: none;
+}
+#PubVideoView .videoUploadClass .rv-uploader .previewVideo {
+  width: 100%;
+  height: 100%;
+}
