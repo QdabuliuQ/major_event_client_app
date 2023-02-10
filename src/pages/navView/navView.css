@@ -2,3 +2,24 @@
   width: 100vw;
   min-height: calc(100vh - 50px);
 }
+#NavView .dark_tabbar {
+  background-color: #000;
+  color: #fff;
+  box-sizing: border-box;
+  border-top: 1px solid #000;
+}
+#NavView .dark_tabbar .rv-tabbar-item--active {
+  background-color: #000;
+}
+#NavView .dark_tabbar .rv-tabbar-item--active .rv-icon {
+  color: #409eff !important;
+}
+#NavView .dark_tabbar .rv-tabbar-item--active .rv-tabbar-item__text {
+  color: #409eff;
+}
+#NavView .dark_tabbar .rv-icon {
+  color: #fff;
+}
+#NavView .dark_tabbar .rv-tabbar-item__text {
+  color: #fff;
+}

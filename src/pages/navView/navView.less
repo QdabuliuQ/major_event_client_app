@@ -4,4 +4,25 @@
     width: 100vw;
     min-height: calc(100vh - 50px);
   }
+  .dark_tabbar {
+    background-color: #000 ;
+    color: #fff;
+    box-sizing: border-box;
+    border-top: 1px solid #000;
+    .rv-tabbar-item--active {
+      background-color: #000 ;
+      .rv-icon {
+        color: #409eff !important;
+      }
+      .rv-tabbar-item__text {
+        color: #409eff;
+      }
+    }
+    .rv-icon {
+      color: #fff;
+    }
+    .rv-tabbar-item__text {
+      color: #fff;
+    }
+  }
 }

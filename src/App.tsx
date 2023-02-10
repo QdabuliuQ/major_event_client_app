@@ -6,7 +6,6 @@ import LoadingView from "@/components/loadingView/loadingView";
 
 function App() {
   const element = useRoutes(route)
-  console.log(React);
   
   return (
     <div id="App">

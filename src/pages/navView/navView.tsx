@@ -16,7 +16,8 @@ export default function NavView() {
   const [index, setindex] = useState<string>('home')
 
   useEffect(() => {
-    setindex(location.pathname.substring(location.pathname.lastIndexOf('/')+1))
+    let i = location.pathname.substring(location.pathname.lastIndexOf('/')+1)
+    setindex(i)
   }, [])
 
   return (
@@ -24,8 +25,8 @@ export default function NavView() {
       <div className='routerContainer'>
         <Outlet/>
       </div>
-      <Tabbar fixed={true} placeholder={true} value={index} onChange={v => setindex(v as string)}>
-        {
+      <Tabbar className={index == 'video' ? 'dark_tabbar' : ''} fixed={true} placeholder={true} value={index} onChange={v => setindex(v as string)}>
+        { 
           menu.map(item => (
             <Tabbar.Item onClick={() => {
               router(item.index)

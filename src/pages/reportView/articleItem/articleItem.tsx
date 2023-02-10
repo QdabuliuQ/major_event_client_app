@@ -13,6 +13,7 @@ interface IProps {
   reason: string
   time: number
   desc: string
+  id: string
 }
 
 export default function ArticleItem(props: IProps) {
@@ -73,7 +74,7 @@ export default function ArticleItem(props: IProps) {
         </div>
       </div>
       <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-        <Button icon={<MoreO  />} size='small' type='primary'>
+        <Button onClick={() => router('/reportDetail/'+props.id)} icon={<MoreO  />} size='small' type='primary'>
           查看详情
         </Button>
       </div>

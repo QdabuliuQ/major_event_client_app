@@ -103,6 +103,7 @@ export default function ReportResult() {
                 article.map(item => (
                   <ArticleItem
                     key={item.id}
+                    id={item.id}
                     cover_img={item.cover_img}
                     title={item.title}
                     content={item.content}

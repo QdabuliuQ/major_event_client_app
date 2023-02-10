@@ -1,0 +1,42 @@
+#ReportDetail .detailContainer .item {
+  border-bottom: 0 !important;
+  padding: 0.3125rem 0.375rem 0 !important;
+}
+#ReportDetail .detailContainer .picInfo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#ReportDetail .detailContainer .picInfo .rv-image {
+  margin: 0 0.1875rem 0.1875rem 0;
+}
+#ReportDetail .detailContainer .detailItem {
+  padding: 0.3125rem 0.375rem;
+}
+#ReportDetail .detailContainer .detailItem:not(:last-child) {
+  border-bottom: 0.25rem solid #f7f7f7;
+}
+#ReportDetail .detailContainer .detailItem .detailTitle {
+  font-weight: bold;
+  font-size: 0.4063rem;
+  margin-bottom: 0.1875rem;
+}
+#ReportDetail .detailContainer .detailItem .otherInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.4063rem;
+  padding: 0.1875rem 0;
+}
+#ReportDetail .detailContainer .detailItem .otherInfo:not(:last-child) {
+  border-bottom: 1px solid #e7e7e7;
+}
+#ReportDetail .detailContainer .detailItem .otherInfo .leftInfo {
+  font-weight: bold;
+}
+#ReportDetail .detailContainer .detailInfo .ArticleItem {
+  padding: 0;
+}
+#ReportDetail .detailContainer .rv-steps {
+  padding: 0;
+}

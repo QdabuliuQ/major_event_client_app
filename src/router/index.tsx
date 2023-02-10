@@ -17,6 +17,7 @@ const InfoView = lazy(() => import("@/pages/infoView/infoView"))
 const UserListView = lazy(() => import("@/pages/userListView/userListView"))
 const VideoView = lazy(() => import("@/pages/videoView/videoView"))
 const ReportResult = lazy(() => import("@/pages/reportView/reportResult/reportResult"))
+const ReportDetail = lazy(() => import("@/pages/reportView/reportDetail/reportDetail"))
 const PubVideoView = lazy(() => import("@/pages/pubVideoView/pubVideoView"))
 
 
@@ -83,6 +84,10 @@ export default [
   {
     path: '/reportResult',
     element: <ReportResult/>
+  },
+  {
+    path: '/reportDetail/:id',
+    element: <ReportDetail/>
   },
   {
     path: '/pubVideo',

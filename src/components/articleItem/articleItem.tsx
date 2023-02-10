@@ -10,7 +10,7 @@ interface IProps {
   cover: string
   content: string
   browse_count?: number
-  clickEvent?: (id: any)=>void
+  clickEvent?: (id: any) => void
 }
 
 export default function ArticleItem(props: IProps) {
@@ -28,8 +28,14 @@ export default function ArticleItem(props: IProps) {
           </Typography.Text>
         </div>
         <div className='articleTime'>
-          <div><EyeO fontSize={20} /> <span style={{marginLeft: '4px'}}>{ props.browse_count ?? 0 }</span></div>
-          <div style={{position: 'relative', top: '-1px'}}><ClockO fontSize={15} /> <span style={{marginLeft: '4px'}}>{ (React as any).$moment(props.time).fromNow() }</span></div>
+          {
+            props.browse_count != null && (
+              <div>
+                <EyeO fontSize={20} /> <span style={{ marginLeft: '4px' }}>{props.browse_count ?? 0}</span>
+              </div>
+            )
+          }
+          <div style={{ position: 'relative', top: '-1px' }}><ClockO fontSize={15} /> <span style={{ marginLeft: '4px' }}>{(React as any).$moment(props.time).fromNow()}</span></div>
         </div>
       </div>
       <div className='articleCover'>

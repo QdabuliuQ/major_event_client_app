@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 import { Typography } from 'react-vant';
 import "./videoRightInfo.less"
 
@@ -6,13 +7,24 @@ interface IProps {
   nickname: string
   title: string
   time: number
+  user_id: string
   visible: boolean
 }
 
 export default function VideoRightInfo(props: IProps) {
+  const router = useNavigate()
+
   return (
     <div style={{opacity: props.visible ? 1 : 0}} id='VideoRightInfo'>
-      <div className='infoItem itemName'>
+      <div onClick={(e) => {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+        router('/info', {
+          state: {
+            id: props.user_id
+          }
+        })
+      }} className='infoItem itemName'>
         @{props.nickname}
       </div>
       <div className='infoItem itemTitle'>

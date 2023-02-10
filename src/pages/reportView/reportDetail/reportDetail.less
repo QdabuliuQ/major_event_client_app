@@ -1,0 +1,50 @@
+#ReportDetail {
+  .detailContainer {
+    .item {
+      border-bottom: 0 !important;
+      padding: .3125rem .375rem 0 !important;
+    }
+    .picInfo {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      .rv-image {
+        margin: 0 .1875rem .1875rem 0;
+      }
+    }
+    .detailItem {
+      padding: .3125rem .375rem;
+      &:not(:last-child) {
+        border-bottom: .25rem solid #f7f7f7;
+      }
+      
+      .detailTitle {
+        font-weight: bold;
+        font-size: .4063rem;
+        margin-bottom: .1875rem;
+      }
+      .otherInfo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: .4063rem;
+        padding: .1875rem 0;
+        &:not(:last-child) {
+          
+        border-bottom: 1px solid rgb(231, 231, 231);
+        }
+        .leftInfo {
+          font-weight: bold;
+        }
+      }
+    }
+    .detailInfo {
+      .ArticleItem {
+        padding: 0;
+      }
+    }
+    .rv-steps {
+      padding: 0;
+    }
+  }
+}

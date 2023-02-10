@@ -1,22 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Slider } from 'react-vant';
+import { Toast, Loading, Slider } from 'react-vant';
 import { Play } from '@react-vant/icons';
-import VideoRightInfo from "../videoRightInfo/videoRightInfo";
-import VideoLeftBtn from "../videoLeftBtn/videoLeftBtn"
+import VideoInfo from "../videoRightInfo/videoRightInfo";
+import VideoBtn from "../videoLeftBtn/videoLeftBtn"
 import "./videoContent.less"
 
 interface IProps {
+  id: string
   video_url: string
-  user_id?: string
-  avatar: string
+  user_id: string
+  user_pic: string
   praise_count: number
   comment_count: number
   collect_count: number
   title: string
   nickname: string
   time: number
-  length: number
+  duration: number
   isPlay: boolean
+  is_praise: number
+  is_collect: number
 }
 
 export default function VideoContent(props: IProps) {
@@ -57,24 +60,37 @@ export default function VideoContent(props: IProps) {
   }
   // 监听视频播放
   const onTimeUpdate = () => {
-    // console.log(videoRef.current?.currentTime);
-    setValue(tRace * (videoRef.current as HTMLVideoElement).currentTime)
-    
+    if(visible) {
+      setValue(tRace * (videoRef.current as HTMLVideoElement).currentTime)
+    }
+  }
+  // 监听视频缓存加载
+  const onWaiting = () => {
+    Toast.loading({
+      message: '加载中...',
+      forbidClick: true,
+      loadingType: 'ball',
+    })
+  }
+  // 监听视频缓存加载
+  const onCanPlay = () => {
+    Toast.clear()
   }
 
   useEffect(() => {
-    setAllLength(getTimes(props.length))
+    setAllLength(getTimes(props.duration))
 
-    setRace(props.length / 100)
-    setTRace(100 / props.length)
+    setRace(props.duration / 100)
+    setTRace(100 / props.duration)
     if (props.isPlay) {
+      setPlayState(true)
       videoRef.current?.play()
     } else {
       (videoRef.current as HTMLVideoElement).currentTime = 0
-      videoRef.current?.play()
+      videoRef.current?.pause()
     }
-
-  }, [props.length, props.isPlay])
+    
+  }, [props.duration, props.isPlay])
 
   return (
     <div onClick={() => {
@@ -89,19 +105,24 @@ export default function VideoContent(props: IProps) {
       <div style={{opacity: playState ? '0' : '1'}} className='icon'>
         <Play fontSize={80} />
       </div>
-      <VideoRightInfo
+      <VideoInfo
+        user_id={props.user_id}
         visible={visible}
         nickname={props.nickname}
         title={props.title}
         time={props.time}
       />
-      <VideoLeftBtn
+      <VideoBtn
+        video_id={props.id}
+        is_praise={props.is_praise}
+        is_collect={props.is_collect}
         visible={visible}
-        avatar={props.avatar}
+        user_id={props.user_id}
+        avatar={props.user_pic}
         praise_count={props.praise_count}
         comment_count={props.comment_count}
         collect_count={props.collect_count} />
-      <video onTimeUpdate={onTimeUpdate} muted loop ref={videoRef} autoPlay src={props.video_url}></video>
+      <video onWaiting={onWaiting} onCanPlay={onCanPlay} onTimeUpdate={onTimeUpdate} muted loop ref={videoRef} autoPlay src={props.video_url}></video>
       <div style={{opacity: visible ? 0 : 1}} className='timeMask'>
         <span style={{color: '#409eff'}}>{nowLength} </span> <label style={{margin: '0 4px'}}>/</label> <span>{allLength}</span>
       </div>
