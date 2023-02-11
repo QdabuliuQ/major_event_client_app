@@ -51,6 +51,7 @@
     "postcss-preset-env": "^7.0.1",
     "postcss-px2rem-exclude": "0.0.6",
     "prompts": "^2.4.2",
+    "pubsub-js": "^1.9.4",
     "react": "^18.2.0",
     "react-app-polyfill": "^3.0.0",
     "react-dev-utils": "^12.0.1",
@@ -151,5 +152,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "@types/pubsub-js": "^1.8.3"
   }
 }

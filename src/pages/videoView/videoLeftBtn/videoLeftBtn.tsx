@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PubSub from 'pubsub-js';
 import { useNavigate } from "react-router-dom";
 import { Toast } from 'react-vant';
 import { Star, Chat, GoodJob } from '@react-vant/icons';
@@ -54,9 +55,14 @@ export default function VideoLeftBtn(props: IProps) {
         return Toast.fail(res.msg)
       }
       setIsCollect(p)
-      
       setCollectCount(p == 1 ? collectCount + 1 : collectCount - 1)
     })
+  }
+
+  const commentEvent = (e: any) => {
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation();
+    PubSub.publish('commentDetail', props.video_id)
   }
 
   useEffect(() => {
@@ -85,7 +91,7 @@ export default function VideoLeftBtn(props: IProps) {
         <GoodJob fontSize={32} color={isPraise == 1 ? '#409eff' : '#f0f0f0'} />
         <div className='itemCount'>{praiseCount}</div>
       </div>
-      <div className='btnItem'>
+      <div onClick={(e: any) => commentEvent(e)} className='btnItem'>
         <Chat fontSize={32} color='#f0f0f0' />
         <div className='itemCount'>{props.comment_count}</div>
       </div>

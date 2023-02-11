@@ -4,6 +4,7 @@ import { WarningO, GoodJob, GoodJobO, Arrow } from '@react-vant/icons';
 import moment from "moment";
 import { ActionSheet, Image, Toast } from 'react-vant';
 import { praiseComment } from "@/network/articleView/articleView";
+import { praiseVideoComment } from "@/network/videoView/videoView";
 import { addCommentReport } from "@/network/reportView/reportView";
 import "./commentItem.less"
 
@@ -14,9 +15,10 @@ interface IProps {
   user_pic: string
   comment_id: string
   user_id: string
-  art_id: string
-  praise: number,
-  is_praise: number,
+  art_id?: string
+  video_id?: string
+  praise?: number,
+  is_praise?: number,
   reply?: number
   showReply?: boolean
   click?: boolean
@@ -34,6 +36,7 @@ export default function CommentItem({
   comment_id,
   user_id,
   art_id,
+  video_id,
   reply,
   praise,
   is_praise,
@@ -47,19 +50,35 @@ export default function CommentItem({
   const [praiseCount, setPraiseCount] = useState(0)
   const [praiseState, setPraiseState] = useState(0)
 
+  // 点赞评论
   const praiseEvent = () => {
     let pState = praiseState ? 0 : 1
-    praiseComment({
-      comment_id,
-      art_id,
-      is_praise: pState
-    }).then((res: any) => {
-      if(res.status) {
-        return Toast.fail(res.msg)
-      }
-      setPraiseCount(pState ? praiseCount + 1 : praiseCount - 1)
-      setPraiseState(pState ? 1 : 0)
-    })
+    if(art_id) {
+      praiseComment({
+        comment_id,
+        art_id: art_id as string,
+        is_praise: pState
+      }).then((res: any) => {
+        if(res.status) {
+          return Toast.fail(res.msg)
+        }
+        setPraiseCount(pState ? praiseCount + 1 : praiseCount - 1)
+        setPraiseState(pState ? 1 : 0)
+      })
+    } else if (video_id) {
+      praiseVideoComment({
+        comment_id,
+        video_id: video_id as string,
+        is_praise: pState
+      }).then((res: any) => {
+        if(res.status) {
+          return Toast.fail(res.msg)
+        }
+        setPraiseCount(pState ? praiseCount + 1 : praiseCount - 1)
+        setPraiseState(pState ? 1 : 0)
+      })
+    }
+    
   }
 
   const selectEvent = (e: any) => {
@@ -76,8 +95,13 @@ export default function CommentItem({
   
 
   useEffect(() => {
-    setPraiseCount(praise)
-    setPraiseState(is_praise)
+    setPraiseCount(praise as number)
+      setPraiseState(is_praise as number)
+    // if(art_id) {
+    //   setPraiseCount(praise as number)
+    //   setPraiseState(is_praise as number)
+    // }
+    
   }, [praise, is_praise])
 
   return (
@@ -98,7 +122,7 @@ export default function CommentItem({
             {
               praiseState ? <GoodJob color='#409eff' fontSize='15px'/> :<GoodJobO fontSize='15px' />
             }
-            <span style={{color: praiseState ? '#409eff' : '#000'}}>{praiseCount}</span>
+            <span style={{color: praiseState ? '#409eff' : '#9e9e9e'}}>{praiseCount}</span>
           </div>
         </div>
         <div className='contentInfo'>

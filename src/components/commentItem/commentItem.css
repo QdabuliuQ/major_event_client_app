@@ -2,22 +2,19 @@
   display: flex;
   margin-bottom: 0.3125rem;
 }
-.CommentItem .itemAvatar {
-  flex: 1;
-}
 .CommentItem .itemAvatar .rv-image {
-  width: 0.9375rem;
-  height: 0.9375rem;
+  width: 1.0938rem;
+  height: 1.0938rem;
 }
 .CommentItem .itemInfo {
-  flex: 9;
+  width: 86%;
+  margin-right: 0.1563rem;
   margin-left: 0.25rem;
   padding-bottom: 0.3125rem;
   border-bottom: 1px solid #eaeaea;
 }
 .CommentItem .itemInfo .topInfo {
-  padding: 0.1875rem 0;
-  font-weight: bold;
+  padding: 0.2188rem 0;
   font-size: 0.4219rem;
   display: flex;
   align-items: center;
@@ -27,6 +24,7 @@
   display: flex;
   align-items: center;
   font-weight: normal;
+  color: #9e9e9e;
 }
 .CommentItem .itemInfo .topInfo .rightInfo span {
   margin-left: 0.1563rem;
