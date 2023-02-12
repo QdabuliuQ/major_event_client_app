@@ -19,6 +19,7 @@ export function getReportReason(data?: {
 export function addCommentReport(data?: {
   reason: string
   comment_id: string
+  type: string
 }) {
   return ajax('/rep/addCommentReport', data, 'post')
 }

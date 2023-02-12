@@ -84,7 +84,8 @@ export default function CommentItem({
   const selectEvent = (e: any) => {
     addCommentReport({
       comment_id,
-      reason: e.name
+      reason: e.name,
+      type: art_id ? '1' : '2'
     }).then((res: any) => {
       if(res.status) return Toast.fail(res.msg)
       Toast.success(res.msg)
@@ -92,15 +93,9 @@ export default function CommentItem({
     })
   }
 
-  
-
   useEffect(() => {
     setPraiseCount(praise as number)
-      setPraiseState(is_praise as number)
-    // if(art_id) {
-    //   setPraiseCount(praise as number)
-    //   setPraiseState(is_praise as number)
-    // }
+    setPraiseState(is_praise as number)
     
   }, [praise, is_praise])
 

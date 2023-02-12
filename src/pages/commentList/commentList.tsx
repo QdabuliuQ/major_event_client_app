@@ -126,7 +126,7 @@ export default function CommentList() {
                     commentList.map((item: any) => (
                       <CommentItem
                         reason={reason}
-                        key={item.id}
+                        key={item.comment_id}
                         praise={item.praise}
                         is_praise={item.is_praise}
                         content={item.content}
