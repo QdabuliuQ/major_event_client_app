@@ -34,7 +34,7 @@ export function pubVideoComment(data: {
 export function getVideoComment(data: {
   video_id: string
   offset: number
-  pageSize: number
+  pageSize?: number
 }) {
   return ajax('/vid/getVideoComment', data, 'get')
 }

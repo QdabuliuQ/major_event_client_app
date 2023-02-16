@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import PubSub from 'pubsub-js';
-import { Empty, Input, ActionSheet, Toast, Swiper, Button } from 'react-vant';
-import VideoNav from "./videoNav/videoNav";
-import VideoContent from "./videoContent/videoContent";
-import CommentItem from "@/components/commentItem/commentItem";
-import ScrollList from "@/components/scrollList/scrollList";
-import { getVideoList, pubVideoComment, getVideoComment } from "@/network/videoView/videoView";
+import { useNavigate, useParams } from 'react-router-dom';
+import { ActionSheet, Button, Empty, Input, Toast } from 'react-vant';
+import { ArrowLeft } from '@react-vant/icons';
+import { pubVideoComment, getVideoComment } from "@/network/videoView/videoView";
+import { getVideoDetail } from "@/network/videoDetail/videoDetail";
 import { getReportReason } from "@/network/reportView/reportView";
-import "./videoView.less"
+import CommentItem from "@/components/commentItem/commentItem";
+import ScrollList from '@/components/scrollList/scrollList';
+import VideoContent from "@/pages/videoView/videoContent/videoContent";
+import "./videoDetail.less"
 
-let offset = 1
+export default function VideoDetail() {
+  const router = useNavigate()
 
-export default function VideoView() {
-
-  let more = true
-  
+  const [visible, setVisible] = useState(false)
+  const { id } = useParams()
+  const [status, setStatus] = useState(0)
+  const [info, setInfo] = useState<any>(null)
+  const [val, setVal] = useState('')
   const [reason, setReason] = useState<{
     name: string
   }[]>([])
@@ -32,78 +36,12 @@ export default function VideoView() {
     praise_count: number
     is_praise: number
   }[]>([])
-  const [video_id, setVideo_id] = useState('')
-  const [val, setVal] = useState('')
-  const [visible, setVisible] = useState(false)
-  const [idx, setIdx] = useState(0)
-  const [list, setList] = useState<{
-    cover_img: string
-    id: string
-    nickname: string
-    state: string
-    time: number
-    title: string
-    user_id: string
-    user_pic: string
-    duration: number
-    praise_count: number
-    comment_count: number
-    collect_count: number
-    is_praise: number
-    is_collect: number
-    video_url: string
-  }[]>([])
 
-  const getData = () => {
-    if (more) {
-      getVideoList({
-        offset
-      }).then((res: any) => {
-        if (res.status) {
-          return Toast.fail(res.msg)
-        }
-        setList([...list, ...res.data])
-        more = res.more
-      })
-    }
-  }
-
-  const onChange = (e: number) => {
-    if (e != -1) {
-      // 下拉加载 下一页数据
-      if (e == list.length - 1) {
-        offset++
-        getData()
-      }
-      setIdx(e)
-    }
-  }
-
-  // 发送评论
-  const pubComment = () => {
-    let content = val.trim()
-    if (content.length > 100) {
-      Toast.fail('内容不能超过100个字')
-    }
-    pubVideoComment({
-      video_id,
-      content,
-    }).then((res: any) => {
-      if (res.status) {
-        return Toast.fail(res.msg)
-      }
-      setCommentOffset(1)
-      getCommentData('', 1)
-      Toast.success(res.msg)
-
-      setVal('')
-    })
-  }
   // 获取评论数据
-  const getCommentData = (vid?: string, offset?: number) => {
+  const getCommentData = (offset?: number) => {
     let _offset = offset ? offset : commentOffset
     getVideoComment({
-      video_id: vid ? vid : video_id,
+      video_id: id as string,
       offset: _offset,
     }).then((res: any) => {
       if (res.status) {
@@ -119,16 +57,36 @@ export default function VideoView() {
     })
   }
 
-  useEffect(() => {
-    getData()
-
-    // 消息订阅
-    PubSub.subscribe('commentDetail', (msg: string, id: string) => {
+  // 发送评论
+  const pubComment = () => {
+    let content = val.trim()
+    if (content.length > 100) {
+      Toast.fail('内容不能超过100个字')
+    }
+    pubVideoComment({
+      video_id: id as string,
+      content,
+    }).then((res: any) => {
+      if (res.status) {
+        return Toast.fail(res.msg)
+      }
       setCommentOffset(1)
-      setCommentMore(true)
-      getCommentData(id, 1)
-      setVideo_id(id)
-      setVisible(true)
+      getCommentData(1)
+      Toast.success(res.msg)
+
+      setVal('')
+    })
+  }
+
+  useEffect(() => {
+    getVideoDetail({
+      id: id as string
+    }).then((res: any) => {
+      if (res.status) {
+        setStatus(res.status)
+        return Toast.fail('网络错误')
+      }
+      setInfo(res.data)
     })
 
     getReportReason({
@@ -136,10 +94,18 @@ export default function VideoView() {
     }).then((res: any) => {
       setReason(res.data)
     })
+
+    // 消息订阅
+    PubSub.subscribe('commentDetail', (msg: string, id: string) => {
+      setCommentOffset(1)
+      setCommentMore(true)
+      getCommentData(1)
+      setVisible(true)
+    })
   }, [])
 
   return (
-    <div id='VideoView'>
+    <div id='VideoDetail'>
       <ActionSheet closeable={false} title='视频评论' visible={visible} onCancel={() => setVisible(false)}>
         {
           commentList.length ? (
@@ -150,7 +116,7 @@ export default function VideoView() {
               hasMore={commentMore}
               height={'60vh'}
             >
-              <div style={{ padding: '6vw 4vw' }}>
+              <div style={{ padding: '5vw 4vw' }}>
                 {
                   commentList.map(item => (
                     <CommentItem
@@ -192,18 +158,20 @@ export default function VideoView() {
           />
         </div>
       </ActionSheet>
-      <VideoNav />
-      <Swiper onChange={onChange} indicator={false} loop={false} vertical style={{ height: '100%' }}>
-        {
-          list.map((item, index) => (
-            <Swiper.Item key={item.id}>
-              <VideoContent
-                isPlay={index == idx}
-                {...item} />
-            </Swiper.Item>
-          ))
-        }
-      </Swiper>
+      <div className='videoNav'>
+        <ArrowLeft onClick={() => router(-1)} fontSize={25} color='#f0f0f0' />
+      </div>
+      {
+        status == 1 ? (
+          <div className='errorView'>
+            <Empty image='error' description="获取视频失败" />
+          </div>
+        ) : (
+          <VideoContent
+            isPlay={true}
+            {...info} />
+        )
+      }
     </div>
   )
 }

@@ -21,7 +21,6 @@
 }
 .ArticleItem .articleInfo .articleTitle {
   font-weight: bold;
-  margin-bottom: 0.1563rem;
 }
 .ArticleItem .articleInfo .articleTitle .rv-typography__text {
   font-size: 0.4688rem;

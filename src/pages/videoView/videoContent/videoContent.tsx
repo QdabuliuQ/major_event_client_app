@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Toast, Loading, Slider } from 'react-vant';
 import { Play } from '@react-vant/icons';
-import VideoInfo from "../videoRightInfo/videoRightInfo";
-import VideoBtn from "../videoLeftBtn/videoLeftBtn"
+import VideoInfo from "../videoInfo/videoInfo";
+import VideoBtn from "../videoBtn/videoBtn"
 import "./videoContent.less"
 
 interface IProps {
@@ -60,7 +60,7 @@ export default function VideoContent(props: IProps) {
   }
   // 监听视频播放
   const onTimeUpdate = () => {
-    if(visible) {
+    if(videoRef && visible) {
       setValue(tRace * (videoRef.current as HTMLVideoElement).currentTime)
     }
   }
@@ -89,7 +89,10 @@ export default function VideoContent(props: IProps) {
       (videoRef.current as HTMLVideoElement).currentTime = 0
       videoRef.current?.pause()
     }
-    
+
+    return () => {
+      videoRef.current?.removeEventListener('timeupdate', onTimeUpdate)
+    }
   }, [props.duration, props.isPlay])
 
   return (
@@ -122,7 +125,9 @@ export default function VideoContent(props: IProps) {
         praise_count={props.praise_count}
         comment_count={props.comment_count}
         collect_count={props.collect_count} />
-      <video onWaiting={onWaiting} onCanPlay={onCanPlay} onTimeUpdate={onTimeUpdate} muted loop ref={videoRef} autoPlay src={props.video_url}></video>
+      <div className='videoContainer'>
+        <video onWaiting={onWaiting} onCanPlay={onCanPlay} onTimeUpdate={onTimeUpdate} muted loop ref={videoRef} autoPlay src={props.video_url}></video>
+      </div>
       <div style={{opacity: visible ? 0 : 1}} className='timeMask'>
         <span style={{color: '#409eff'}}>{nowLength} </span> <label style={{margin: '0 4px'}}>/</label> <span>{allLength}</span>
       </div>

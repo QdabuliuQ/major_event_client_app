@@ -15,9 +15,6 @@
   color: rgba(255, 255, 255, 0.619);
   transition: 0.2s opacity linear;
 }
-#VideoContent video {
-  width: 100%;
-}
 #VideoContent .timeMask {
   position: absolute;
   bottom: 0;
@@ -30,7 +27,17 @@
   align-items: center;
   justify-content: center;
   transition: 0.3s opacity linear;
+  color: #fff;
   background-image: linear-gradient(transparent, #000);
+}
+#VideoContent .videoContainer {
+  width: 100%;
+  height: 100%;
+}
+#VideoContent .videoContainer video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 #VideoContent .sliderContainer {
   position: absolute;

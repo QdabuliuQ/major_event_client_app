@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { Typography } from 'react-vant';
-import "./videoRightInfo.less"
+import "./videoInfo.less"
 
 interface IProps {
   nickname: string

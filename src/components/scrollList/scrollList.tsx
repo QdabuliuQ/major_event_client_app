@@ -24,7 +24,8 @@ export default function ScrollList(props: IProps) {
     const ch = sr.clientHeight
     const st = sr.scrollTop
     // 
-    if (sh - (st + 10) <= ch) {
+    if (st != 0 && sh - (st + 10) <= ch) {
+      
       if (timer) clearTimeout(timer)
       timer = setTimeout(() => {
         // 加载更多

@@ -19,6 +19,10 @@ const VideoView = lazy(() => import("@/pages/videoView/videoView"))
 const ReportResult = lazy(() => import("@/pages/reportView/reportResult/reportResult"))
 const ReportDetail = lazy(() => import("@/pages/reportView/reportDetail/reportDetail"))
 const PubVideoView = lazy(() => import("@/pages/pubVideoView/pubVideoView"))
+const MyCommentList = lazy(() => import("@/pages/myCommentList/myCommentList"))
+const MyArticleList = lazy(() => import("@/pages/myArticleList/myArticleList"))
+const MyVideoList = lazy(() => import("@/pages/myVideoList/myVideoList"))
+const VideoDetail = lazy(() => import("@/pages/videoDetail/videoDetail"))
 
 
 export default [
@@ -108,6 +112,22 @@ export default [
   {
     path: '/browse',
     element: <PraiseView/>
+  },
+  {
+    path: '/myComment',
+    element: <MyCommentList/>
+  },
+  {
+    path: '/myArticle',
+    element: <MyArticleList/>
+  },
+  {
+    path: '/myVideo',
+    element: <MyVideoList/>
+  },
+  {
+    path: '/video/:id',
+    element: <VideoDetail/>
   },
   {
     path: '/editProfile',

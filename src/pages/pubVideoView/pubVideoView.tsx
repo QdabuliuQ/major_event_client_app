@@ -48,33 +48,34 @@ export default function PubVideoView() {
         let audioElement = new Audio(url);//audio也可获取视频的时长
         audioElement.addEventListener("loadedmetadata", function (_event) {
           uploadData.duration = audioElement.duration;
+          // 上传视频
+          updateImage('video', videoFormData).then((res: any) => {
+            if (res.status) {
+              Toast.clear()
+              Toast.fail(res.msg)
+            } else {
+              uploadData.video_url = res.url
+              // 插入数据
+              pubVideo({
+                title: uploadData.title,
+                cover_img: uploadData.cover_img,
+                video_url: uploadData.video_url,
+                duration: uploadData.duration,
+              }).then((res: any) => {
+                if (res.status) {
+                  Toast.clear()
+                  Toast.fail(res.msg)
+                } else {
+                  Toast.success('上传成功')
+                  setTimeout(() => {
+                    router(-1)
+                  }, 2000);
+                }
+              })
+            }
+          })
         });
-        // 上传视频
-        updateImage('video', videoFormData).then((res: any) => {
-          if (res.status) {
-            Toast.clear()
-            Toast.fail(res.msg)
-          } else {
-            uploadData.video_url = res.url
-            // 插入数据
-            pubVideo({
-              title: uploadData.title,
-              cover_img: uploadData.cover_img,
-              video_url: uploadData.video_url,
-              duration: uploadData.duration,
-            }).then((res: any) => {
-              if(res.status) {
-                Toast.clear()
-                Toast.fail(res.msg)
-              } else {
-                Toast.success(res.msg)
-                setTimeout(() => {
-                  router(-1)
-                }, 2000);
-              }
-            })
-          }
-        })
+
       }
 
     })

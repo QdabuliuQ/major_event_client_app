@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { WarningO, ClockO, Records, StarO, GoodJobO, Description } from '@react-vant/icons';
+import { VideoO,ChatO, WarningO, ClockO, Records, StarO, GoodJobO, Description } from '@react-vant/icons';
 import moment from "moment";
 import { Cell, Grid, Typography, Image, Toast } from 'react-vant'
 import city from '@/utils/city'
@@ -21,7 +21,11 @@ export default function ProfileView() {
   }, {
     name: '文章管理',
     icon: <Description fontSize='20px' />,
-    index: '/management'
+    index: '/myArticle'
+  }, {
+    name: '视频管理',
+    icon: <VideoO fontSize='20px' />,
+    index: '/myVideo'
   }, {
     name: '收藏',
     icon: <StarO fontSize='20px' />,
@@ -30,6 +34,10 @@ export default function ProfileView() {
     name: '点赞',
     icon: <GoodJobO fontSize='20px' />,
     index: '/praise'
+  }, {
+    name: '评论',
+    icon: <ChatO fontSize='20px' />,
+    index: '/myComment'
   }, {
     name: '浏览记录',
     icon: <ClockO fontSize='20px' />,

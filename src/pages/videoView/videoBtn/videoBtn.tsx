@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Toast } from 'react-vant';
 import { Star, Chat, GoodJob } from '@react-vant/icons';
 import { praiseVideo, collectVideo } from "@/network/videoView/videoView";
-import "./videoLeftBtn.less"
+import "./videoBtn.less"
 
 interface IProps {
   is_praise: number

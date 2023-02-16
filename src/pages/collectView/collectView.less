@@ -1,4 +1,8 @@
 #CollectView {
+  .rv-tabs__wrap {
+    height: 1.0938rem;
+    box-shadow: 0 -1px 10px rgba(0, 0, 0, .1);
+  }
   .collectItem {
     padding: .3125rem;
     &:not(:last-child) {
@@ -11,5 +15,11 @@
         right: -1px;
       }
     }
+  }
+  .collectVideoContainer {
+    padding: .3125rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: .4688rem;
   }
 }
