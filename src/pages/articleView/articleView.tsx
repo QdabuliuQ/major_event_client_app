@@ -97,7 +97,7 @@ export default function ArticleView() {
         onSelect={(option, index) => {
           switch (index) {
             case 0:
-              router('/report/' + id)
+              router(`/report/${id}/1`)
               break;
           }
           setVisible(false)

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import PubSub from 'pubsub-js';
-import { Empty, Input, ActionSheet, Toast, Swiper, Button } from 'react-vant';
+import { useNavigate } from 'react-router-dom';
+import { WarnO } from '@react-vant/icons';
+import { Empty, Input, ActionSheet, Toast, Swiper, Button, ShareSheet } from 'react-vant';
 import VideoNav from "./videoNav/videoNav";
 import VideoContent from "./videoContent/videoContent";
 import CommentItem from "@/components/commentItem/commentItem";
@@ -14,10 +16,15 @@ let offset = 1
 export default function VideoView() {
 
   let more = true
-  
+  const options = [
+    { name: '举报', icon: <div className='videoMenuItem'><WarnO fontSize={'20px'} /></div> },
+  ]
+  const router = useNavigate()
   const [reason, setReason] = useState<{
     name: string
   }[]>([])
+  const [sheetVisible, setSheetVisible] = useState(false)
+  const [vid, setVid] = useState('')
   const [commentOffset, setCommentOffset] = useState(1)
   const [commentMore, setCommentMore] = useState(true)
   const [commentList, setCommentList] = useState<{
@@ -130,6 +137,10 @@ export default function VideoView() {
       setVideo_id(id)
       setVisible(true)
     })
+    PubSub.subscribe('moreEvent', (msg: string, id: string) => {
+      setVid(id)
+      setSheetVisible(true)
+    })
 
     getReportReason({
       type: '2'
@@ -140,6 +151,19 @@ export default function VideoView() {
 
   return (
     <div id='VideoView'>
+      <ShareSheet
+        visible={sheetVisible}
+        options={options}
+        onCancel={() => setVisible(false)}
+        onSelect={(option, index) => {
+          switch (index) {
+            case 0:
+              router(`/report/${vid}/2`)
+              break;
+          }
+          setVisible(false)
+        }}
+      />
       <ActionSheet closeable={false} title='视频评论' visible={visible} onCancel={() => setVisible(false)}>
         {
           commentList.length ? (

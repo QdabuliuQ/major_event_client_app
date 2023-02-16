@@ -34,6 +34,9 @@
 #ReportDetail .detailContainer .detailItem .otherInfo .leftInfo {
   font-weight: bold;
 }
+#ReportDetail .detailContainer .detailInfo {
+  font-size: 0.4063rem;
+}
 #ReportDetail .detailContainer .detailInfo .ArticleItem {
   padding: 0;
 }

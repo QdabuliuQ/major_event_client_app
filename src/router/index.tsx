@@ -82,7 +82,7 @@ export default [
     element: <CommentList/>
   },
   {
-    path: '/report/:id',
+    path: '/report/:id/:type',
     element: <ReportView/>
   },
   {

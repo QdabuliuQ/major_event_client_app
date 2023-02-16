@@ -1,13 +1,14 @@
 import ajax from "../index";
 
 // 举报文章
-export function addArticleReport(data: {
+export function addReport(data: {
   reason: string
   desc: string
   proof?: string
-  art_id: string
+  id: string
+  type: string
 }) {
-  return ajax('/rep/addArticleReport', data, 'post')
+  return ajax('/rep/addReport', data, 'post')
 }
 
 export function getReportReason(data?: {

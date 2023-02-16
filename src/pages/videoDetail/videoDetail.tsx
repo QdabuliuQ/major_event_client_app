@@ -106,6 +106,7 @@ export default function VideoDetail() {
 
   return (
     <div id='VideoDetail'>
+      
       <ActionSheet closeable={false} title='视频评论' visible={visible} onCancel={() => setVisible(false)}>
         {
           commentList.length ? (
@@ -137,7 +138,6 @@ export default function VideoDetail() {
                   ))
                 }
               </div>
-
             </ScrollList>
           ) : (
             <div style={{ height: '60vh' }}>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PubSub from 'pubsub-js';
 import { useNavigate } from "react-router-dom";
 import { Toast } from 'react-vant';
-import { Star, Chat, GoodJob } from '@react-vant/icons';
+import { Star, Chat, GoodJob, More } from '@react-vant/icons';
 import { praiseVideo, collectVideo } from "@/network/videoView/videoView";
 import "./videoBtn.less"
 
@@ -59,6 +59,12 @@ export default function VideoLeftBtn(props: IProps) {
     })
   }
 
+  const moreEvent = (e: any) => {
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation();
+    PubSub.publish('moreEvent', props.video_id)
+  }
+
   const commentEvent = (e: any) => {
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation();
@@ -98,6 +104,10 @@ export default function VideoLeftBtn(props: IProps) {
       <div onClick={(e: any) => collectEvent(e)} className='btnItem'>
         <Star fontSize={32} color={isCollect == 1 ? '#409eff' : '#f0f0f0'} />
         <div className='itemCount'>{collectCount}</div>
+      </div>
+      <div onClick={(e: any) => moreEvent(e)} className='btnItem'>
+        <More fontSize={32} />
+        <div style={{fontSize: '.375rem', zoom: '.9'}} className='itemCount'>更多</div>
       </div>
     </div>
   )

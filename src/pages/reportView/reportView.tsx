@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Toast, Uploader, Picker, Input, Form, Button, NavBar } from 'react-vant';
 import { useNavigate, useParams } from "react-router-dom";
-import { addArticleReport, getReportReason } from "@/network/reportView/reportView";
+import { addReport, getReportReason } from "@/network/reportView/reportView";
 import { updateImage } from "@/network/editProfileView/editProfileView";
 import "./reportView.less"
 
 export default function ReportView() {
   const router = useNavigate()
-  const { id } = useParams()
+  const { id, type } = useParams()
 
   const [proofList, setProofList] = useState<any>([])
   const [reason, setReason] = useState<string[]>([])
@@ -20,23 +20,44 @@ export default function ReportView() {
     for (let item of proofList) {
       files.append('proof', item)
     }
-    // 上传图片
-    updateImage('reportProof', files).then((res: any) => {
-      let proofData = res.url
-            
-      addArticleReport({
+    if (proofList.length) {
+      // 上传图片
+      updateImage('reportProof', files).then((res: any) => {
+        let proofData = res.url
+        addReport({
+          reason: values.reason,
+          desc: values.desc,
+          proof: JSON.stringify(proofData),
+          id: id as string,
+          type: type as string
+        }).then((res: any) => {
+          if(res.status) {
+            return Toast.fail(res.msg)
+          }
+          Toast.success(res.msg)
+          setTimeout(() => {
+            router(-1)
+          }, 1500);
+        })
+      })
+    } else {
+      addReport({
         reason: values.reason,
         desc: values.desc,
-        proof: proofList.length ? JSON.stringify(proofData) : '',
-        art_id: id as string
+        proof: '',
+        id: id as string,
+        type: type as string
       }).then((res: any) => {
         if(res.status) {
           return Toast.fail(res.msg)
         }
         Toast.success(res.msg)
-        router(-1)
+        setTimeout(() => {
+          router(-1)
+        }, 1500);
       })
-    })
+    }
+    
   }
 
   useEffect(() => {

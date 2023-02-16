@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { ChatO, DeleteO, GoodJobO, PlayCircleO, StarO, VideoO } from '@react-vant/icons';
 import { Typography, Tag, Button } from 'react-vant';
+import VideoInfo from "../videoInfo/videoInfo";
 import "./videoItem.less"
 
 interface IProps {
@@ -44,20 +45,11 @@ export default function VideoItem(props: IProps) {
           }
         </div>
       </div>
-      <div className='infoItem'>
-        <div className='leftInfo'>
-          <div className='infoTitle'>
-            <Typography.Text ellipsis={2}>{props.title}</Typography.Text>
-          </div>
-          <div className='infoTime'>{(React as any).$moment(props.time).format('YYYY-MM-DD HH:mm:ss')}</div>
-        </div>
-        <div className='rightInfo'>
-          <div className='video_cover'>
-            <PlayCircleO color='#fff' fontSize={40} />
-            <img src={props.cover_img} />
-          </div>
-        </div>
-      </div>
+      <VideoInfo 
+        title={props.title}
+        time={props.time}
+        cover_img={props.cover_img}
+      />
       <div className='dataItem'>
         <div className='item'>
           <GoodJobO fontSize={16} />

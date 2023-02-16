@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Toast, Loading, Slider } from 'react-vant';
-import { Play } from '@react-vant/icons';
+import { useNavigate } from "react-router-dom";
+import { Toast, Slider } from 'react-vant';
+import { Play, WarnO } from '@react-vant/icons';
 import VideoInfo from "../videoInfo/videoInfo";
 import VideoBtn from "../videoBtn/videoBtn"
 import "./videoContent.less"
@@ -23,6 +24,8 @@ interface IProps {
 }
 
 export default function VideoContent(props: IProps) {
+  const router = useNavigate()
+
   // let race = 0
   const videoRef = useRef<HTMLVideoElement>(null)
   const [playState, setPlayState] = useState(true)
@@ -32,6 +35,7 @@ export default function VideoContent(props: IProps) {
   const [visible, setVisible] = useState(true)
   const [allLength, setAllLength] = useState('')
   const [nowLength, setNowLength] = useState('00:00')
+  
 
   function getTimes(t: number) {
     let m: any = parseInt(t / 60 % 60 as any)
@@ -96,6 +100,7 @@ export default function VideoContent(props: IProps) {
   }, [props.duration, props.isPlay])
 
   return (
+    
     <div onClick={() => {
       let p = !playState
       if(p) {
@@ -105,6 +110,7 @@ export default function VideoContent(props: IProps) {
       }
       setPlayState(!playState)
     }} id='VideoContent'>
+      
       <div style={{opacity: playState ? '0' : '1'}} className='icon'>
         <Play fontSize={80} />
       </div>
