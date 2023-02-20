@@ -154,7 +154,7 @@ export default function VideoView() {
       <ShareSheet
         visible={sheetVisible}
         options={options}
-        onCancel={() => setVisible(false)}
+        onCancel={() => setSheetVisible(false)}
         onSelect={(option, index) => {
           switch (index) {
             case 0:

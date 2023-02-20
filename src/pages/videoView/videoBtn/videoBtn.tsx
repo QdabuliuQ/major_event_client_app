@@ -106,7 +106,7 @@ export default function VideoLeftBtn(props: IProps) {
         <div className='itemCount'>{collectCount}</div>
       </div>
       <div onClick={(e: any) => moreEvent(e)} className='btnItem'>
-        <More fontSize={32} />
+        <More color='#fff' fontSize={32} />
         <div style={{fontSize: '.375rem', zoom: '.9'}} className='itemCount'>更多</div>
       </div>
     </div>

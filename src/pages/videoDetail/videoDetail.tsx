@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import PubSub from 'pubsub-js';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ActionSheet, Button, Empty, Input, Toast } from 'react-vant';
-import { ArrowLeft } from '@react-vant/icons';
+import { ActionSheet, Button, Empty, Input, ShareSheet, Toast } from 'react-vant';
+import { ArrowLeft, WarnO } from '@react-vant/icons';
 import { pubVideoComment, getVideoComment } from "@/network/videoView/videoView";
 import { getVideoDetail } from "@/network/videoDetail/videoDetail";
 import { getReportReason } from "@/network/reportView/reportView";
@@ -13,7 +13,10 @@ import "./videoDetail.less"
 
 export default function VideoDetail() {
   const router = useNavigate()
-
+  const options = [
+    { name: '举报', icon: <div className='videoMenuItem'><WarnO fontSize={'20px'} /></div> },
+  ]
+  const [sheetVisible, setSheetVisible] = useState(false)
   const [visible, setVisible] = useState(false)
   const { id } = useParams()
   const [status, setStatus] = useState(0)
@@ -102,11 +105,26 @@ export default function VideoDetail() {
       getCommentData(1)
       setVisible(true)
     })
+    PubSub.subscribe('moreEvent', (msg: string, id: string) => {
+      setSheetVisible(true)
+    })
   }, [])
 
   return (
     <div id='VideoDetail'>
-      
+      <ShareSheet
+        visible={sheetVisible}
+        options={options}
+        onCancel={() => setSheetVisible(false)}
+        onSelect={(option, index) => {
+          switch (index) {
+            case 0:
+              router(`/report/${id}/2`)
+              break;
+          }
+          setVisible(false)
+        }}
+      />
       <ActionSheet closeable={false} title='视频评论' visible={visible} onCancel={() => setVisible(false)}>
         {
           commentList.length ? (

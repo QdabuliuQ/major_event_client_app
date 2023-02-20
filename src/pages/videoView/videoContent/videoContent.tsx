@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Toast, Slider } from 'react-vant';
-import { Play, WarnO } from '@react-vant/icons';
+import { Play } from '@react-vant/icons';
 import VideoInfo from "../videoInfo/videoInfo";
 import VideoBtn from "../videoBtn/videoBtn"
 import "./videoContent.less"
