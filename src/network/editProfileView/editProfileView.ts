@@ -1,15 +1,25 @@
 import ajax from '../index'
+import v from "@/utils/globarVar";
+import axios from "axios";
 
 // 获取用户信息
 export function getUserInfo() {
-  return ajax('/my/getUserInfo')
+  return ajax({
+    url: '/my/getUserInfo'
+  })
 }
 
 // 上传图片
 export function updateImage(url: string, data: FormData) {
-  return ajax('/upload/'+url, data, 'post', {
-    Authorization: localStorage.getItem("token"),
-    "Content-Type": "multipart/form-data",
+  // return ajax('/upload/'+url, data, 'post', {
+  //   Authorization: localStorage.getItem("token"),
+  //   "Content-Type": "multipart/form-data",
+  // })
+  return axios.post(v.o_url + '/upload/'+url, data, {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+      "Content-Type": "multipart/form-data",
+    }
   })
 }
 
@@ -33,5 +43,9 @@ export function udateUserInfo(data: {
   area?: string | null
   bg_image?: string | null
 }) {
-  return ajax('/my/updateUserInfo', data, 'post')
+  return ajax({
+    url: '/my/updateUserInfo', 
+    data, 
+    method: 'post'
+  })
 }

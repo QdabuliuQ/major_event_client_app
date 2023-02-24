@@ -5,12 +5,18 @@ export function getCollectList(data: {
   offset: number
   pageSize?: number
 }) {
-  return ajax('/res/getCollectList/'+data.offset)
+  return ajax({
+    url: '/res/getCollectList/'+data.offset
+  })
 }
 
 export function getCollectVideo(data: {
   offset: number
   pageSize?: number
 }) {
-  return ajax('/res/getCollectVideo', data, 'get')
+  return ajax({
+    url: '/res/getCollectVideo', 
+    data, 
+    method: 'get'
+  })
 }

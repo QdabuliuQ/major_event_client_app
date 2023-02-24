@@ -6,5 +6,9 @@ export function pubArticleComment(data: {
   content: string
   parent_id?: string
 }) {
-  return ajax('/art/pubArticleComment', data, 'post')
+  return ajax({
+    url: '/art/pubArticleComment', 
+    data, 
+    method: 'post'
+  })
 }

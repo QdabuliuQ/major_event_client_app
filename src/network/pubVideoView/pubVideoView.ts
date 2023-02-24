@@ -6,5 +6,9 @@ export function pubVideo(data: {
   video_url: string
   duration: number
 }) {
-  return ajax('/vid/pubVideo', data, 'post')
+  return ajax({
+    url: '/vid/pubVideo', 
+    data, 
+    method: 'post'
+  })
 }

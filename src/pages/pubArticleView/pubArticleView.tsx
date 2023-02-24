@@ -114,10 +114,10 @@ export default function PubArticleView() {
       let formData = new FormData()
       formData.append('cover', cover)
       updateImage('articleCover', formData).then((res: any) => {
-        if(res.status) {  // 上传失败
-          return Toast.fail(res.msg)
+        if(res.data.status) {  // 上传失败
+          return Toast.fail(res.data.msg)
         }
-        let coverUrl = res.url
+        let coverUrl = res.data.url
         addArticle({
           title: title.trim(),
           content: html.trim(),

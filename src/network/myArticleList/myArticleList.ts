@@ -5,11 +5,19 @@ export function getArticleById(data: {
   type?: string
   pageSize?: number
 }) {
-  return ajax('/art/getArticleById', data, 'get')
+  return ajax({
+    url: '/art/getArticleById', 
+    params: data, 
+    method: 'get'
+  })
 }
 
 export function deleteArticleById(data: {
   id: string
 }) {
-  return ajax('/art/deleteArticleById', data, 'post')
+  return ajax({
+    url: '/art/deleteArticleById', 
+    data, 
+    method: 'post'
+  })
 }

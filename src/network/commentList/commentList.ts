@@ -6,11 +6,19 @@ export function getCommentFloor(data: {
   offset: number
   limit: number
 }) {
-  return ajax('/art/getCommentFloor', data, 'get')
+  return ajax({
+    url: '/art/getCommentFloor', 
+    params: data, 
+    method: 'get'
+  })
 }
 
 export function getCommentDetail(data: {
   comment_id: string
 }) {
-  return ajax('/art/getCommentDetail', data, 'get')
+  return ajax({
+    url: '/art/getCommentDetail', 
+    params: data, 
+    method: 'get'
+  })
 }

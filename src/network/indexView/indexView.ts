@@ -5,5 +5,8 @@ export function getArticleList(data: {
   offset: number
   limit: number
 }) {
-  return ajax(`/art/getArticleList`, data)
+  return ajax({
+    url: `/art/getArticleList`, 
+    params: data
+  })
 }

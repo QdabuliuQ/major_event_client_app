@@ -6,6 +6,10 @@ export function registerUser(data: {
   phone: string
   password: string
 }) {
-  return ajax('/api/registerUser', data, 'post')
+  return ajax({
+    url: '/api/registerUser', 
+    data, 
+    method: 'post'
+  })
 }
 

@@ -5,11 +5,19 @@ export function getVideoById(data: {
   offset: number
   pageSize?: number
 }) {
-  return ajax('/vid/getVideoById', data, 'get')
+  return ajax({
+    url: '/vid/getVideoById', 
+    params: data, 
+    method: 'get'
+  })
 }
 
 export function deleteVideoById(data: {
   id: string
 }) {
-  return ajax('/vid/deleteVideoById', data, 'post')
+  return ajax({
+    url: '/vid/deleteVideoById', 
+    data, 
+    method: 'post'
+  })
 }

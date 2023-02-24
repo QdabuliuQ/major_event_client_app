@@ -5,5 +5,9 @@ export function loginUser(data: {
   account: string
   password: string
 }) {
-  return ajax('/api/loginUser', data, 'post')
+  return ajax({
+    url: '/api/loginUser', 
+    data, 
+    method: 'post'
+  })
 }

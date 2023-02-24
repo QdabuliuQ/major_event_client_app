@@ -8,13 +8,21 @@ export function addReport(data: {
   id: string
   type: string
 }) {
-  return ajax('/rep/addReport', data, 'post')
+  return ajax({
+    url: '/rep/addReport', 
+    data, 
+    method: 'post'
+  })
 }
 
 export function getReportReason(data?: {
   type: string
 }) {
-  return ajax('/rep/getReportReason', data, 'get')
+  return ajax({
+    url: '/rep/getReportReason', 
+    params: data, 
+    method: 'get'
+  })
 }
 
 export function addCommentReport(data?: {
@@ -22,5 +30,9 @@ export function addCommentReport(data?: {
   comment_id: string
   type: string
 }) {
-  return ajax('/rep/addCommentReport', data, 'post')
+  return ajax({
+    url: '/rep/addCommentReport', 
+    data, 
+    method: 'post'
+  })
 }

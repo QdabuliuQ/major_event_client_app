@@ -3,26 +3,41 @@ import ajax from '../index'
 export function getUserInfoById(data: {
   id: string
 }) {
-  return ajax('/my/getUserInfoById/'+data.id, {}, 'get')
+  return ajax({
+    url: '/my/getUserInfoById/'+data.id,
+    method: 'get'
+  })
 }
 
 export function getUserArticleById(data: {
   id: string
   offset: number
 }) {
-  return ajax('/my/getUserArticleById', data, 'get')
+  return ajax({
+    url: '/my/getUserArticleById', 
+    params: data, 
+    method: 'get'
+  })
 }
 
 export function getUserCollectById(data: {
   id: string
   offset: number
 }) {
-  return ajax('/my/getUserCollectById', data, 'get')
+  return ajax({
+    url: '/my/getUserCollectById', 
+    params: data, 
+    method: 'get'
+  })
 }
 
 export function updateFollowUser(data: {
   follow_id: string
   is_follow: number
 }) {
-  return ajax('/my/updateFollowUser', data, 'post')
+  return ajax({
+    url: '/my/updateFollowUser', 
+    data, 
+    method: 'post'
+  })
 }

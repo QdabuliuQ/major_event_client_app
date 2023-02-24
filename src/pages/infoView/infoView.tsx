@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { Plus, ArrowLeft } from '@react-vant/icons'
-import { Sticky, Tabs, Typography, Image, Toast, Empty } from 'react-vant';
+import { Sticky, Tag, Tabs, Typography, Image, Toast, Empty } from 'react-vant';
 import moment from "moment";
 import { useLocation, useNavigate } from "react-router-dom";
 import city from '@/utils/city'
@@ -87,16 +87,16 @@ export default function InfoView() {
     setTimeout(() => {
       setMore((comRefs[idx].current as any).more)
     }, 200);
-    
+
   }, [])
-  
+
   return (
     <div id='InfoView'>
       {
         status == 1 ? <Empty image="network" description="获取信息失败" />
           : status == -1 ? <Empty image="error" description="账号被封禁" />
             : (
-              info && <ScrollList 
+              info && <ScrollList
                 cb={loadData}
                 hasMore={more}
                 height={'100vh'}>
@@ -129,6 +129,7 @@ export default function InfoView() {
                               粉丝
                             </div>
                           </div>
+                          {info.status == 3 && <div style={{marginTop: '2vw'}}><Tag type="warning">禁言中</Tag></div>}
                         </div>
                       </div>
                       {

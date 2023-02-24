@@ -4,19 +4,31 @@ import ajax from "..";
 export function getArticleReportList(data: {
   offset: number
 }) {
-  return ajax('/rep/getArticleReportList', data, 'get')
+  return ajax({
+    url: '/rep/getArticleReportList', 
+    params: data, 
+    method: 'get'
+  })
 }
 
 // 获取举报评论记录
 export function getCommentReportList(data: {
   offset: number
 }) {
-  return ajax('/rep/getCommentReportList', data, 'get')
+  return ajax({
+    url: '/rep/getCommentReportList', 
+    params: data, 
+    method: 'get'
+  })
 }
 
 // 获取举报视频记录
 export function getVideoReportList(data: {
   offset: number
 }) {
-  return ajax('/rep/getVideoReportList', data, 'get')
+  return ajax({
+    url: '/rep/getVideoReportList', 
+    data, 
+    method: 'get'
+  })
 }

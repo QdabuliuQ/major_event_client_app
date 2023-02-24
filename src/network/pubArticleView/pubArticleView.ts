@@ -2,7 +2,9 @@ import ajax from '../index'
 
 // 获取分类信息
 export function getArticleCate() {
-  return ajax('/art/getArticleCate')
+  return ajax({
+    url: '/art/getArticleCate'
+  })
 }
 
 // 发布文章
@@ -13,5 +15,9 @@ export function addArticle(data: {
   cate_id: string
   targets: string
 }) {
-  return ajax('/art/addArticle', data, 'post')
+  return ajax({
+    url: '/art/addArticle', 
+    data, 
+    method: 'post'
+  })
 }

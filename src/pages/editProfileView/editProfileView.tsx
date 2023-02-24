@@ -34,7 +34,11 @@ export default function EditProfileView() {
       if(res.status) {
         Toast.fail(res.msg)
       } else {
+        localStorage.setItem('info', JSON.stringify(res.data))
         Toast.success(res.msg)
+        setTimeout(() => {
+          router(-1)
+        }, 500);
       }
     })
   }
@@ -54,12 +58,14 @@ export default function EditProfileView() {
       let formData = new FormData()
       formData.append(type == 'user_pic' ? "avatar" : "bg_image", file)
       updateImage(type == 'user_pic' ? 'avatar' : 'userBgimage', formData).then((res: any) => {
-        if (res.status) {
-          Toast.fail(res.msg)
+        console.log(res);
+        
+        if (res.data.status) {
+          Toast.fail(res.data.msg)
         } else {
-          Toast.success(res.msg)
+          Toast.success(res.data.msg)
           let u_info = { ...info }
-          u_info[type] = res.url
+          u_info[type] = res.data.url
           setInfo(u_info)
         }
       })
@@ -70,7 +76,6 @@ export default function EditProfileView() {
 
   useEffect(() => {
     getUserInfo().then((res: any) => {
-      console.log(res);
       setInfo(res.data)
       if (res.data.province) {
         form.setFieldsValue({ location: [res.data.province, res.data.city, res.data.area] })

@@ -65,6 +65,7 @@
 }
 #ArticleView .articleInfoContainer .articleContent {
   padding-bottom: 0.3125rem;
+  font-size: 0.4063rem;
 }
 #ArticleView .articleInfoContainer .articleContent img {
   width: 100%;

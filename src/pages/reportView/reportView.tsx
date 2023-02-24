@@ -23,7 +23,7 @@ export default function ReportView() {
     if (proofList.length) {
       // 上传图片
       updateImage('reportProof', files).then((res: any) => {
-        let proofData = res.url
+        let proofData = res.data.url
         addReport({
           reason: values.reason,
           desc: values.desc,

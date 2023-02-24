@@ -35,11 +35,11 @@ export default function PubVideoView() {
     coverFormData.append('videoCover', values.cover_img[0].file)
     // 上传封面
     updateImage('videoCover', coverFormData).then((res: any) => {
-      if (res.status) {
+      if (res.data.status) {
         Toast.clear()
-        Toast.fail(res.msg)
+        Toast.fail(res.data.msg)
       } else {
-        uploadData.cover_img = res.url
+        uploadData.cover_img = res.data.url
 
         let videoFormData = new FormData()
         videoFormData.append('video', videoInfo)
@@ -50,11 +50,11 @@ export default function PubVideoView() {
           uploadData.duration = audioElement.duration;
           // 上传视频
           updateImage('video', videoFormData).then((res: any) => {
-            if (res.status) {
+            if (res.data.status) {
               Toast.clear()
-              Toast.fail(res.msg)
+              Toast.fail(res.data.msg)
             } else {
-              uploadData.video_url = res.url
+              uploadData.video_url = res.data.url
               // 插入数据
               pubVideo({
                 title: uploadData.title,

@@ -113,7 +113,7 @@ export default function IndexView() {
           <input type="text" placeholder='搜索相关文章内容' />
         </div>
         <div className='navBtn'>
-          <div className='btnContent'>
+          <div onClick={() => router('/pubArticle')} className='btnContent'>
             <img src={require('@/assets/images/plus.png')} alt="" />
             <span>发布</span>
           </div>
