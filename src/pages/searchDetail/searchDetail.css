@@ -1,0 +1,12 @@
+#SearchDetail .rv-tabs__wrap {
+  height: 1.0938rem;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
+}
+#SearchDetail .listContainer {
+  padding: 0 0.3125rem;
+}
+#SearchDetail .videoContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.3125rem;
+}

@@ -16,7 +16,7 @@ export function getCollectVideo(data: {
 }) {
   return ajax({
     url: '/res/getCollectVideo', 
-    data, 
+    params: data, 
     method: 'get'
   })
 }

@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, forwardRef, useImperativeHandle } from 'react'
 import "./scrollList.less"
 
 interface IProps {
@@ -10,10 +10,15 @@ interface IProps {
   height: number | string
 }
 
-export default function ScrollList(props: IProps) {
+const ScrollList = forwardRef((props: IProps, ref: any) => {
   let timer: any = null
   const scrollRef: any = useRef<HTMLDivElement>(null)
-  
+  useImperativeHandle(ref, () => ({
+    toTop: () => {
+      scrollRef.current.scrollTop = 0
+    }
+  }));
+
   const handleScroll = () => {
     // 没有更多的时候 滚动不需要计算高度加载更多。
     if (!props.hasMore) {
@@ -44,4 +49,7 @@ export default function ScrollList(props: IProps) {
       }
     </div>
   )
-}
+})
+
+
+export default ScrollList

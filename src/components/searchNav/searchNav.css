@@ -1,11 +1,16 @@
-#IndexView .topNavBar {
-  padding: 0.3125rem 0.375rem;
+#SearchNav {
+  padding: 0.25rem 0.375rem;
   background-color: #409eff;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-#IndexView .topNavBar .navInput {
+#SearchNav .backBtn {
+  display: flex;
+  align-items: center;
+  margin-right: 0.2188rem;
+}
+#SearchNav .navInput {
   flex: 1;
   margin-right: 0.4688rem;
   background-color: #fff;
@@ -15,31 +20,22 @@
   align-items: center;
   justify-content: space-between;
 }
-#IndexView .topNavBar .navInput input {
+#SearchNav .navInput input {
   width: 90%;
   outline: none;
   border: 0;
 }
-#IndexView .topNavBar .btnContent {
+#SearchNav .btnContent {
   display: flex;
   flex-direction: column;
   text-align: center;
   color: #fff;
   font-size: 0.375rem;
 }
-#IndexView .topNavBar .btnContent img {
+#SearchNav .btnContent img {
   margin-bottom: 0.0625rem;
   width: 0.5625rem;
 }
-#IndexView .topNavBar .btnContent span {
+#SearchNav .btnContent span {
   zoom: 0.8;
-}
-#IndexView .cateNavBar {
-  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
-}
-#IndexView .cateNavBar .rv-tabs__wrap {
-  height: 1.0938rem;
-}
-#IndexView .articleContainer {
-  padding: 0 0.375rem;
 }

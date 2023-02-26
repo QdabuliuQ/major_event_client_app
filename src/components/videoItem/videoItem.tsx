@@ -11,13 +11,16 @@ interface IProps {
   nickname: string
   user_pic: string
   user_id: string
+  id: string
 }
 
 export default function VideoItem(props: IProps) {
   const router = useNavigate()
   
   return (
-    <div className='VideoItem'>
+    <div onClick={() => {
+      router('/video/' + props.id)
+    }} className='VideoItem'>
       <div className='itemCoverImg'>
         <div className='mask'>'
           <PlayCircleO color='#fff' fontSize={60} />

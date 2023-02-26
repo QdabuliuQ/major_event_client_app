@@ -125,6 +125,7 @@ export default function CollectView() {
                     collect.map((item: any) => <VideoItem
                       key={item.video_id}
                       cover_img={item.cover_img}
+                      id={item.video_id}
                       title={item.title}
                       time={item.pub_date}
                       nickname={item.nickname}

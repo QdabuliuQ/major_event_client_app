@@ -1,0 +1,23 @@
+.CategoryNav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: .4688rem;
+  &::after {
+    position: absolute;
+    content: "";
+    width: .125rem;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #409eff;
+  }
+  span {
+    font-size: .4063rem;
+    font-weight: bold;
+    color: #409eff;
+    margin-left: .3125rem;
+    position: relative;
+    top: -1px;
+  }
+}

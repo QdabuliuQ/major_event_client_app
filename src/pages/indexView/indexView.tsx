@@ -5,10 +5,11 @@ import { Plus, Search } from '@react-vant/icons';
 import { getArticleList } from "@/network/indexView/indexView"
 import { getArticleCate } from "@/network/pubArticleView/pubArticleView";
 import ArticleItem from "@/components/articleItem/articleItem";
+import SearchNav from "@/components/searchNav/searchNav";
+import ScrollList from "@/components/scrollList/scrollList";
 import "./indexView.less"
 
 export default function IndexView() {
-  let offset = 1, more = true
 
   const router = useNavigate()
 
@@ -18,8 +19,9 @@ export default function IndexView() {
   }])
   const [cateId, setCateId] = useState('0')
   const [show, setShow] = useState(true)
-  
-  // const [offset, setOffset] = useState(1)
+  const [height, setHeight] = useState(0)
+  const [more, setMore] = useState(false)
+  const [offset, setOffset] = useState(1)
   const [artList, setArtList] = useState<{
     content: string
     id: string
@@ -32,60 +34,55 @@ export default function IndexView() {
   const tabsRef = useRef(null)
 
   // 获取数据
-  const getData = (id: string) => {
+  const getData = (id: string, _offset: number) => {
     if (id == '0') {
       getArticleList({
-        offset,
+        offset: _offset,
         limit: 15
       }).then((res: any) => {
-        setArtList([...artList, ...res.data])
-        more = res.more
+        if (_offset == 1) {
+          setArtList(res.data)
+        } else {
+          setArtList([...artList, ...res.data])
+        }
+        setMore(res.more)
       })
     } else {
       getArticleList({
         id,
-        offset,
+        offset: _offset,
         limit: 15
       }).then((res: any) => {
-        setArtList([...artList, ...res.data])
-        more = res.more
+        if (_offset == 1) {
+          setArtList(res.data)
+        } else {
+          setArtList([...artList, ...res.data])
+        }
+        setMore(res.more)
       })
     }
   }
 
   // tab切换回调
   const tabClick = (id: string | number) => {
-    offset = 1
+    setOffset(1)
     // 清空数组
     setArtList(artList.splice(0, artList.length))
-    more = true
+    setMore(true)
     setCateId(id.toString())
-    getData(id.toString())
+    getData(id.toString(), 1)
   }
 
-  const scrollEvent = () => {
-    if (more) {
-      //获取网页的总高度
-      let htmlHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
-      //clientHeight是网页在浏览器中的可视高度
-      let clientHeight = document.body.clientHeight || document.documentElement.clientHeight;
-      //scrollTop是浏览器滚动条的top位置
-      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-      
-      //判断到底部了,为了避免一些问题，设置距离底部50px时就执行代码
-      if (scrollTop != 0 && scrollTop + clientHeight > htmlHeight - 50) {
-        if (timer) clearTimeout(timer)
-        timer = setTimeout(() => {
-          offset ++
-          getData(cateId)
-          
-        }, 200);
-      }
+  const onKeyup = (key: string) => {
+    let _key = key.trim()
+    if (_key.length) {
+      sessionStorage.setItem('key', _key)
+      router('/search')
     }
   }
 
   const itemClick = (id: string) => {
-    router('/article/'+id)
+    router('/article/' + id)
   }
 
   useEffect(() => {
@@ -95,49 +92,48 @@ export default function IndexView() {
       setTimeout(() => {
         setShow(true)
       }, 50);
-      getData('0')
+      getData('0', 1)
     })
 
-    window.addEventListener('scroll', scrollEvent)
-    
-    return () => {
-      window.removeEventListener('scroll', scrollEvent)
-    }
+    setHeight(document.documentElement.clientHeight - (document.getElementById('SearchNav') as HTMLDivElement).clientHeight - document.getElementsByClassName('cateNavBar')[0].clientHeight - document.getElementsByClassName('rv-tabbar')[0].clientHeight)
+
   }, [])
 
   return (
     <div id='IndexView'>
-      <div className='topNavBar'>
-        <div className='navInput'>
-          <Search style={{ position: 'relative', top: '1px' }} fontSize='15px' />
-          <input type="text" placeholder='搜索相关文章内容' />
-        </div>
-        <div className='navBtn'>
-          <div onClick={() => router('/pubArticle')} className='btnContent'>
-            <img src={require('@/assets/images/plus.png')} alt="" />
-            <span>发布</span>
-          </div>
-        </div>
-      </div>
-      <Sticky>
-        <div className='cateNavBar'>
-          {
-            show && <Tabs align='start' onChange={tabClick} ref={tabsRef}>
-              {
-                cate.length && cate.map((item: any) => (
-                  <Tabs.TabPane name={item.cate_id} key={item.cate_id} title={item.cate_name}>
-                  </Tabs.TabPane>
-                ))
-              }
-            </Tabs>
-          }
-        </div>
-      </Sticky>
-      <div className='articleContainer'>
+      <SearchNav onKeyup={onKeyup} />
+      <div className='cateNavBar'>
         {
-          artList.length ? artList.map((item: any) => (
-            <ArticleItem browse_count={item.browse_count} key={item.id}  id={item.id} clickEvent={itemClick} title={item.title} content={item.content} cover={item.cover_img} time={item.pub_date} />
-          )) : <Empty description="暂无内容" />
+          show && <Tabs align='start' onChange={tabClick} ref={tabsRef}>
+            {
+              cate.length && cate.map((item: any) => (
+                <Tabs.TabPane name={item.cate_id} key={item.cate_id} title={item.cate_name}>
+                </Tabs.TabPane>
+              ))
+            }
+          </Tabs>
+        }
+      </div>
+      <div>
+        {
+          artList.length ? (
+            <ScrollList
+              cb={() => {
+                getData(cateId, offset + 1)
+                setOffset(offset + 1)
+              }}
+              height={height}
+              hasMore={more}
+            >
+              <div className='articleContainer'>
+                {
+                  artList.map((item: any) => (
+                    <ArticleItem browse_count={item.browse_count} key={item.id} id={item.id} clickEvent={itemClick} title={item.title} content={item.content} cover={item.cover_img} time={item.pub_date} />
+                  ))
+                }
+              </div>
+            </ScrollList>
+          ) : <Empty description="暂无内容" />
         }
       </div>
     </div>

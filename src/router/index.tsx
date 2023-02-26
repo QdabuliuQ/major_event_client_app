@@ -23,6 +23,7 @@ const MyCommentList = lazy(() => import("@/pages/myCommentList/myCommentList"))
 const MyArticleList = lazy(() => import("@/pages/myArticleList/myArticleList"))
 const MyVideoList = lazy(() => import("@/pages/myVideoList/myVideoList"))
 const VideoDetail = lazy(() => import("@/pages/videoDetail/videoDetail"))
+const SearchDetail = lazy(() => import("@/pages/searchDetail/searchDetail"))
 
 
 export default [
@@ -136,6 +137,10 @@ export default [
   {
     path: '/pubArticle',
     element: <PubArticleView/>
+  },
+  {
+    path: '/search',
+    element: <SearchDetail/>
   },
   {
     path: '/',
