@@ -31,6 +31,29 @@ export function getUserCollectById(data: {
   })
 }
 
+export function getUserCollectVideoById(data: {
+  id: string
+  offset: number
+}) {
+  return ajax({
+    url: '/my/getUserCollectVideoById', 
+    params: data, 
+    method: 'get'
+  })
+}
+
+export function getUserVideoById(data: {
+  id: string
+  offset: number
+}) {
+  return ajax({
+    url: '/my/getUserVideoById', 
+    params: data, 
+    method: 'get'
+  })
+}
+
+
 export function updateFollowUser(data: {
   follow_id: string
   is_follow: number

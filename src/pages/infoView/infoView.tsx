@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { Plus, ArrowLeft } from '@react-vant/icons'
-import { Sticky, Tag, Tabs, Typography, Image, Toast, Empty } from 'react-vant';
+import { Sticky, Tag, Tabs, Typography, Image, Toast, Empty, NavBar } from 'react-vant';
 import moment from "moment";
 import { useLocation, useNavigate } from "react-router-dom";
 import city from '@/utils/city'
@@ -8,6 +8,7 @@ import { getUserInfoById, updateFollowUser } from "@/network/infoView/infoView";
 import ScrollList from "@/components/scrollList/scrollList";
 import { InfoArticle } from "./infoArticle/infoArticle";
 import { InfoCollect } from "./infoCollect/infoCollect";
+import InfoVideo from './infoVideo/infoVideo';
 import "./infoView.less"
 
 export default function InfoView() {
@@ -16,22 +17,33 @@ export default function InfoView() {
 
   const comRefs = [
     useRef(null),
+    useRef(null),
     useRef(null)
   ]
   const [more, setMore] = useState(true)
   const [idx, setIdx] = useState(0)
   const [status, setStatus] = useState<string | number>('')
   const [info, setInfo] = useState<any>()
+
+  const toggleEvent = () => {
+    setMore(true)
+  }
+
   let tabsList = [
     {
       name: '文章',
       component: <InfoArticle ref={comRefs[0]} />
     },
     {
+      name: '视频',
+      component: <InfoVideo ref={comRefs[1]} />
+    },
+    {
       name: '收藏',
-      component: <InfoCollect ref={comRefs[1]} />
+      component: <InfoCollect toggleEvent={toggleEvent} ref={comRefs[2]} />
     },
   ]
+  
 
   const followUser = () => {
     updateFollowUser({
@@ -64,7 +76,14 @@ export default function InfoView() {
   }
   // 加载数据
   const loadData = () => {
-    (comRefs[idx].current as any).getData()
+    console.log(idx);
+    
+    if (idx == 2) {
+      
+      (comRefs[idx].current as any).getData((comRefs[idx].current as any).getType())
+    } else {
+      (comRefs[idx].current as any).getData()
+    }
     setTimeout(() => {
       setMore((comRefs[idx].current as any).more)
     }, 100);
@@ -93,8 +112,28 @@ export default function InfoView() {
   return (
     <div id='InfoView'>
       {
-        status == 1 ? <Empty image="network" description="获取信息失败" />
-          : status == -1 ? <Empty image="error" description="账号被封禁" />
+        status == 1 ? (
+          <div>
+            <NavBar
+              title='用户信息'
+              fixed={true}
+              placeholder={true}
+              onClickLeft={() => router(-1)}
+            />
+            <Empty image="network" description="获取信息失败" />
+          </div>
+        )
+          : status == -1 ? (
+            <div>
+              <NavBar
+                title='用户信息'
+                fixed={true}
+                placeholder={true}
+                onClickLeft={() => router(-1)}
+              />
+              <Empty image="error" description="账号被封禁" />
+            </div>
+          )
             : (
               info && <ScrollList
                 cb={loadData}
@@ -129,7 +168,7 @@ export default function InfoView() {
                               粉丝
                             </div>
                           </div>
-                          {info.status == 3 && <div style={{marginTop: '2vw'}}><Tag type="warning">禁言中</Tag></div>}
+                          {info.status == 3 && <div style={{ marginTop: '2vw' }}><Tag type="warning">禁言中</Tag></div>}
                         </div>
                       </div>
                       {
