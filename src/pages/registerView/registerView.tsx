@@ -13,14 +13,11 @@ export default function RegisterView() {
     phone: string
     password: string
   }) => {
-    console.log(data)
     registerUser({
       email: data.email,
       phone: data.phone,
       password: data.password,
     }).then((res: any) => {
-      console.log(res);
-      
       if(res.status) {
         Toast.fail(res.msg)
       } else {
@@ -40,6 +37,7 @@ export default function RegisterView() {
       />
 
       <div className='formContainer'>
+        <img className='createImg' src={require('@/assets/images/createImg.png')} alt="" />
         <Form
           form={form}
           onFinish={onFinish}

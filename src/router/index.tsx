@@ -3,6 +3,7 @@ import { lazy } from "react";
 
 const LoginView = lazy(() => import("@/pages/loginView/loginView"))
 const RegisterView = lazy(() => import("@/pages/registerView/registerView"))
+const ForgetView = lazy(() => import("@/pages/forgetView/forgetView"))
 const NavView = lazy(() => import("@/pages/navView/navView"))
 const IndexView = lazy(() => import("@/pages/indexView/indexView"))
 const ProfileView = lazy(() => import("@/pages/profileView/profileView"))
@@ -34,6 +35,10 @@ export default [
   {
     path: '/register',
     element: <RegisterView/>
+  },
+  {
+    path: '/forget',
+    element: <ForgetView/>
   },
   {
     path: '/index',

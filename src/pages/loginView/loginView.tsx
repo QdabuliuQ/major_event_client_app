@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Toast, Form, Input, Button } from 'react-vant'
@@ -10,7 +10,7 @@ export default function LoginView() {
   const router = useNavigate()
 
   const [code, setCode] = useState('<div></div>')
-  const [svg, setSvg] = useState('')
+  const [svg, setSvg] = useState('<div class="codeError">网络错误</div>')
   const [form] = Form.useForm()
 
   const onFinish = (data: any) => {
@@ -47,6 +47,8 @@ export default function LoginView() {
     }).then((res: any) => {
       setSvg(res.data.svg)
       setCode(res.data.code)
+    }).catch(() => {
+      Toast.fail('网络错误')
     })
   }
 
@@ -56,6 +58,9 @@ export default function LoginView() {
 
   return (
     <div id='LoginView'>
+      <div className='topImage'>
+        <img src={require('@/assets/images/loginImg.png')} alt="" />
+      </div>
       <div className='formContainer'>
         <Form
           form={form}
@@ -95,8 +100,11 @@ export default function LoginView() {
         <span onClick={() => {
           router('/register')
         }}>注册账号</span>
-        <span>找回密码</span>
+        <span onClick={() => {
+          router('/forget')
+        }}>找回密码</span>
       </div>
+      <div className='linkMask'></div>
     </div>
   )
 }

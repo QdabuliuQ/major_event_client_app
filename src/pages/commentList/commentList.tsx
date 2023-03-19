@@ -6,7 +6,6 @@ import CommentItem from "@/components/commentItem/commentItem";
 import { getCommentDetail, getCommentFloor } from "@/network/commentList/commentList";
 import { pubArticleComment } from "@/network/articleView/navBar";
 import { getReportReason } from "@/network/reportView/reportView";
-import { useCallbackState } from "@/hooks/useCbState";
 import "./commentList.less"
 
 export default function CommentList() {

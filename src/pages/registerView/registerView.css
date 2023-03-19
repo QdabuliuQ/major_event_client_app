@@ -1,3 +1,8 @@
 #RegisterView .formContainer {
   padding: 0.625rem;
+  text-align: center;
+}
+#RegisterView .formContainer .createImg {
+  width: 90%;
+  margin-bottom: 0.625rem;
 }

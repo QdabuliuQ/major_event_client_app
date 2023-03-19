@@ -41,7 +41,10 @@ ajax.interceptors.response.use((req: any): any => {
   } else {
     return req.data
   }
-}, err=>{});
+}, err=>{
+  Toast.fail('网络错误')
+  return
+});
 
 
 export default ajax 
