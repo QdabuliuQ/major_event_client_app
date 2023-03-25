@@ -14,12 +14,12 @@ export default function LoginView() {
   const [form] = Form.useForm()
 
   const onFinish = (data: any) => {
-    if(data.code == code) {
+    if (data.code == code) {
       loginUser({
         account: data.account,
         password: data.password
       }).then((res: any) => {
-        if(res.status) {
+        if (res.status) {
           Toast.fail(res.msg)
         } else {
           Toast.success(res.msg)
@@ -37,12 +37,12 @@ export default function LoginView() {
 
   const getCode = () => {
     const service = axios.create({
-      baseURL: v.o_url+'/code/getCode', // api的base_url
+      baseURL: v.o_url + '/code/getCode', // api的base_url
       withCredentials: true, // 解决服务器设置token到cookies中，浏览器Application的cookies中没有存入token
       timeout: 20000 // 请求超时时间
     })
     service({
-      url: v.o_url+'/code/getCode',
+      url: v.o_url + '/code/getCode',
       method: 'get',
     }).then((res: any) => {
       setSvg(res.data.svg)
@@ -58,10 +58,11 @@ export default function LoginView() {
 
   return (
     <div id='LoginView'>
-      <div className='topImage'>
-        <img src={require('@/assets/images/loginImg.png')} alt="" />
-      </div>
+
       <div className='formContainer'>
+        <div className='topImage'>
+          <img src={require('@/assets/images/loginImg.png')} alt="" />
+        </div>
         <Form
           form={form}
           onFinish={onFinish}
@@ -92,7 +93,7 @@ export default function LoginView() {
             name='code'
             label='验证码'
           >
-            <Input placeholder='输入验证码' suffix={<div className='codeContainer' onClick={getCode} dangerouslySetInnerHTML={{__html: svg}}></div>} />
+            <Input placeholder='输入验证码' suffix={<div className='codeContainer' onClick={getCode} dangerouslySetInnerHTML={{ __html: svg }}></div>} />
           </Form.Item>
         </Form>
       </div>

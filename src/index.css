@@ -12,3 +12,18 @@ body {
   --rv-nav-bar-title-font-size: .4063rem;
   --rv-share-sheet-cancel-button-font-size: .4375rem;
 }
+
+@media screen and (min-width: 680px) {
+  #App {
+    width: 40vw;
+    margin: 0 auto;
+    height: 100vh; 
+  }
+}
+
+@media screen and (max-width: 680px) {
+  #App {
+    width: 100vw;
+    height: 100vh; 
+  }
+}

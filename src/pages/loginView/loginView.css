@@ -1,26 +1,22 @@
 #LoginView {
-  min-width: 100vw;
-  min-height: 100vh;
-  max-width: 100vw;
-  max-height: 100vh;
-  position: relative;
-}
-#LoginView .topImage {
-  position: absolute;
-  top: 3%;
-  width: 90%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-#LoginView .topImage img {
   width: 100%;
+  height: 100%;
+  position: relative;
 }
 #LoginView .formContainer {
   position: absolute;
-  top: 55%;
+  top: 11vh;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: 80%;
+}
+#LoginView .formContainer .topImage {
+  width: 90%;
+  left: 50%;
+  margin: 0 auto 3vh;
+}
+#LoginView .formContainer .topImage img {
+  width: 100%;
 }
 #LoginView .linkMask {
   position: absolute;

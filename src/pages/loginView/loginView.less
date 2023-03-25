@@ -1,26 +1,27 @@
 #LoginView {
-  min-width: 100vw;
-  min-height: 100vh;
+  // min-width: 100vw;
+  // min-height: 100vh;
 
-  max-width: 100vw;
-  max-height: 100vh;
+  // max-width: 100vw;
+  // max-height: 100vh;
+  width: 100%;
+  height: 100%;
   position: relative;
-  .topImage {
-    position: absolute;
-    top: 3%;
-    width: 90%;
-    left: 50%;
-    transform: translateX(-50%);
-    img {
-      width: 100%;
-    }
-  }
+  
   .formContainer {
     position: absolute;
-    top: 55%;
+    top: 11vh;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     width: 80%;
+    .topImage {
+      width: 90%;
+      left: 50%;
+      margin: 0 auto 3vh;
+      img {
+        width: 100%;
+      }
+    }
   }
   .linkMask {
     position: absolute;
