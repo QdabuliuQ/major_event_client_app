@@ -1,26 +1,34 @@
 #NavBar {
   display: flex;
   align-items: center;
-  padding: 0.25rem 0.3125rem;
+  padding: 8px 10px;
   box-shadow: 0 3px 14px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
 #NavBar .commnentInput {
   width: 55%;
-  margin-right: 0.4688rem;
+  margin-right: 15px;
 }
 #NavBar .commnentInput input {
   width: 100%;
   outline: none;
   border: 0;
-  padding: 0.2188rem 0.3125rem;
+  padding: 7px 10px;
   background-color: #f7f7f7;
-  border-radius: 0.625rem;
+  border-radius: 20px;
+  font-size: 13px;
 }
 #NavBar .dataInfo {
   flex: 1;
-  margin-left: 0.4688rem;
+  margin-left: 15px;
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+#NavBar .dataInfo .rv-badge__wrapper {
+  display: flex;
+  align-items: center;
+}
+#NavBar .dataInfo .rv-icon {
+  font-size: 20px;
 }

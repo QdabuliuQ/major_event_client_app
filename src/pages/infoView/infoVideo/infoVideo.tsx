@@ -42,25 +42,23 @@ const InfoVideo = forwardRef(({ }, ref) => {
   }, [])
 
   return (
-    <div id="InfoVideo">
+    list.length ? <div id="InfoVideo">
       {
-        list.length ? (
-          list.map((item: any) => (
-            <VideoItem
-              key={item.id}
-              cover_img={item.cover_img}
-              id={item.id}
-              title={item.title}
-              time={item.pub_date}
-              nickname={item.nickname}
-              user_pic={item.user_pic}
-              user_id={item.user_id}
-            />
-          )
-          )
-        ) : <Empty description="暂无发布视频" />
+        list.map((item: any) => (
+          <VideoItem
+            key={item.id}
+            cover_img={item.cover_img}
+            id={item.id}
+            title={item.title}
+            time={item.pub_date}
+            nickname={item.nickname}
+            user_pic={item.user_pic}
+            user_id={item.user_id}
+          />
+        )
+        )
       }
-    </div>
+    </div> : <Empty description="暂无发布视频" />
   )
 })
 

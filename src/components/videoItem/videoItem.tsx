@@ -32,7 +32,9 @@ export default function VideoItem(props: IProps) {
         <div className='infoTime'>
           {(React as any).$moment(props.time).format('YYYY-MM-DD HH:mm:ss')}
         </div>
-        <div onClick={() => {
+        <div onClick={(e) => {
+          e.stopPropagation();
+          e.nativeEvent.stopImmediatePropagation();
           router('/info', {
             state: {
               id: props.user_id

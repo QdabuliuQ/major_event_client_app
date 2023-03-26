@@ -13,6 +13,7 @@ interface IProps {
     is_praise: boolean
     praise_count: number
   }
+  cb?: Function
 }
 
 export const _NavBar = forwardRef((props: IProps, ref) => {
@@ -35,6 +36,7 @@ export const _NavBar = forwardRef((props: IProps, ref) => {
     })
   }
 
+  // 收藏
   const collectEvent = (is_collect: number) => {
     collectArticle({
       is_collect,
@@ -49,6 +51,7 @@ export const _NavBar = forwardRef((props: IProps, ref) => {
     })
   }
 
+  // 发表评论
   const onKeyUpEvent = () => {
     let val = inputRef.current?.value.trim() as string
     if(val != '' && val.length <= 100) {
@@ -57,8 +60,9 @@ export const _NavBar = forwardRef((props: IProps, ref) => {
         content: val
       }).then((res: any) => {
         if (res.status) {
-          return Toast.fail('发送失败')
+          return Toast.fail(res.msg)
         }
+        props.cb && props.cb();
         (inputRef.current as HTMLInputElement).value = ''
       })
     }
@@ -81,16 +85,16 @@ export const _NavBar = forwardRef((props: IProps, ref) => {
         params && (
           <div className='dataInfo'>
             <Badge>
-              <ChatO fontSize={'20px'} />
+              <ChatO />
             </Badge>
             <Badge content={params.collect_count ? params.collect_count : ''}>
               {
-                params && params.is_collect ? <Star color='#409eff' onClick={() => collectEvent(0)} fontSize={'20px'} /> : <StarO onClick={() => collectEvent(1)} fontSize={'20px'} />
+                params && params.is_collect ? <Star color='#409eff' onClick={() => collectEvent(0)} /> : <StarO onClick={() => collectEvent(1)}/>
               }
             </Badge>
             <Badge content={params.praise_count ? params.praise_count : ''}>
               {
-                params && params.is_praise ? <GoodJob color='#409eff' onClick={() => praiseEvent(0)} fontSize={'20px'} /> : <GoodJobO onClick={() => praiseEvent(1)} fontSize={'20px'} />
+                params && params.is_praise ? <GoodJob color='#409eff' onClick={() => praiseEvent(0)} /> : <GoodJobO onClick={() => praiseEvent(1)}/>
               }
             </Badge>
           </div>

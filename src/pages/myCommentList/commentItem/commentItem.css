@@ -1,14 +1,16 @@
 ._CommentItem {
-  padding: 0.3125rem;
-  margin-bottom: 0.3125rem;
-  border-radius: 0.1875rem;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 ._CommentItem .commentContent {
-  font-size: 0.5rem;
   font-weight: bold;
-  margin-bottom: 0.1563rem;
+  margin-bottom: 5px;
   word-break: break-all;
+}
+._CommentItem .commentContent .rv-typography__ellipsis {
+  font-size: 15px;
 }
 ._CommentItem .commentData {
   display: flex;
@@ -17,24 +19,25 @@
 ._CommentItem .commentData .dataItem {
   display: flex;
   align-items: center;
-  margin-bottom: 0.1563rem;
-  font-size: 0.375rem;
+  margin-bottom: 5px;
+  font-size: 12px;
   color: #a7a7a7;
   flex: 1;
 }
 ._CommentItem .commentData .dataItem span {
-  margin-left: 0.125rem;
+  margin-left: 4px;
   position: relative;
   top: -0.5px;
   zoom: 0.9;
 }
 ._CommentItem .commentInfo {
-  margin-bottom: 0.3125rem;
+  margin-bottom: 10px;
 }
 ._CommentItem .commentInfo .infoItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 13px;
 }
 ._CommentItem .commentBtn {
   display: flex;

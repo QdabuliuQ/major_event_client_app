@@ -107,7 +107,7 @@ export default function VideoLeftBtn(props: IProps) {
       </div>
       <div onClick={(e: any) => moreEvent(e)} className='btnItem'>
         <More color='#fff' fontSize={32} />
-        <div style={{fontSize: '.375rem', zoom: '.9'}} className='itemCount'>更多</div>
+        <div style={{fontSize: '12px', zoom: '.9'}} className='itemCount'>更多</div>
       </div>
     </div>
   )

@@ -5,6 +5,7 @@ import moment from "moment";
 import { useLocation, useNavigate } from "react-router-dom";
 import city from '@/utils/city'
 import { getUserInfoById, updateFollowUser } from "@/network/infoView/infoView";
+import { addChatObject } from "@/network/messageView/messageView";
 import ScrollList from "@/components/scrollList/scrollList";
 import { InfoArticle } from "./infoArticle/infoArticle";
 import { InfoCollect } from "./infoCollect/infoCollect";
@@ -43,7 +44,7 @@ export default function InfoView() {
       component: <InfoCollect toggleEvent={toggleEvent} ref={comRefs[2]} />
     },
   ]
-  
+
 
   const followUser = () => {
     updateFollowUser({
@@ -74,12 +75,19 @@ export default function InfoView() {
     }
     return ''
   }
+  const chatUser = () => {
+    addChatObject({
+      to_id: id
+    }).then((res: any) => {
+      if(res.status) return Toast.fail(res.msg)
+      console.log('跳转');
+      
+    })
+  }
   // 加载数据
   const loadData = () => {
-    console.log(idx);
-    
     if (idx == 2) {
-      
+
       (comRefs[idx].current as any).getData((comRefs[idx].current as any).getType())
     } else {
       (comRefs[idx].current as any).getData()
@@ -151,7 +159,7 @@ export default function InfoView() {
                   <div className='user_data'>
                     <div className='user_basic_info'>
                       <div className='top_info info_item'>
-                        <Image width='1.875rem' height='1.875rem' round fit='cover' src={info.user_pic} />
+                        <Image round fit='cover' src={info.user_pic} />
                         <div style={{ marginLeft: '10px' }}>
                           <div className='info_nickname'>{info.nickname}</div>
                           <div className='info_follow'>
@@ -200,30 +208,35 @@ export default function InfoView() {
                           </div>
                         )
                       }
-                      {
-                        localStorage.getItem('id') != id ? (
-                          <div className='info_item'>
-                            {
-                              info.is_follow ? (
-                                <button onClick={followUser} className='followBtn btnItem'>
-                                  已关注
-                                </button>
-                              ) : (
-                                <button onClick={followUser} className='unFollowBtn btnItem'>
-                                  <Plus fontSize={14} /> <span style={{ marginLeft: '3px' }}>关注</span>
-                                </button>
-                              )
-                            }
-                          </div>
-                        ) : ''
-                      }
+                      <div className='info_btn_list info_item'>
+                        {
+                          localStorage.getItem('id') != id ? (
+                            <button onClick={chatUser} className='btnItem chatBtn'>
+                              私聊
+                            </button>
+                          ) : ''
+                        }
+                        {
+                          localStorage.getItem('id') != id ? (
+                            info.is_follow ? (
+                              <button onClick={followUser} className='followBtn btnItem'>
+                                已关注
+                              </button>
+                            ) : (
+                              <button onClick={followUser} className='unFollowBtn btnItem'>
+                                <Plus fontSize={14} /> <span style={{ marginLeft: '3px' }}>关注</span>
+                              </button>
+                            )
+                          ) : ''
+                        }
+
+                      </div>
                     </div>
                   </div>
                 </div>
                 <Sticky>
                   <Tabs onChange={(name) => {
                     setIdx(name as number);
-                    // (comRefs[name as number].current as any).setOffset()
                     setTimeout(() => {
                       setMore((comRefs[name as number].current as any).more)
                     }, 200);

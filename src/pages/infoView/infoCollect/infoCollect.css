@@ -3,11 +3,11 @@
   align-items: center;
 }
 #InfoCollect .typeToggle .typeItem {
-  padding: 0.25rem 0.5rem;
-  margin-right: 0.5rem;
-  font-size: 0.375rem;
+  padding: 8px 16px;
+  margin-right: 16px;
+  font-size: 12px;
   background-color: #f0f0f0;
-  border-radius: 0.1875rem;
+  border-radius: 6px;
   zoom: 0.8;
 }
 #InfoCollect .typeToggle .activeItem {
@@ -19,6 +19,6 @@
 #InfoCollect .collectVideoList {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 0.3125rem;
-  margin-top: 0.3125rem;
+  grid-gap: 10px;
+  margin-top: 10px;
 }

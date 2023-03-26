@@ -3,26 +3,26 @@
   position: absolute;
   z-index: 3;
   bottom: 6vh;
-  left: 0.3125rem;
-  font-size: 0.4375rem;
+  left: 10px;
+  font-size: 14px;
   transition: 0.3s opacity linear;
 }
 #VideoRightInfo .infoItem .rv-typography__ellipsis {
-  font-size: 0.4375rem;
+  font-size: 14px;
   color: #fff;
 }
 #VideoRightInfo .infoItem:not(:last-child) {
-  margin-bottom: 0.3125rem;
+  margin-bottom: 10px;
 }
 #VideoRightInfo .itemName {
   font-weight: bold;
 }
 #VideoRightInfo .itemTime {
-  font-size: 0.4063rem;
+  font-size: 13px;
   color: #ccc;
 }
 #VideoRightInfo .itemTitle {
-  margin-bottom: 0.25rem !important;
+  margin-bottom: 8px !important;
 }
 #VideoRightInfo .rv-typography__ellipsis {
   width: 100%;

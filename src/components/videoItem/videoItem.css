@@ -1,7 +1,7 @@
 .VideoItem {
   width: 100%;
   background-color: #fff;
-  border-radius: 0.25rem;
+  border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -27,19 +27,22 @@
   object-fit: contain;
 }
 .VideoItem .itemInfo {
-  padding: 0.25rem 0.1875rem;
+  padding: 8px 6px;
+}
+.VideoItem .itemInfo .rv-typography__text {
+  font-size: 14px;
 }
 .VideoItem .itemInfo .infoTime {
-  margin-top: 0.1875rem;
-  font-size: 0.375rem;
-  zoom: 0.8;
+  margin-top: 6px;
+  font-size: 12px;
   color: #cfcfcf;
 }
 .VideoItem .itemInfo .creator {
   display: flex;
   align-items: center;
-  margin-top: 0.1563rem;
+  margin-top: 5px;
+  font-size: 13px;
 }
 .VideoItem .itemInfo .creator .rv-image {
-  margin-right: 0.1563rem;
+  margin-right: 5px;
 }

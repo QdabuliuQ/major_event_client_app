@@ -1,0 +1,57 @@
+.PraiseItem {
+  padding: 12px 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+.PraiseItem .rv-typography__text {
+  width: 100%;
+  font-size: 15px;
+}
+.PraiseItem .rv-image {
+  width: 30px;
+  height: 30px;
+}
+.PraiseItem .userInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.PraiseItem .userInfo .leftInfo {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+.PraiseItem .userInfo .leftInfo .rv-icon {
+  font-size: 22px;
+  margin-right: 5px;
+  color: #409eff;
+}
+.PraiseItem .userInfo .leftInfo .nickName {
+  width: 70%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 5px;
+}
+.PraiseItem .userInfo .rightInfo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 40%;
+  font-size: 13px;
+  color: #9d9d9d;
+}
+.PraiseItem .commentInfo {
+  padding: 10px 10px 5px 10px;
+  margin-left: 45px;
+  margin-top: 8px;
+  border-radius: 6px;
+  background-color: #f7f7f7;
+  font-size: 13px;
+}
+.PraiseItem .commentInfo .actSpan {
+  color: #407af7;
+}

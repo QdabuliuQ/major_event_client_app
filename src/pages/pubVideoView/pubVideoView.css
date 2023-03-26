@@ -1,3 +1,6 @@
+#PubVideoView .rv-cell__title {
+  font-size: 14px;
+}
 #PubVideoView .videoUploadClass {
   width: 100%;
   aspect-ratio: 2/1.3;

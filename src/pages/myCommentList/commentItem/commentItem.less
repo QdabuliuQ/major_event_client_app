@@ -1,13 +1,16 @@
 ._CommentItem {
-  padding: .3125rem;
-  margin-bottom: .3125rem;
-  border-radius: .1875rem;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
   box-shadow: 0 0 10px rgba(0, 0, 0, .1);
   .commentContent {
-    font-size: .5rem;
+    
     font-weight: bold;
-    margin-bottom: .1563rem;
+    margin-bottom: 5px;
     word-break:break-all; 
+    .rv-typography__ellipsis {
+      font-size: 15px;
+    }
   }
   .commentData {
     display: flex;
@@ -15,12 +18,12 @@
     .dataItem {
       display: flex;
       align-items: center;
-      margin-bottom: .1563rem;
-      font-size: .375rem;
+      margin-bottom: 5px;
+      font-size: 12px;
       color: #a7a7a7;
       flex: 1;
       span {
-        margin-left: .125rem;
+        margin-left: 4px;
         position: relative;
         top: -.5px;
         zoom: .9;
@@ -28,11 +31,12 @@
     }
   }
   .commentInfo {
-    margin-bottom: .3125rem;
+    margin-bottom: 10px;
     .infoItem {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      font-size: 13px;
     }
   }
   .commentBtn {

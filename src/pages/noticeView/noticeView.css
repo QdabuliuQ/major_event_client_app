@@ -1,0 +1,27 @@
+#NoticeView .noticeBox {
+  padding: 12px;
+}
+#NoticeView .noticeBox .noticeTitle {
+  font-size: 25px;
+  font-weight: bold;
+}
+#NoticeView .noticeBox .noticeDetail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 0;
+  font-size: 14px;
+}
+#NoticeView .noticeBox .noticeDetail .pubTime {
+  color: #adadad;
+}
+#NoticeView .noticeBox .noticeDetail .pubAdmin {
+  cursor: pointer;
+  color: #5fa1f4;
+}
+#NoticeView .noticeBox .noticeText img {
+  width: 100%;
+}
+#NoticeView .noticeBox .noticeText video {
+  width: 100%;
+}

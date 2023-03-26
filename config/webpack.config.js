@@ -142,8 +142,7 @@ module.exports = function (webpackEnv) {
             // https://github.com/facebook/create-react-app/issues/2677
             ident: 'postcss',
             config: false,
-            plugins: !useTailwind ?
-              [
+            plugins: [
                 'postcss-flexbugs-fixes',
                 // px2rem({ remUnit: 75 ,exclude:/node_modules/i}),
                 [
@@ -159,20 +158,20 @@ module.exports = function (webpackEnv) {
                 // so that it honors browserslist config in package.json
                 // which in turn let's users customize the target behavior as per their needs.
                 'postcss-normalize',
-              ] :
-              [
-                'tailwindcss',
-                'postcss-flexbugs-fixes',
                 [
-                  'postcss-preset-env',
+                  'postcss-px-to-viewport',
                   {
-                    autoprefixer: {
-                      flexbox: 'no-2009',
-                    },
-                    stage: 3,
-                  },
+                    
+                    viewportWidth: 375, // (Number) The width of the viewport.
+                    viewportHeight: 667, // (Number) The height of the viewport. -- 一般不需要配置
+                    unitPrecision: 5, // (Number) The decimal numbers to allow the REM units to grow to.
+                    viewportUnit: "vw", // (String) Expected units.
+                    selectorBlackList: [], // (Array) The selectors to ignore and leave as px.
+                    minPixelValue: 1, // (Number) Set the minimum pixel value to replace.
+                    mediaQuery: false // (Boolean) Allow px to be converted in media queries.
+                  }
                 ],
-              ],
+              ]
           },
           sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
         },

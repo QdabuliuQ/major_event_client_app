@@ -135,7 +135,7 @@ export default function VideoContent(props: IProps) {
         <video onWaiting={onWaiting} onCanPlay={onCanPlay} onTimeUpdate={onTimeUpdate} muted loop ref={videoRef} autoPlay src={props.video_url}></video>
       </div>
       <div style={{opacity: visible ? 0 : 1}} className='timeMask'>
-        <span style={{color: '#409eff'}}>{nowLength} </span> <label style={{margin: '0 4px'}}>/</label> <span>{allLength}</span>
+        <span style={{color: '#409eff'}}>{nowLength} </span> <label>/</label> <span>{allLength}</span>
       </div>
       <div className='sliderContainer'>
         <Slider

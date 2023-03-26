@@ -15,7 +15,6 @@ export default function SearchDetail() {
   const router = useNavigate()
 
   let key: string = sessionStorage.getItem('key') as string
-  console.log(key);
   
   const SearchNavRef = useRef()
   const ScrollListRef = useRef()
@@ -154,7 +153,7 @@ export default function SearchDetail() {
                         {
                           list.videos && list.videos.length ? (
                             <div>
-                              <CategoryNav bottom={'.3125rem'} title='视频' />
+                              <CategoryNav bottom={'10px'} title='视频' />
                               {
                                 <div className='videoContainer'>
                                   {
@@ -178,7 +177,7 @@ export default function SearchDetail() {
                         {
                           list.users && list.users.length ? (
                             <div>
-                              <CategoryNav bottom={'.3125rem'} title='用户' />
+                              <CategoryNav bottom={'10px'} title='用户' />
                               {
                                 list.users.map((item: any) => <UserItem
                                   key={item.id}

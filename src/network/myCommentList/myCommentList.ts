@@ -6,7 +6,7 @@ export function getCommentById(data: {
 }) {
   return ajax({
     url: '/com/getCommentById', 
-    data, 
+    params: data, 
     method: 'get'
   })
 }

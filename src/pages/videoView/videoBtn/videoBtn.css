@@ -1,7 +1,7 @@
 #VideoLeftBtn {
   position: absolute;
   z-index: 2;
-  right: 0.3125rem;
+  right: 10px;
   bottom: 6vh;
   transition: 0.3s opacity linear;
 }
@@ -11,12 +11,12 @@
   align-items: center;
 }
 #VideoLeftBtn .btnItem:not(:last-child) {
-  margin-bottom: 0.4688rem;
+  margin-bottom: 15px;
 }
 #VideoLeftBtn .btnItem .itemCount {
-  margin-top: 0.0938rem;
+  margin-top: 3px;
   color: #fff;
-  font-size: 0.4063rem;
+  font-size: 13px;
 }
 #VideoLeftBtn .btnItem .userAvatar {
   width: 12vw;

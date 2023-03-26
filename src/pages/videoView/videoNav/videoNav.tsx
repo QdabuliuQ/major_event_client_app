@@ -8,8 +8,8 @@ export default function VideoNav() {
 
   return (
     <div id='VideoNav'>
-      <Search onClick={() => router(-1)} fontSize={25} color='#f0f0f0' />
-      <AddO onClick={() => router('/pubVideo')} fontSize={25} color='#f0f0f0' />
+      <Search onClick={() => router('/search')} color='#f0f0f0' />
+      <AddO onClick={() => router('/pubVideo')} color='#f0f0f0' />
     </div>
   )
 }

@@ -4,13 +4,14 @@ body {
 }
 
 :root:root {
-  --rv-tag-large-font-size: .375rem;
-  --rv-action-sheet-item-font-size: .4375rem;
+  --rv-tag-large-font-size: 12px;
+  --rv-action-sheet-item-font-size: 14px;
   --rv-primary-color: #409eff;
   --rv-badge-background-color: #409eff;
-  --rv-font-size-md: .4063rem;
-  --rv-nav-bar-title-font-size: .4063rem;
-  --rv-share-sheet-cancel-button-font-size: .4375rem;
+  --rv-font-size-md: 13px;
+  --rv-nav-bar-title-font-size: .13px;
+  --rv-share-sheet-cancel-button-font-size: 14px;
+  --rv-nav-bar-title-font-size: 14px;
 }
 
 @media screen and (min-width: 680px) {

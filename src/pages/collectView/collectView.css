@@ -1,12 +1,12 @@
 #CollectView .rv-tabs__wrap {
-  height: 1.0938rem;
+  height: 35px;
   box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
 }
 #CollectView .collectItem {
-  padding: 0.3125rem;
+  padding: 10px 13px;
 }
 #CollectView .collectItem:not(:last-child) {
-  border-bottom: 0.25rem solid #f4f4f4;
+  border-bottom: 1px solid #f4f4f4;
 }
 #CollectView .collectItem .ArticleItem {
   padding: 0;
@@ -16,8 +16,8 @@
   right: -1px;
 }
 #CollectView .collectVideoContainer {
-  padding: 0.3125rem;
+  padding: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 0.4688rem;
+  grid-gap: 15px;
 }

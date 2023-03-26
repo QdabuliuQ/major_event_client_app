@@ -1,13 +1,13 @@
 #InfoView {
   .userInfoContainer {
     width: 100vw;
-    height: 38vh;
+    height: 250px;
     position: relative;
     .topButtom {
       display: flex;
       justify-content: space-between;
       position: absolute;
-      padding: .375rem;
+      padding: 12px;
       z-index: 3;
     }
     .user_bg_image {
@@ -27,32 +27,44 @@
       z-index: 2;
       background-color: rgba(0,0,0,.4);
       .user_basic_info {
-        padding: 0 .4375rem;
+        padding: 0 14px;
         position: absolute;
-        bottom: .3125rem;
+        bottom: 10px;
+        .info_btn_list {
+          display: flex;
+          align-items: center;
+          .chatBtn {
+            margin-right: 10px;
+            background-color: rgba(255, 255, 255, 0.272);
+          }
+        }
         .info_item:not(:last-child) {
-          margin-bottom: .25rem;
+          margin-bottom: 8px;
         }
         .rv-button--small {
-          padding: 0 .5313rem;
+          padding: 0 17px;
         }
         .top_info {
           display: flex;
           align-items: center;
           color: #fff;
           font-size: 14px;
+          .rv-image {
+            width: 60px;
+            height: 60px;
+          }
           .info_follow {
             display: flex;
             align-items: center;
-            margin-top: .1563rem;
+            margin-top: 5px;
             .followItem {
-              margin-right: .4688rem;
-              font-size: .375rem;
+              margin-right: 15px;
+              font-size: 12px;
               span {
-                font-size: .4688rem;
+                font-size: 15px;
                 font-weight: bold;
                 color: #fff;
-                margin-right: .0938rem;
+                margin-right: 3px;
               }
             }
           }
@@ -66,34 +78,34 @@
           display: flex;
           align-items: center;
           .target_item {
-            margin-right: .4688rem;
+            margin-right: 15px;
             color: #fff;
             background-color: #ffffff41;
-            padding: .1563rem .3125rem;
+            padding: 5px 10px;
             zoom: .8;
           }
         }
         .info_operation {
-          margin-top: .3125rem;
+          margin-top: 10px;
           display: flex;
           align-items: center;
           .ope_item {
             color: #fff;
-            padding: .1875rem .4375rem;
+            padding: 6px 14px;
             background-color: #ffffff46;
           }
         }
       }
     }
     .btnItem {
-      width: 2.5rem;
-      height: .9375rem;
+      width: 80px;
+      height: 30px;
       text-align: center;
       color: #fff;
       outline: none;
       border: 0;
       border-radius: 3px;
-      font-size: .375rem;
+      font-size: 12px;
     }
     .followBtn {
       background-color: #ffffff4d;
@@ -106,10 +118,10 @@
     }
   }
   .rv-tabs__wrap {
-    height: 1.1563rem;
+    height: 40px;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, .1);
   }
   .routerContainer {
-    padding: .25rem .375rem;
+    padding: 8px 12px;
   }
 }

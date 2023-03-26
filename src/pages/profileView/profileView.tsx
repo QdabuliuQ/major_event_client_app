@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { VideoO,ChatO, WarningO, ClockO, Records, StarO, GoodJobO, Description } from '@react-vant/icons';
+import { VideoO, ChatO, WarningO, ClockO, Records, StarO, GoodJobO, Description, VolumeO } from '@react-vant/icons';
 import moment from "moment";
-import { Cell, Grid, Typography, Image, Toast } from 'react-vant'
+import { NoticeBar, Cell, Grid, Typography, Image, Toast, Swiper } from 'react-vant'
 import city from '@/utils/city'
-import { getUserInfo } from "@/network/profileView/profileView";
+import { getUserInfo, getReceNoticeList } from "@/network/profileView/profileView";
 import "./profileView.less"
+
+interface NoticeListInt {
+  desc: string
+}
 
 export default function ProfileView() {
   const router = useNavigate()
 
+  const [noticeList, setNoticeList] = useState<NoticeListInt[] | null>(null)
   const [funList, setFunList] = useState<{
     name: string
     icon: any
@@ -68,7 +73,7 @@ export default function ProfileView() {
     localStorage.removeItem('info')
     localStorage.removeItem('token')
     localStorage.removeItem('id')
-    Toast.success('以退出登录')
+    Toast.success('退出登录')
     router('/login', {
       replace: true
     })
@@ -76,7 +81,7 @@ export default function ProfileView() {
 
   useEffect(() => {
     let info = localStorage.getItem('info')
-    if(!info) {
+    if (!info) {
       getUserInfo().then((res: any) => {
         localStorage.setItem('info', JSON.stringify(res.data))
         setInfo(res.data)
@@ -84,7 +89,14 @@ export default function ProfileView() {
     } else {
       setInfo(JSON.parse(info))
     }
-    
+
+    getReceNoticeList({
+      offset: 1,
+      pageSize: 60
+    }).then((res: any) => {
+      console.log(res);
+      setNoticeList(res.data)
+    })
   }, [])
 
   return (
@@ -97,10 +109,8 @@ export default function ProfileView() {
           <div className='user_data'>
             <div className='user_basic_info'>
               <div className='top_info'>
-                <Image width='1.875rem' height='1.875rem' round fit='cover' src={info.user_pic} />
-                <div style={{ marginLeft: '10px' }}>
-                  <div className='info_nickname'>{info.nickname}</div>
-                </div>
+                <Image round fit='cover' src={info.user_pic} />
+                <div className='info_nickname'>{info.nickname}</div>
               </div>
               <div className='info_intro'>
                 <Typography.Text ellipsis>
@@ -133,6 +143,27 @@ export default function ProfileView() {
             </div>
           </div>
         </div>
+      }
+      {
+        noticeList && noticeList.length ? (
+          <div className='noticeContainer'>
+            <NoticeBar leftIcon={<VolumeO />}>
+              <Swiper
+                autoplay={3000}
+                indicator={false}
+                vertical
+              >
+                {
+                  noticeList.map((item: any) => (
+                    <Swiper.Item onClick={() => router('/notice/'+item.id)} key={item.id}>
+                      <div className='noticeItem'>{item.desc}</div>
+                    </Swiper.Item>
+                  ))
+                }
+              </Swiper>
+            </NoticeBar>
+          </div>
+        ) : ''
       }
       <div className='functionListContainer'>
         {

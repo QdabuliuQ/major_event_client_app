@@ -25,6 +25,10 @@ const MyArticleList = lazy(() => import("@/pages/myArticleList/myArticleList"))
 const MyVideoList = lazy(() => import("@/pages/myVideoList/myVideoList"))
 const VideoDetail = lazy(() => import("@/pages/videoDetail/videoDetail"))
 const SearchDetail = lazy(() => import("@/pages/searchDetail/searchDetail"))
+const NoticeView = lazy(() => import("@/pages/noticeView/noticeView"))
+const MessageView = lazy(() => import("@/pages/messageView/messageView"))
+const ReplyDetailView = lazy(() => import("@/pages/replyDetailView/replyDetailView"))
+const PraiseDetailView = lazy(() => import("@/pages/praiseDetailView/praiseDetailView"))
 
 
 export default [
@@ -40,6 +44,7 @@ export default [
     path: '/forget',
     element: <ForgetView/>
   },
+  
   {
     path: '/index',
     element: <NavView/>,
@@ -57,6 +62,13 @@ export default [
           p_index: 'video'
         },
         element: <VideoView/>
+      },
+      {
+        path: 'message',
+        meta: {
+          p_index: 'message'
+        },
+        element: <MessageView/>
       },
       {
         path: 'profile',
@@ -146,6 +158,18 @@ export default [
   {
     path: '/search',
     element: <SearchDetail/>
+  },
+  {
+    path: '/notice/:id',
+    element: <NoticeView/>
+  },
+  {
+    path: '/replyDetail',
+    element: <ReplyDetailView/>
+  },
+  {
+    path: '/praiseDetail',
+    element: <PraiseDetailView/>
   },
   {
     path: '/',

@@ -149,7 +149,7 @@ export default function ReportResult() {
                     time={item.time}
                     detailEvent={() => router('/reportDetail/'+item.id)}> 
                     <VideoInfo 
-                      style={{marginBottom: '0.1875rem'}}
+                      style={{marginBottom: '06px'}}
                       cover_img={item.cover_img}
                       title={item.title}
                       time={item.pub_date}

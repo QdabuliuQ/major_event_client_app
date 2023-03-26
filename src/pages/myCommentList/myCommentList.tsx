@@ -81,6 +81,8 @@ export default function MyCommentList() {
         setOffset(1)
         setMore(true)
         setType(e + 1)
+        console.log(e);
+        
         getData(e + 1, 1)
       }}>
         <Tabs.TabPane title='文章' />

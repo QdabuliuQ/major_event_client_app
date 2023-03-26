@@ -1,11 +1,11 @@
 .MoreBtn {
   width: 100%;
-  padding: 0.3125rem 0;
+  padding: 10px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.4063rem;
-  margin: 0.3125rem 0;
+  font-size: 13px;
+  margin: 10px 0;
 }
 .MoreBtn .btn {
   display: flex;
@@ -14,5 +14,5 @@
 .MoreBtn .btn svg {
   position: relative;
   top: 1px;
-  margin-left: 0.1563rem;
+  margin-left: 5px;
 }

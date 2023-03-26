@@ -1,0 +1,40 @@
+.ChatItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+.ChatItem:not(:last-child) {
+  box-sizing: border-box;
+  border-bottom: 1px solid #ebebeb;
+}
+.ChatItem .leftImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.ChatItem .leftImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ChatItem .rightInfo {
+  flex: 1;
+  margin-left: 10px;
+}
+.ChatItem .rightInfo .info_name {
+  width: 90%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 15px;
+}
+.ChatItem .rightInfo .info_message {
+  width: 90%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 13px;
+  color: #ccc;
+  margin-top: 4px;
+}

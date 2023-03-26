@@ -24,12 +24,12 @@ const SearchNav = forwardRef((props: IProps, ref: any) => {
       {
         props.back && (
           <div onClick={() => router(-1)} className='backBtn'>
-            <ArrowLeft color='#fff' fontSize={23} />
+            <ArrowLeft color='#fff' />
           </div>
         )
       }
       <div className='navInput'>
-        <Search style={{ position: 'relative', top: '1px' }} fontSize='15px' />
+        <Search />
         <input ref={inputRef} onKeyUp={(e) => e.keyCode === 13 && props.onKeyup((inputRef.current as HTMLInputElement).value)} type="text" placeholder='搜索相关文章内容' />
       </div>
       <div className='navBtn'>

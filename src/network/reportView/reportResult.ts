@@ -28,7 +28,7 @@ export function getVideoReportList(data: {
 }) {
   return ajax({
     url: '/rep/getVideoReportList', 
-    data, 
+    params: data, 
     method: 'get'
   })
 }

@@ -1,0 +1,12 @@
+#MessageView {
+  height: 100%;
+  min-height: 100%;
+}
+#MessageView .messageList {
+  padding: 0 10px;
+  border-bottom: 7px solid #f9f9f9;
+}
+#MessageView .messageList .rv-icon-arrow {
+  font-size: 20px;
+  color: #ccc;
+}

@@ -13,9 +13,10 @@ import "./articleView.less"
 export default function ArticleView() {
   const router = useNavigate()
 
-  let offset = 1
+  
   const navbarRef = useRef(null)
   const { id } = useParams()
+  const [offset, setOffset] = useState(1)
   const [params, setParams] = useState<any>(null)
   const [visible, setVisible] = useState(false)
   const [reason, setReason] = useState<{
@@ -42,18 +43,21 @@ export default function ArticleView() {
     { name: '举报', icon: <div className='articleMenuItem'><WarnO fontSize={'20px'} /></div> },
   ]
 
-  const getCommentData = () => {
+  const getCommentData = (offset: number) => {
     getArticleComment({
       art_id: id as string,
       offset,
-      limit: 15
+      limit: 30
     }).then((res: any) => {
       if (res.status) {
         return Toast.fail(res.msg)
       }
-      setCommentList([...commentList, ...res.data])
+      if(offset == 1) {
+        setCommentList(res.data)
+      } else {
+        setCommentList([...commentList, ...res.data])
+      }
       setMore(res.more)
-      offset++
     })
   }
 
@@ -74,7 +78,7 @@ export default function ArticleView() {
       }
     })
 
-    getCommentData()
+    getCommentData(1)
 
     getReportReason({
       type: '2'
@@ -116,7 +120,10 @@ export default function ArticleView() {
         status == 0 && info ? (
           <div>
             <ScrollList
-              cb={getCommentData}
+              cb={() => {
+                setOffset(offset+1)
+                getCommentData(offset+1)
+              }}
               hasMore={more}
               height={height}>
               <div className='articleInfoContainer'>
@@ -136,7 +143,7 @@ export default function ArticleView() {
                   }
                 </div>
                 <div className='articleAuthor'>
-                  <Image round fit='cover' width='1.25rem' height='1.25rem' src={info.user_pic} />
+                  <Image round fit='cover' src={info.user_pic} />
                   <div onClick={() => {
                     router('/info', {
                       state: {
@@ -189,7 +196,10 @@ export default function ArticleView() {
               </div>
             </ScrollList>
             <Sticky position="bottom">
-              <_NavBar ref={navbarRef} params={params}></_NavBar>
+              <_NavBar cb={() => {
+                setOffset(1)
+                getCommentData(1)
+              }} ref={navbarRef} params={params}></_NavBar>
             </Sticky>
           </div>
         ) : (

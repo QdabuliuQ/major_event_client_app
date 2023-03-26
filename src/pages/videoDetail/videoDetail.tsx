@@ -177,7 +177,7 @@ export default function VideoDetail() {
         </div>
       </ActionSheet>
       <div className='videoNav'>
-        <ArrowLeft onClick={() => router(-1)} fontSize={25} color='#f0f0f0' />
+        <ArrowLeft onClick={() => router(-1)} color='#f0f0f0' />
       </div>
       {
         status == 1 ? (

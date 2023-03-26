@@ -2,22 +2,22 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin-top: 0.4688rem;
+  margin-top: 15px;
 }
 .CategoryNav::after {
   position: absolute;
   content: "";
-  width: 0.125rem;
+  width: 4px;
   height: 100%;
   left: 0;
   top: 0;
   background-color: #409eff;
 }
 .CategoryNav span {
-  font-size: 0.4063rem;
+  font-size: 13px;
   font-weight: bold;
   color: #409eff;
-  margin-left: 0.3125rem;
+  margin-left: 10px;
   position: relative;
   top: -1px;
 }

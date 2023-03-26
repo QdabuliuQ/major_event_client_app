@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
 import moment from "moment";
-import 'lib-flexible'; 
+// import 'lib-flexible'; 
 import './index.css';
 import App from './App';
 

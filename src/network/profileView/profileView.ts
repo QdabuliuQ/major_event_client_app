@@ -6,3 +6,25 @@ export function getUserInfo() {
     url: '/my/getUserInfo'
   })
 }
+
+// 获取前台公告
+export function getReceNoticeList(data: {
+  offset: number,
+  pageSize: number
+}) {
+  return ajax({
+    url: '/my/getReceNoticeList',
+    params: data,
+    method: 'get'
+  })
+}
+
+export function getReceNoticeDetail(data: {
+  id: string
+}) {
+  return ajax({
+    url: '/my/getReceNoticeDetail',
+    data,
+    method: 'post'
+  })
+}

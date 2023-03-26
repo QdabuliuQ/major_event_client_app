@@ -1,20 +1,20 @@
 .actionSheetClass .articleContainer {
-  padding: 0.4688rem 0.4063rem;
+  padding: 15px 13px;
 }
 .actionSheetClass .articleContainer .scrollContainer {
   height: 55vh;
   overflow-y: scroll;
-  margin-bottom: 0.3125rem;
+  margin-bottom: 10px;
 }
 .actionSheetClass .articleContainer .articleTitle {
-  padding: 0.3125rem 0;
+  padding: 10px 0;
   box-sizing: border-box;
   border-bottom: 1px solid #dad9d9;
 }
 .actionSheetClass .articleContainer .articleTitle input {
   outline: none;
   border: 0;
-  font-size: 0.4063rem;
+  font-size: 13px;
 }
 .actionSheetClass .articleContainer .articleTitle input::-webkit-input-placeholder {
   color: #ccc;
@@ -32,27 +32,27 @@
   color: #ccc;
 }
 .actionSheetClass .articleContainer .itemTitle {
-  font-size: 0.4063rem;
-  padding-bottom: 0.1875rem;
+  font-size: 13px;
+  padding-bottom: 6px;
 }
 .actionSheetClass .articleContainer .articleTarget {
-  padding: 0.3125rem 0;
+  padding: 10px 0;
 }
 .actionSheetClass .articleContainer .articleTarget .rv-selector__item {
-  margin-right: 0.1875rem;
-  margin-bottom: 0.1875rem;
+  margin-right: 6px;
+  margin-bottom: 6px;
 }
 .actionSheetClass .articleContainer .articleCategory {
-  padding: 0.3125rem 0;
+  padding: 10px 0;
 }
 .actionSheetClass .articleContainer .articleCategory .rv-cell {
-  padding: 0.3125rem 0;
+  padding: 10px 0;
   box-sizing: border-box;
   border-bottom: 1px solid #dad9d9;
 }
 .actionSheetClass .articleContainer .btnContainer {
   position: fixed;
-  bottom: 0.625rem;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -69,7 +69,7 @@
   width: 100%;
 }
 #PubArticleView .w-e-text-container {
-  font-size: 0.4375rem;
+  font-size: 14px;
 }
 #PubArticleView .w-e-bar-item-group .w-e-bar-item-menus-container {
   margin-top: 0;
@@ -80,9 +80,9 @@
   align-items: center;
   overflow-x: scroll;
   background-color: #fcfcfc;
-  font-size: 0.4063rem !important;
+  font-size: 13px !important;
   position: static;
-  padding-bottom: 0.1563rem;
+  padding-bottom: 5px;
 }
 #PubArticleView .w-e-bar .w-e-bar-item {
   position: static;
