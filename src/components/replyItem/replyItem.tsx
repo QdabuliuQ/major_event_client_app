@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Image, Typography } from 'react-vant'
 import "./replyItem.less"
 
@@ -14,7 +14,7 @@ interface IProps {
   p_comment_id: string
 }
 
-export default function ReplyItem(props: IProps) {
+export default memo(function ReplyItem(props: IProps) {
   return (
     <div className='ReplyItem'>
       <div className='userInfo'>
@@ -47,4 +47,4 @@ export default function ReplyItem(props: IProps) {
       </div>
     </div>
   )
-}
+})

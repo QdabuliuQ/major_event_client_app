@@ -80,8 +80,7 @@ export default function InfoView() {
       to_id: id
     }).then((res: any) => {
       if(res.status) return Toast.fail(res.msg)
-      console.log('跳转');
-      
+      router(`/chat/${id}/${res.room_id}`)
     })
   }
   // 加载数据

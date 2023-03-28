@@ -1,0 +1,11 @@
+.TextMessage .messageContainer {
+  padding: 12px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.TextMessage .myMessage {
+  margin-left: 10px;
+}
+.TextMessage .otherMessage {
+  margin-left: 10px;
+}

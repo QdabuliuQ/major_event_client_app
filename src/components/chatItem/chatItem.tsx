@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import "./chatItem.less"
 
 interface IProps {
@@ -10,7 +10,7 @@ interface IProps {
   click?: Function
 }
 
-export default function ChatItem(props: IProps) {
+export default memo(function ChatItem(props: IProps) {
   return (
     <div onClick={() => props.click && props.click()} className='ChatItem'>
       <div className='leftImg'>
@@ -31,4 +31,4 @@ export default function ChatItem(props: IProps) {
       }
     </div>
   )
-}
+}) 

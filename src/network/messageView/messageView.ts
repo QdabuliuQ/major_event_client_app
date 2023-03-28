@@ -4,8 +4,8 @@ export function addChatObject(data: {
   to_id: string
 }) {
   return ajax({
-    url: '/chat/addChatObject', 
-    data, 
+    url: '/chat/addChatObject',
+    data,
     method: 'post'
   })
 }
@@ -31,5 +31,32 @@ export function getPraiseComment(data: {
     url: '/com/getPraiseComment',
     params: data,
     method: 'get'
+  })
+}
+
+// 发送消息
+export function addMessageRecord(data: {
+  type: string
+  to_id: string
+  room_id: string
+  resource?: string
+}) {
+  return ajax({
+    url: '/chat/addMessageRecord',
+    data,
+    method: 'post'
+  })
+}
+
+// 获取聊天
+export function getMessageList(data: {
+  room_id: string
+  pageSize: number
+  offset: number
+}) {
+  return ajax({
+    url: '/chat/getMessageList',
+    data,
+    method: 'post'
   })
 }

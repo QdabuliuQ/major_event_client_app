@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GoodJob } from '@react-vant/icons'
 import { Typography, Image } from 'react-vant'
@@ -15,7 +15,7 @@ interface IProps {
   user_pic: string
 }
 
-export default function PraiseItem(props: IProps) {
+export default memo(function PraiseItem(props: IProps) {
   const router = useNavigate()
 
   return (
@@ -48,4 +48,4 @@ export default function PraiseItem(props: IProps) {
       </div>
     </div>
   )
-}
+}) 

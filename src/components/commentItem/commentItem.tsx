@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { WarningO, GoodJob, GoodJobO, Arrow } from '@react-vant/icons';
 import moment from "moment";
@@ -28,7 +28,7 @@ interface IProps {
   }[] 
 }
 
-export default function CommentItem({
+export default memo(function CommentItem({
   content,
   time,
   nickname,
@@ -96,7 +96,6 @@ export default function CommentItem({
   useEffect(() => {
     setPraiseCount(praise as number)
     setPraiseState(is_praise as number)
-    
   }, [praise, is_praise])
 
   return (
@@ -152,4 +151,4 @@ export default function CommentItem({
       </ActionSheet>
     </div>
   )
-}
+}) 
