@@ -60,3 +60,15 @@ export function getMessageList(data: {
     method: 'post'
   })
 }
+
+// 获取聊天对象
+export function getChatObject(data: {
+  offset: number
+  pageSize: number
+}) {
+  return ajax({
+    url: '/chat/getChatObject',
+    data,
+    method: 'post'
+  })
+}

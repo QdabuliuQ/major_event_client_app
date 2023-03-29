@@ -1,11 +1,42 @@
-.TextMessage .messageContainer {
-  padding: 12px 10px;
-  border-radius: 8px;
-  font-size: 14px;
+.TextMessage .messageBox {
+  padding: 11px 10px;
+  border-radius: 7px;
+  font-size: 15px;
 }
 .TextMessage .myMessage {
-  margin-left: 10px;
+  margin-right: 12px;
+  background-color: var(--color);
+  color: #fff;
+  position: relative;
+  word-break: break-all;
+}
+.TextMessage .myMessage::after {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid var(--color);
+  border-right: 8px solid transparent;
+  content: '';
+  position: absolute;
+  right: -15px;
+  top: 12px;
 }
 .TextMessage .otherMessage {
-  margin-left: 10px;
+  margin-left: 12px;
+  background-color: #e8e8e8;
+  position: relative;
+  word-break: break-all;
+}
+.TextMessage .otherMessage::after {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid transparent;
+  border-right: 8px solid #e8e8e8;
+  content: '';
+  position: absolute;
+  left: -15px;
+  top: 12px;
 }

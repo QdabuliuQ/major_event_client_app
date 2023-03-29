@@ -5,6 +5,7 @@ import { Toast, Form, Input, Button } from 'react-vant'
 import { loginUser } from "@/network/loginView/loginView";
 import v from "@/utils/globarVar";
 import "./loginView.less"
+import { getUserInfo } from '@/network/profileView/profileView';
 
 export default function LoginView() {
   const router = useNavigate()
@@ -25,6 +26,9 @@ export default function LoginView() {
           Toast.success(res.msg)
           localStorage.setItem('token', res.token)
           localStorage.setItem('id', res.id)
+          getUserInfo().then((res: any) => {
+            localStorage.setItem('info', JSON.stringify(res.data))
+          })
           router('/index', {
             replace: true
           })
@@ -58,7 +62,6 @@ export default function LoginView() {
 
   return (
     <div id='LoginView'>
-
       <div className='formContainer'>
         <div className='topImage'>
           <img src={require('@/assets/images/loginImg.png')} alt="" />

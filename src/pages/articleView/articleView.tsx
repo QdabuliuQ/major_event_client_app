@@ -12,7 +12,6 @@ import "./articleView.less"
 
 export default function ArticleView() {
   const router = useNavigate()
-
   
   const navbarRef = useRef(null)
   const { id } = useParams()

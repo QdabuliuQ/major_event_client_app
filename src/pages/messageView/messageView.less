@@ -3,7 +3,28 @@
   min-height: 100%;
   .messageList {
     padding: 0 10px;
-    border-bottom: 7px solid #f9f9f9;
+    .info_message {
+      width: 100%;
+    }
+    .messageInfo {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .leftMessage {
+        width: 70%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .rightTime {
+        flex: 1;
+        text-align: right;
+      }
+    }
+    &:not(:last-child) {
+      border-bottom: 7px solid #f9f9f9;
+    }
     .rv-icon-arrow {
       font-size: 20px;
       color: #ccc;

@@ -1,19 +1,32 @@
-#MessageList {
+.messageContainer {
+  overflow-y: scroll;
+  background-color: #f8f8f8;
+}
+.messageContainer #MessageList {
   padding: 12px;
 }
-#MessageList .MessageItem {
+.messageContainer #MessageList .MessageItem:not(:last-child) {
   margin-bottom: 15px;
 }
-#MessageList .MessageItem .userImg {
+.messageContainer #MessageList .MessageItem .userImg {
   width: 40px;
   height: 40px;
 }
-#MessageList .MessageItem .messageMe {
+.messageContainer #MessageList .MessageItem .messageMe {
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
-#MessageList .MessageItem .messageOther {
+.messageContainer #MessageList .MessageItem .messageOther {
   width: 100%;
+  display: flex;
+}
+.messageContainer #MessageList .MessageItem .message_i {
+  width: 85%;
+  display: flex;
+  justify-content: flex-end;
+}
+.messageContainer #MessageList .MessageItem .message_o {
+  width: 85%;
   display: flex;
 }

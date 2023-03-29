@@ -5,7 +5,7 @@ interface IProps {
   id?: string
   img: string
   name: string
-  message?: string
+  message?: any
   rightSlot?: any
   click?: Function
 }

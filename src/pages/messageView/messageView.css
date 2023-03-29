@@ -4,6 +4,27 @@
 }
 #MessageView .messageList {
   padding: 0 10px;
+}
+#MessageView .messageList .info_message {
+  width: 100%;
+}
+#MessageView .messageList .messageInfo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#MessageView .messageList .messageInfo .leftMessage {
+  width: 70%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#MessageView .messageList .messageInfo .rightTime {
+  flex: 1;
+  text-align: right;
+}
+#MessageView .messageList:not(:last-child) {
   border-bottom: 7px solid #f9f9f9;
 }
 #MessageView .messageList .rv-icon-arrow {

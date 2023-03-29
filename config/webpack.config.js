@@ -573,18 +573,38 @@ module.exports = function (webpackEnv) {
             },
             {
               test: lessModuleRegex,
-              use: getStyleLoaders({
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction ?
-                    shouldUseSourceMap :
-                    isEnvDevelopment,
-                  modules: {
-                    mode: "local",
-                    getLocalIdent: getCSSModuleLocalIdent,
+              use: [
+                ...getStyleLoaders(
+                  {
+                    importLoaders: 3,
+                    sourceMap: isEnvProduction
+                      ? shouldUseSourceMap
+                      : isEnvDevelopment,
+                    modules: {
+                      mode: 'icss',
+                    },
+                  },
+                  'less-loader'
+                ),
+                {
+                  loader: 'style-resources-loader',
+                  options: {
+                    patterns: path.resolve(__dirname, '../src/assets/less/common.less'),
                   },
                 },
-                "less-loader"
-              ),
+              ],
+              // use: getStyleLoaders({
+              //     importLoaders: 3,
+              //     sourceMap: isEnvProduction ?
+              //       shouldUseSourceMap :
+              //       isEnvDevelopment,
+              //     modules: {
+              //       mode: "local",
+              //       getLocalIdent: getCSSModuleLocalIdent,
+              //     },
+              //   },
+              //   "less-loader"
+              // ),
             },
 
             // "file" loader makes sure those assets get served by WebpackDevServer.
