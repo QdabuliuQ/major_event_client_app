@@ -38,6 +38,7 @@ export default memo(function MessageEdit() {
           room_id: room_id,
           to_id: to_id,
           type: '1',
+          time: res.time
         });
         (inputRef.current as HTMLInputElement).value = ''
       })

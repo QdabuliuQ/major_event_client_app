@@ -13,7 +13,6 @@ function useGetHeight(els?: string[]) {
       setHeight(screenHeight);
     }
   }, [])
-
   return height
 }
 
