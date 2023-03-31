@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Arrow } from '@react-vant/icons';
 import { Empty, NavBar } from 'react-vant';
-import { useSelector, useDispatch } from "react-redux";
 import ScrollList from "@/components/scrollList/scrollList";
 import { useGetHeight } from "@/hooks/useGetHeight";
 import { useSocket } from "@/hooks/useSocket";
@@ -25,6 +24,8 @@ interface ListInt {
 export default function MessageView() {
   const router = useNavigate()
   let id = localStorage.getItem('id')
+  const [offset, setOffset] = useState(1)
+  const [more, setMore] = useState(true)
   const [list, setList] = useState<ListInt[]>([])
   const [socket, setSocket] = useState(useSocket())
   const noticeList = [
@@ -47,36 +48,34 @@ export default function MessageView() {
     getChatObject({
       offset,
       pageSize: 10
-    }).then(res => {
+    }).then((res: any) => {
       if (offset == 1) {
         setList(res.data)
       } else {
         setList([...list, ...res.data])
       }
+      setMore(res.more)
     })
   }
   const itemClick = (item: ListInt) => {
-    console.log(list, item);
-    
     router(`/chat/${item.u_id}/${item.room_id}`)
   }
 
+  // 消息监听
   socket.onmessage = (msg: any) => {
-    console.log(list);
-    
+    // 数据转换
     let data = JSON.parse(msg.data)
     for(let i = 0; i < list.length; i ++) {
-      if(list[i].u_id == data.from_id) {
+      if(list[i].u_id == data.from_id) {  // 判断是否存在在聊天列表当中
         list[i].type = data.type
         list[i].resource = data.resource
         let obj = list.splice(i, 1)
-        console.log(obj, list);
-        
-        list.unshift(obj[0])
+        list.unshift(obj[0])  // 插入到最前面
         setList([...list])
         return
       }
     }
+    // 没有聊天对象 则创建一个
     let chatObj: ListInt = {
       msg_time: data.time,
       nickname: data.from_user_nickname,
@@ -92,48 +91,7 @@ export default function MessageView() {
   }
 
   useEffect(() => {
-    
     getData(1)
-    console.log(socket);
-    setTimeout(() => {
-      console.log(list);
-      
-    }, 3000);
-    socket.onmessage = (msg: any) => {
-      
-      let data = JSON.parse(msg.data)
-      // for(let i = 0; i < list.length; i ++) {
-      //   if(list[i].u_id == data.from_id) {
-      //     list[i].type = data.type
-      //     list[i].resource = data.resource
-      //     let obj = list.splice(i, 1)
-      //     console.log(obj, list);
-          
-      //     list.unshift(obj[0])
-      //     setList([...list])
-      //     return
-      //   }
-      // }
-      // let chatObj: ListInt = {
-      //   msg_time: data.time,
-      //   nickname: data.from_user_nickname,
-      //   resource: data.resource,
-      //   room_id: data.room_id,
-      //   type: data.type,
-      //   u_id: data.from_id,
-      //   time: data.time,
-      //   status: '1',
-      //   user_pic: data.from_user_pic,
-      // }
-      // setList([chatObj, ...list])
-    }
-    // console.log(useSocket());
-    
-    // if (_socket) {
-    //   setSocket(_socket)
-    // } else {
-    //   setSocket(s)
-    // }
   }, [])
 
   return (
@@ -142,7 +100,13 @@ export default function MessageView() {
         title="消息列表"
         leftArrow={false}
       />
-      <ScrollList height={height}>
+      <ScrollList 
+        height={height}
+        hasMore={more}
+        cb={() => {
+          setOffset(offset + 1)
+          getData(offset + 1)
+        }}>
         <div className='messageList'>
           {
             noticeList.map(item => (

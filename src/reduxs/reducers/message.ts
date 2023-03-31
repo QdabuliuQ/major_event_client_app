@@ -1,23 +1,21 @@
-
 import { ActionInt } from "@/interface/global";
 import { 
-  INIT_SOCKET ,
-  DELETE_SOCKET
+  ADD_MESSAGE_INFO, 
+  DELETE_MESSAGE_INFO 
 } from "../constants";
 
-// reducer函数
-export default function socket(state: any = null, action: ActionInt) {
+export default function message(state: any, action: ActionInt) {
   const {
     type,
     data
   } = action
 
   switch (type) {
-    case INIT_SOCKET:
+    case ADD_MESSAGE_INFO:
       return data
-    case DELETE_SOCKET:
+    case DELETE_MESSAGE_INFO:
       return null
     default:
-      return state;  
+      return null
   }
 }

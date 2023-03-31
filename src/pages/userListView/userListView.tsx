@@ -12,8 +12,8 @@ export default function UserListView() {
   const loc = useLocation()
   
   let type = loc.pathname.indexOf('follow') != -1 ? 'follow' : 'fans'
-  console.log(type);
   
+  const [offset, setOffset] = useState(1)
   const [more, setMore] = useState(true)
   const [height, setHeight] = useState(0)
   const [status, setStatus] = useState(0)
@@ -24,9 +24,9 @@ export default function UserListView() {
     is_follow: number
     id: string
   }[]>([])
-  let offset = 1
+  // let offset = 1
 
-  const getData = () => {
+  const getData = (offset: number) => {
     if(type == 'follow') {
       getUserFollow({
         offset,
@@ -35,6 +35,11 @@ export default function UserListView() {
         if(res.status) {
           setStatus(res.status)
           return Toast.fail(res.msg)
+        }
+        if(offset == 1) {
+          setList(res.data)
+        } else {
+          setList([...list, ...res.data])
         }
         setMore(res.more)
         setList([...list, ...res.data])
@@ -48,14 +53,18 @@ export default function UserListView() {
           setStatus(res.status)
           return Toast.fail(res.msg)
         }
+        if(offset == 1) {
+          setList(res.data)
+        } else {
+          setList([...list, ...res.data])
+        }
         setMore(res.more)
-        setList([...list, ...res.data])
       })
     }
   }
 
   useEffect(() => {
-    getData()
+    getData(1)
 
     setHeight(document.documentElement.clientHeight - document.getElementsByClassName('rv-nav-bar')[0].clientHeight)
   }, [])
@@ -74,8 +83,8 @@ export default function UserListView() {
         : (
           <ScrollList 
             cb={() => {
-              offset++
-              getData()
+              setOffset(offset + 1)
+              getData(offset + 1)
             }}
             hasMore={more}
             height={height}>

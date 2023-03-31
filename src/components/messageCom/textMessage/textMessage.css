@@ -24,7 +24,7 @@
 }
 .TextMessage .otherMessage {
   margin-left: 12px;
-  background-color: #e8e8e8;
+  background-color: #fff;
   position: relative;
   word-break: break-all;
 }
@@ -34,7 +34,7 @@
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-left: 8px solid transparent;
-  border-right: 8px solid #e8e8e8;
+  border-right: 8px solid #fff;
   content: '';
   position: absolute;
   left: -15px;

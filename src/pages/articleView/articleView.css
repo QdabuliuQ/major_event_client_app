@@ -1,7 +1,13 @@
+.rv-share-sheet__option {
+  margin-right: 15px;
+}
 .articleMenuItem {
-  padding: 10px;
-  border-radius: 50%;
-  background-color: #f4f4f4;
+  width: 45px;
+  height: 45px;
+}
+.articleMenuItem img {
+  width: 100%;
+  height: 100%;
 }
 #ArticleView .rv-nav-bar .rv-icon-ellipsis {
   color: #000;

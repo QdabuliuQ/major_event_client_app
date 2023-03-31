@@ -12,3 +12,8 @@ export interface MessageInt {
   to_id: string
   type: string
 }
+
+export interface ActionInt {
+  type: string
+  data: any
+}

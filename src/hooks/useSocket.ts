@@ -7,7 +7,6 @@ function useSocket() {
   let id = localStorage.getItem('id')
   const socket = useSelector((state: any) => state.socket)
   if(socket) return socket
-  console.log(777);
   
   const ws = new WebSocket(`ws://127.0.0.1:8080/socketServer/${id}`);
   ws.onerror = () => { // 错误

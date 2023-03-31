@@ -30,6 +30,7 @@ const MessageView = lazy(() => import("@/pages/messageView/messageView"))
 const ReplyDetailView = lazy(() => import("@/pages/replyDetailView/replyDetailView"))
 const PraiseDetailView = lazy(() => import("@/pages/praiseDetailView/praiseDetailView"))
 const ChatView = lazy(() => import("@/pages/chatView/chatView"))
+const SendListView = lazy(() => import("@/pages/sendListView/sendListView"))
 
 
 export default [
@@ -175,6 +176,10 @@ export default [
   {
     path: '/chat/:to_id/:room_id',
     element: <ChatView/>
+  },
+  {
+    path: '/sendList',
+    element: <SendListView/>
   },
   {
     path: '/',

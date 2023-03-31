@@ -2,14 +2,17 @@ import React, { memo, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { useLocation, useParams } from 'react-router-dom';
 import { Toast } from 'react-vant';
 import PubSub from 'pubsub-js';
+import { useSocket } from "@/hooks/useSocket";
 import { getMessageList } from "@/network/messageView/messageView";
 import TextMessage from "@/components/messageCom/textMessage/textMessage";
+import ArticleMessage from "@/components/messageCom/articleMessage/articleMessage";
 import { useGetHeight } from '@/hooks/useGetHeight';
 import "./messageList.less"
 
 export default memo(function MessageList() {
   let flag = true
   const messageListRef = useRef<HTMLDivElement>(null)
+  const [socket, setSocket] = useState(useSocket())
   const { to_id, room_id } = useParams()
   const [offset, setOffset] = useState(1)
   const [more, setMore] = useState(true)
@@ -20,6 +23,15 @@ export default memo(function MessageList() {
     '#MessageEdit',
     '.rv-nav-bar'
   ])
+
+  // 消息监听
+  socket.onmessage = (msg: any) => {
+    let info = JSON.parse(msg.data)
+    if(info.from_id == to_id) {
+      setMessage([...message, info])
+      scrollBottom(0)
+    }
+  }
 
   // 滚动到底部
   const scrollBottom = (wait: number = 100) => {
@@ -60,24 +72,9 @@ export default memo(function MessageList() {
   }
 
   useLayoutEffect(() => {
-    const ws = new WebSocket(`ws://127.0.0.1:8080/socketServer/${my_id}`);
-    ws.onopen = () => { // 连接成功
-      
-    }
-    ws.onclose = () => { // 关闭
-      console.log('close');
-    };
-    ws.onerror = () => { // 错误
-      Toast.fail('网络错误')
-    };
-    ws.onmessage = (msg: any) => {
-      setMessage([...message, JSON.parse(msg.data)])
-      scrollBottom(0)
-    };
-
     let token = PubSub.subscribe('sendMessage', (_, data: any) => {
       setMessage([...message, data])
-      ws.send(JSON.stringify(data))
+      socket.send(JSON.stringify(data))
       scrollBottom(0)
     })
 
@@ -88,10 +85,22 @@ export default memo(function MessageList() {
 
   useEffect(() => {
     getData(1)
-
-
   }, [])
-
+  // <TextMessage
+  //   key={item.msg_id}
+  //   my_user_pic={my_user_pic}
+  //   from_id={item.from_id}
+  //   my_id={my_id}
+  //   from_user_nickname={item.from_user_nickname}
+  //   from_user_pic={item.from_user_pic}
+  //   msg_id={item.msg_id}
+  //   resource={item.resource}
+  //   resource_info={item.resource_info}
+  //   room_id={item.room_id}
+  //   time={item.time}
+  //   to_id={item.to_id}
+  //   type={item.type}
+  // />
   return (
     <div onScroll={scrollEvent} ref={messageListRef} style={{ height: h + 'px' }} className='messageContainer'>
       <div id='MessageList'>
@@ -102,17 +111,15 @@ export default memo(function MessageList() {
                 <TextMessage
                   key={item.msg_id}
                   my_user_pic={my_user_pic}
-                  from_id={item.from_id}
                   my_id={my_id}
-                  from_user_nickname={item.from_user_nickname}
-                  from_user_pic={item.from_user_pic}
-                  msg_id={item.msg_id}
-                  resource={item.resource}
-                  resource_info={item.resource_info}
-                  room_id={item.room_id}
-                  time={item.time}
-                  to_id={item.to_id}
-                  type={item.type}
+                  {...item}
+                />
+              ) : item.type == '2' ? (
+                <ArticleMessage
+                  key={item.msg_id}
+                  my_user_pic={my_user_pic}
+                  my_id={my_id}
+                  {...item}
                 />
               ) : ''
             ))

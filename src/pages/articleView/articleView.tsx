@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import moment from "moment";
-import { WarnO, Ellipsis } from '@react-vant/icons';
+import { Ellipsis } from '@react-vant/icons';
+import { useDispatch } from "react-redux";
 import { Toast, Sticky, ShareSheet, NavBar, Typography, Image, Empty } from 'react-vant';
 import { useParams, useNavigate } from "react-router-dom";
 import { getArticleDetail, getArticleParams, getArticleComment } from "@/network/articleView/articleView";
 import { getReportReason } from "@/network/reportView/reportView";
 import { _NavBar } from "./component/navBar/navBar";
+import { add_message_info } from "@/reduxs/actions/message";
 import CommentItem from "@/components/commentItem/commentItem";
 import ScrollList from "@/components/scrollList/scrollList";
 import "./articleView.less"
 
 export default function ArticleView() {
   const router = useNavigate()
-  
+  const dispatch = useDispatch()
   const navbarRef = useRef(null)
   const { id } = useParams()
   const [offset, setOffset] = useState(1)
@@ -39,7 +41,8 @@ export default function ArticleView() {
   const [more, setMore] = useState(true)
 
   const options = [
-    { name: '举报', icon: <div className='articleMenuItem'><WarnO fontSize={'20px'} /></div> },
+    { name: '发送', icon: <div className='articleMenuItem'><img src={require("@/assets/images/send.png")} alt="" /></div> },
+    { name: '举报', icon: <div className='articleMenuItem'><img src={require("@/assets/images/report.png")} alt="" /></div> },
   ]
 
   const getCommentData = (offset: number) => {
@@ -60,10 +63,29 @@ export default function ArticleView() {
     })
   }
 
+  const menuClick = (_: any, index: number) => {
+    switch (index) {
+      case 0:
+        
+        router(`/sendList`)
+        break;
+      case 1:
+        router(`/report/${id}/1`)
+        break;
+    }
+    setVisible(false)
+  }
+
   useEffect(() => {
     getArticleDetail({ id: id as string }).then((res: any) => {
       if (res.status == 0) {
         setInfo(res.data)
+        dispatch(add_message_info({
+          type: '2',
+          resource_info: res.data
+        }))
+        console.log(7);
+        
       } else {
         setStatus(res.status)
       }
@@ -88,7 +110,6 @@ export default function ArticleView() {
       setHeight(document.documentElement.clientHeight - document.getElementsByClassName('rv-nav-bar')[0].clientHeight - (document.getElementById('NavBar') as HTMLDivElement).clientHeight)
     }, 100);
 
-
   }, [])
 
   return (
@@ -97,16 +118,8 @@ export default function ArticleView() {
         visible={visible}
         options={options}
         onCancel={() => setVisible(false)}
-        onSelect={(option, index) => {
-          switch (index) {
-            case 0:
-              router(`/report/${id}/1`)
-              break;
-          }
-          setVisible(false)
-        }}
+        onSelect={menuClick}
       />
-
       <NavBar
         fixed={true}
         placeholder={true}

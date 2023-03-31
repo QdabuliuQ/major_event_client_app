@@ -41,7 +41,6 @@ export default memo(function TextMessage(props: MessageInt) {
             </div>
           </div>
         )
-
       }
     </div>
   )

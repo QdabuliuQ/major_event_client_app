@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Toast, Image, Typography } from 'react-vant'
 import FollowBtn from "@/components/followBtn/followBtn";
@@ -6,14 +6,15 @@ import {  updateFollowUser } from "@/network/infoView/infoView";
 import "./userItem.less"
 
 interface IProps {
-  is_follow: number
+  is_follow: number | null
   nickname: string
   user_pic: string
   intro: string | null
   id: string
+  click?: Function
 }
 
-export default function UserItem(props: IProps) {
+export default memo(function UserItem(props: IProps) {
   const router = useNavigate()
 
   const [follow, setFollow] = useState(0)
@@ -30,16 +31,26 @@ export default function UserItem(props: IProps) {
     })
   }
 
+  const itemClick = () => {
+    if(props.click) {
+      props.click(props)
+    } else {
+      router('/info', {
+        state: {
+          id: props.id
+        }
+      })
+    }
+  }
+
   useEffect(() => {
-    setFollow(props.is_follow)
+    if (props.is_follow) {
+      setFollow(props.is_follow)
+    }
   }, [props.is_follow])
 
   return (
-    <div onClick={() => router('/info', {
-      state: {
-        id: props.id
-      }
-    })} className='UserItem'>
+    <div onClick={itemClick} className='UserItem'>
       <div className='itemLeft'>
         <Image round fit={'cover'} width='14vw' height='14vw' src={props.user_pic} />
         <div className='userInfo'>
@@ -53,13 +64,17 @@ export default function UserItem(props: IProps) {
           </div>
         </div>
       </div>
-      <div className='itemBtn'>
-        <FollowBtn 
-          clickEvent={clickEvent}
-          id={props.id} 
-          followColor='rgb(206 206 206)' 
-          is_follow={follow} />
-      </div>
+      {
+        props.is_follow != null ? (
+          <div className='itemBtn'>
+            <FollowBtn 
+              clickEvent={clickEvent}
+              id={props.id} 
+              followColor='rgb(206 206 206)' 
+              is_follow={follow} />
+          </div>
+        ) : ''
+      }
     </div>
   )
-}
+})
