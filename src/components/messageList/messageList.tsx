@@ -6,6 +6,7 @@ import { useSocket } from "@/hooks/useSocket";
 import { getMessageList } from "@/network/messageView/messageView";
 import TextMessage from "@/components/messageCom/textMessage/textMessage";
 import ArticleMessage from "@/components/messageCom/articleMessage/articleMessage";
+import VideoMessage from "@/components/messageCom/videoMessage/videoMessage";
 import { useGetHeight } from '@/hooks/useGetHeight';
 import "./messageList.less"
 
@@ -121,7 +122,12 @@ export default memo(function MessageList() {
                   my_id={my_id}
                   {...item}
                 />
-              ) : ''
+              ) : <VideoMessage 
+                key={item.msg_id}
+                my_user_pic={my_user_pic}
+                my_id={my_id}
+                {...item}
+              />
             ))
           ) : <div></div>
         }

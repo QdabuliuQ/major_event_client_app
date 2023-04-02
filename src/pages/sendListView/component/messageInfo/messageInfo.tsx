@@ -1,5 +1,7 @@
+import { PlayCircleO } from '@react-vant/icons'
 import React, { memo } from 'react'
 import { Image, Typography } from 'react-vant'
+import SendVideoInfo from "@/components/sendVideoInfo/sendVideoInfo";
 import "./messageInfo.less"
 
 interface IProps {
@@ -19,7 +21,12 @@ export default memo(function MessageInfo(props: IProps) {
               <span className='target'>文章</span>
             </div>
           </div>
-        ) : ''
+        ) : <SendVideoInfo
+          cover_img={props.resource_info.cover_img}
+          title={props.resource_info.title}
+          nickname={props.resource_info.nickname}
+          time={props.resource_info.time}
+        />
       }
     </div>
   )

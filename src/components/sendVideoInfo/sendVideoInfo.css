@@ -1,0 +1,50 @@
+.SendVideoInfo {
+  width: 100%;
+  height: 330px;
+  position: relative;
+}
+.SendVideoInfo .mask {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.447);
+}
+.SendVideoInfo .rv-image {
+  width: 100%;
+  height: 100%;
+}
+.SendVideoInfo .rv-icon {
+  font-size: 80px;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  transform: translate(-50%, -50%);
+}
+.SendVideoInfo .videoInfo {
+  position: absolute;
+  z-index: 1;
+  bottom: 15px;
+  left: 15px;
+  width: 80%;
+  color: #fff;
+}
+.SendVideoInfo .videoInfo .userName {
+  font-size: 15px;
+  margin-bottom: 5px;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.SendVideoInfo .videoInfo .pubTime {
+  font-size: 13px;
+  color: #d5d5d5;
+  margin-top: 5px;
+}
+.SendVideoInfo .videoInfo .rv-typography__text {
+  color: #fff;
+  font-size: 15px;
+}

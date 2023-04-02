@@ -66,7 +66,6 @@ export default function ArticleView() {
   const menuClick = (_: any, index: number) => {
     switch (index) {
       case 0:
-        
         router(`/sendList`)
         break;
       case 1:
@@ -84,8 +83,6 @@ export default function ArticleView() {
           type: '2',
           resource_info: res.data
         }))
-        console.log(7);
-        
       } else {
         setStatus(res.status)
       }

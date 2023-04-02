@@ -37,6 +37,7 @@ export default function SendListView() {
   const [more, setMore] = useState(true)
   const [list, setList] = useState<UserItemInt[]>([])
 
+  // 获取关注列表
   const getData = (offset: number) => {
     getUserFollow({
       offset,
@@ -84,7 +85,7 @@ export default function SendListView() {
     createChatObj().then((res: any) => {
       return new Promise((resolve) => {
         addMessageRecord({  // 添加记录
-          type: '2',
+          type: info.type,
           to_id: (user as any).id,
           room_id: res.room_id,
           resource: r_id
@@ -108,7 +109,7 @@ export default function SendListView() {
             resource_info: info.resource_info,
             room_id: res.room_id,
             to_id: user.id,
-            type: '2',
+            type: info.type,
             time: _res.time
           }))
           setTimeout(() => {
@@ -118,15 +119,9 @@ export default function SendListView() {
       })
     })
   }
-  // setTimeout(() => {
-  //   if (!info) {
-  //     Toast.fail('未知错误')
-  //     router(-1)
-  //   }
-  // }, 100);
+
   useEffect(() => {
     getData(1)
-    
   }, [])
 
   return (

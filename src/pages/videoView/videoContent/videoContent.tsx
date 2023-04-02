@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Toast, Slider } from 'react-vant';
 import { Play } from '@react-vant/icons';
@@ -23,7 +23,7 @@ interface IProps {
   is_collect: number
 }
 
-export default function VideoContent(props: IProps) {
+export default memo(function VideoContent(props: IProps) {
   const router = useNavigate()
 
   // let race = 0
@@ -148,4 +148,4 @@ export default function VideoContent(props: IProps) {
       </div>
     </div>
   )
-}
+})
