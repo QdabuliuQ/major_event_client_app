@@ -1,9 +1,18 @@
+.messagePopoverClass {
+  .rv-popover__content {
+    display: flex;
+    align-items: center;
+  }
+}
 .messageContainer {
   overflow-y: scroll;
   background-color: #f5f5f5;
   #MessageList {
     padding: 12px;
     .MessageItem {
+      .rv-popover__wrapper {
+        // width: 100%;
+      }
       &:not(:last-child) {
         margin-bottom: 15px;
       }
@@ -21,7 +30,7 @@
         display: flex;
       }
       .message_i {
-        width: 85%;
+        max-width: 85%;
         display: flex;
         justify-content: flex-end
       }

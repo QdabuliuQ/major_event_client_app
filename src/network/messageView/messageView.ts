@@ -72,3 +72,16 @@ export function getChatObject(data: {
     method: 'post'
   })
 }
+
+// 举报消息
+export function addMessageReport(data: {
+  send_id: string
+  msg_id: string
+  reason: string
+}) {  
+  return ajax({
+    url: '/rep/addMessageReport',
+    data,
+    method: 'post'
+  })
+}

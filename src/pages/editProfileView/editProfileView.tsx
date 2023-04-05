@@ -13,6 +13,7 @@ export default function EditProfileView() {
   const [type, setType] = useState<string>('')
   const [form] = Form.useForm()
 
+  // 表单回调
   const onFinish = (data: any) => {
     let province: any = null, city: any = null, area: any = null
     if(data.location && data.location.length) {
@@ -29,11 +30,12 @@ export default function EditProfileView() {
       area,
       bg_image: info.bg_image
     }
-    
+    // 更新用户数据
     udateUserInfo(u_info).then((res: any) => {
       if(res.status) {
         Toast.fail(res.msg)
       } else {
+        // 更新本地数据
         localStorage.setItem('info', JSON.stringify(res.data))
         Toast.success(res.msg)
         setTimeout(() => {
@@ -58,8 +60,6 @@ export default function EditProfileView() {
       let formData = new FormData()
       formData.append(type == 'user_pic' ? "avatar" : "bg_image", file)
       updateImage(type == 'user_pic' ? 'avatar' : 'userBgimage', formData).then((res: any) => {
-        console.log(res);
-        
         if (res.data.status) {
           Toast.fail(res.data.msg)
         } else {

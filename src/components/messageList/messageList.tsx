@@ -1,14 +1,15 @@
 import React, { memo, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom';
-import { Toast } from 'react-vant';
+import { ActionSheet, Toast } from 'react-vant';
 import PubSub from 'pubsub-js';
 import { useSocket } from "@/hooks/useSocket";
-import { getMessageList } from "@/network/messageView/messageView";
+import { addMessageReport, getMessageList } from "@/network/messageView/messageView";
 import TextMessage from "@/components/messageCom/textMessage/textMessage";
 import ArticleMessage from "@/components/messageCom/articleMessage/articleMessage";
 import VideoMessage from "@/components/messageCom/videoMessage/videoMessage";
 import { useGetHeight } from '@/hooks/useGetHeight';
 import "./messageList.less"
+import { getReportReason } from '@/network/reportView/reportView';
 
 export default memo(function MessageList() {
   let flag = true
@@ -18,12 +19,16 @@ export default memo(function MessageList() {
   const [offset, setOffset] = useState(1)
   const [more, setMore] = useState(true)
   const [message, setMessage] = useState<any>([])
+  const [visible, setVisible] = useState(false)
+  const [info, setInfo] = useState<any>(null)
+  const [reason, setReason] = useState<{name: string}[]>([])
   const my_user_pic = JSON.parse(localStorage.getItem('info') as string).user_pic
   const my_id = localStorage.getItem('id') as string
   let h = useGetHeight([
     '#MessageEdit',
     '.rv-nav-bar'
   ])
+  
 
   // 消息监听
   socket.onmessage = (msg: any) => {
@@ -72,6 +77,22 @@ export default memo(function MessageList() {
     }
   }
 
+  // 消息举报
+  const selectEvent = (e: any) => {
+    if(info) {
+      addMessageReport({  // 提交举报信息
+        send_id: info.from_id,
+        msg_id: info.msg_id,
+        reason: e.name,
+      }).then((res: any) => {
+        if(res.status) return Toast.fail(res.msg)
+        if(res.msg == '举报审核中') Toast.info(res.msg)
+        else Toast.success(res.msg)
+        setVisible(false)
+      })
+    }
+  }
+
   useLayoutEffect(() => {
     let token = PubSub.subscribe('sendMessage', (_, data: any) => {
       setMessage([...message, data])
@@ -79,31 +100,36 @@ export default memo(function MessageList() {
       scrollBottom(0)
     })
 
+    let r_token = PubSub.subscribe('reportMessage', (_: string, data: any) => {
+      setInfo(data)
+      setVisible(true)  // 打开举报弹窗
+    })
+
     return () => {  // 取出订阅的时间
       PubSub.unsubscribe(token)
+      PubSub.unsubscribe(r_token)
     }
   })
 
   useEffect(() => {
     getData(1)
+
+    getReportReason({
+      type: '2'
+    }).then((res: any) => {
+      setReason(res.data)
+    })
+    
   }, [])
-  // <TextMessage
-  //   key={item.msg_id}
-  //   my_user_pic={my_user_pic}
-  //   from_id={item.from_id}
-  //   my_id={my_id}
-  //   from_user_nickname={item.from_user_nickname}
-  //   from_user_pic={item.from_user_pic}
-  //   msg_id={item.msg_id}
-  //   resource={item.resource}
-  //   resource_info={item.resource_info}
-  //   room_id={item.room_id}
-  //   time={item.time}
-  //   to_id={item.to_id}
-  //   type={item.type}
-  // />
   return (
     <div onScroll={scrollEvent} ref={messageListRef} style={{ height: h + 'px' }} className='messageContainer'>
+      <ActionSheet 
+        closeOnClickOverlay={true} 
+        onSelect={(e) => selectEvent(e)}
+        actions={reason} 
+        visible={visible}
+        onCancel={() => setVisible(false)}>
+      </ActionSheet>
       <div id='MessageList'>
         {
           message.length ? (

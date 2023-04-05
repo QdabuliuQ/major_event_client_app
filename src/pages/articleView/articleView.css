@@ -72,7 +72,7 @@
 }
 #ArticleView .articleInfoContainer .articleContent {
   padding-bottom: 10px;
-  font-size: 14px;
+  font-size: 15px;
   word-wrap: break-word;
 }
 #ArticleView .articleInfoContainer .articleContent img {
@@ -86,10 +86,16 @@
 #ArticleView .articleInfoContainer .articleComment .commentInfo {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 13px;
-  margin-bottom: 12px;
+  justify-content: flex-end;
+  margin-bottom: 7px;
 }
-#ArticleView .articleInfoContainer .articleComment .commentInfo .sp2 {
-  color: #a4a4a4;
+#ArticleView .articleInfoContainer .articleComment .commentInfo .infoToggle {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: var(--color);
+}
+#ArticleView .articleInfoContainer .articleComment .commentInfo .infoToggle .rv-icon {
+  font-size: 15px;
+  margin-right: 5px;
 }

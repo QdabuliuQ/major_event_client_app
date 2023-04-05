@@ -1,0 +1,17 @@
+.MenuItem {
+  font-size: 14px;
+  padding: 10px 20px;
+  position: relative;
+  &:not(:last-child){
+    &::after {
+      position: absolute;
+      height: 50%;
+      content: '';
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      background: #cecece;
+    }
+  }
+}

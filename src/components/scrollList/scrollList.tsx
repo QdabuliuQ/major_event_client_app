@@ -19,6 +19,10 @@ const ScrollList = forwardRef((props: IProps, ref: any) => {
     }
   }));
 
+  const touchMoveEvent = (e: any) => {
+    e.stopPropagation()
+  }
+
   const handleScroll = () => {
     // 没有更多的时候 滚动不需要计算高度加载更多。
     if (!props.hasMore) {

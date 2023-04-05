@@ -47,6 +47,7 @@ export function getArticleComment(data: {
   art_id: string
   offset: number
   limit: number
+  order: string
 }){
   return ajax({
     url: '/art/getArticleComment', 

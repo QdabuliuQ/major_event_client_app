@@ -17,3 +17,8 @@ export interface ActionInt {
   type: string
   data: any
 }
+
+export interface MenuInt {
+  title: string
+  click: Function
+}

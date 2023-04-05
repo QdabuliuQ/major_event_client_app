@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Search } from '@react-vant/icons'
 import { useNavigate } from 'react-router-dom'
 import { Dialog, Image } from 'react-vant';
@@ -21,8 +21,10 @@ interface UserItemInt {
 }
 
 export default function SendListView() {
+  let timer: any = null
   const router = useNavigate()
   let socket = useSocket()
+  const inputRef = useRef<HTMLInputElement>(null)
   const my_info: any = JSON.parse(localStorage.getItem('info') as string)
   const id = localStorage.getItem('id')
   const info = useSelector((state: any) => state.message)
@@ -37,11 +39,22 @@ export default function SendListView() {
   const [more, setMore] = useState(true)
   const [list, setList] = useState<UserItemInt[]>([])
 
+  // 输入改变监听
+  const inputChange = () => {
+    // 防抖
+    if(timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      let val = inputRef.current?.value.trim()
+      getData(1, val as string)
+    }, 400);
+  }
+
   // 获取关注列表
-  const getData = (offset: number) => {
+  const getData = (offset: number, val: string) => {
     getUserFollow({
       offset,
-      id: id as string
+      id: id as string,
+      val 
     }).then((res: any) => {
       if(res.status) {
         return Toast.fail(res.msg)
@@ -121,7 +134,7 @@ export default function SendListView() {
   }
 
   useEffect(() => {
-    getData(1)
+    getData(1, '')
   }, [])
 
   return (
@@ -157,7 +170,7 @@ export default function SendListView() {
       <div className='searchContainer'>
         <div className='inputContainer'>
           <Search  />
-          <input type="text" placeholder='搜索' />
+          <input onChange={inputChange} ref={inputRef} type="text" placeholder='搜索' />
         </div>
       </div>
       <ScrollList
@@ -165,7 +178,7 @@ export default function SendListView() {
         height={h}
         cb={() => {
           setOffset(offset + 1)
-          getData(offset + 1)
+          getData(offset + 1, inputRef.current?.value as string)
         }}>
         <div className='listContainer'>
           {

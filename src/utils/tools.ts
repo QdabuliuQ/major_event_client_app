@@ -12,3 +12,15 @@ export function fileType (fileName: string) {  // 判断文件类型
   result = imgList.find(item => item === suffix);
   if (result) return 'image';
 }
+
+let timer: any = null
+export function tourchEndEvent(e: any, cb?: Function) {
+  cb && cb(timer)
+  if(timer) clearTimeout(timer)
+}
+export function touchStateEvent(e: any, cb: Function) {
+  timer = setTimeout(function () {
+    if (e.type === 'touchstart' && e.cancelable) e.preventDefault();
+    cb()
+  }, 500);
+}

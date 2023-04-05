@@ -3,6 +3,7 @@ import ajax from "../index";
 export function getUserFollow(data: {
   offset: number
   id: string
+  val?: string
 }) {
   return ajax({
     url: '/my/getUserFollow', 

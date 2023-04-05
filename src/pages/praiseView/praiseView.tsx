@@ -4,14 +4,15 @@ import { Empty, Toast, NavBar } from 'react-vant';
 import { getPraiseList, getBrowseList } from "@/network/praiseView/praiseView";
 import ArticleItem from "@/components/articleItem/articleItem";
 import ScrollList from "@/components/scrollList/scrollList";
+import { useGetHeight } from '@/hooks/useGetHeight';
 import "./praiseView.less"
 
 export default function PraiseView() {
   const router = useNavigate()
   const location = useLocation()
   
-  let offset = 1, path = location.pathname
-
+  let path = location.pathname
+  const [offset, setOffset] = useState(1)
   const [status, setStatus] = useState('0')
   const [list, setList] = useState<{
     id: string
@@ -20,11 +21,15 @@ export default function PraiseView() {
     cover_img: string
     content: string
     browse_count: number
+    b_time?: number
+    p_time?: number
   }[]>([])
-  const [height, setHeight] = useState(0)
   const [more, setMore] = useState(true)
+  let height = useGetHeight([
+    '.rv-nav-bar'
+  ])
 
-  const getData = () => {
+  const getData = (offset: number) => {
     if(path == '/praise') {
       getPraiseList({
         offset
@@ -33,7 +38,11 @@ export default function PraiseView() {
         if (res.status) {
           return Toast.fail(res.msg)
         }
-        setList([...list, ...res.data])
+        if (offset == 1) {
+          setList(res.data)
+        } else {
+          setList([...list, ...res.data])
+        }
         setMore(res.more)
       })
     } else {
@@ -44,15 +53,18 @@ export default function PraiseView() {
         if (res.status) {
           return Toast.fail(res.msg)
         }
-        setList([...list, ...res.data])
+        if (offset == 1) {
+          setList(res.data)
+        } else {
+          setList([...list, ...res.data])
+        }
         setMore(res.more)
       })
     }
   }
 
   useEffect(() => {
-    getData()
-    setHeight(document.documentElement.clientHeight - 46)
+    getData(1)
   }, [])
 
   return (
@@ -66,8 +78,8 @@ export default function PraiseView() {
       {
         list && list.length ? (
           <ScrollList cb={() => {
-            offset ++
-            getData()
+            setOffset(offset + 1)
+            getData(offset + 1)
           }} hasMore={more} height={height}>
             <div className='listContainer'>
               {
@@ -78,7 +90,7 @@ export default function PraiseView() {
                     browse_count={item.browse_count}
                     clickEvent={() => router('/article/' + item.id)}
                     title={item.title}
-                    time={item.time}
+                    time={item.b_time ? item.b_time : item.p_time as number}
                     cover={item.cover_img}
                     content={item.content}
                   ></ArticleItem>

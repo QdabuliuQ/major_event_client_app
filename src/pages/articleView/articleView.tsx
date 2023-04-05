@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import moment from "moment";
-import { Ellipsis } from '@react-vant/icons';
+import { Ellipsis, Exchange } from '@react-vant/icons';
 import { useDispatch } from "react-redux";
-import { Toast, Sticky, ShareSheet, NavBar, Typography, Image, Empty } from 'react-vant';
+import { Toast, Sticky, ShareSheet, NavBar, Typography, Image, Empty, Popover } from 'react-vant';
 import { useParams, useNavigate } from "react-router-dom";
 import { getArticleDetail, getArticleParams, getArticleComment } from "@/network/articleView/articleView";
 import { getReportReason } from "@/network/reportView/reportView";
@@ -11,15 +11,27 @@ import { add_message_info } from "@/reduxs/actions/message";
 import CommentItem from "@/components/commentItem/commentItem";
 import ScrollList from "@/components/scrollList/scrollList";
 import "./articleView.less"
+import { useGetHeight } from '@/hooks/useGetHeight';
 
 export default function ArticleView() {
   const router = useNavigate()
   const dispatch = useDispatch()
   const navbarRef = useRef(null)
+  const actions = [{
+    text: '点赞最多',
+    type: 'praise'
+  }, {
+    text: '最早发布',
+    type: 'last'
+  }, {
+    text: '最新发布',
+    type: 'new'
+  }]
   const { id } = useParams()
   const [offset, setOffset] = useState(1)
   const [params, setParams] = useState<any>(null)
   const [visible, setVisible] = useState(false)
+  const [toggleIdx, setToggleIdX] = useState(0)
   const [reason, setReason] = useState<{
     name: string
   }[]>([])
@@ -37,24 +49,34 @@ export default function ArticleView() {
   }[]>([])
   const [status, setStatus] = useState(0)
   const [info, setInfo] = useState<any>(null)
-  const [height, setHeight] = useState(400)
   const [more, setMore] = useState(true)
-
   const options = [
     { name: '发送', icon: <div className='articleMenuItem'><img src={require("@/assets/images/send.png")} alt="" /></div> },
     { name: '举报', icon: <div className='articleMenuItem'><img src={require("@/assets/images/report.png")} alt="" /></div> },
   ]
+  let height = useGetHeight([
+    '.rv-nav-bar',
+    '#NavBar'
+  ])
 
-  const getCommentData = (offset: number) => {
+  const selectEvent = (_: unknown, idx: number) => {
+    setOffset(1)
+    setToggleIdX(idx)
+    if(commentList.length) getCommentData(1, actions[idx].type)
+  }
+
+  // 获取评论数据
+  const getCommentData = (offset: number, type: string) => {
     getArticleComment({
       art_id: id as string,
       offset,
-      limit: 30
+      limit: 30,
+      order: type
     }).then((res: any) => {
       if (res.status) {
         return Toast.fail(res.msg)
       }
-      if(offset == 1) {
+      if (offset == 1) {
         setCommentList(res.data)
       } else {
         setCommentList([...commentList, ...res.data])
@@ -96,16 +118,13 @@ export default function ArticleView() {
       }
     })
 
-    getCommentData(1)
+    getCommentData(1, actions[toggleIdx].type)
 
     getReportReason({
       type: '2'
     }).then((res: any) => {
       setReason(res.data)
     })
-    setTimeout(() => {
-      setHeight(document.documentElement.clientHeight - document.getElementsByClassName('rv-nav-bar')[0].clientHeight - (document.getElementById('NavBar') as HTMLDivElement).clientHeight)
-    }, 100);
 
   }, [])
 
@@ -130,8 +149,8 @@ export default function ArticleView() {
           <div>
             <ScrollList
               cb={() => {
-                setOffset(offset+1)
-                getCommentData(offset+1)
+                setOffset(offset + 1)
+                getCommentData(offset + 1, actions[toggleIdx].type)
               }}
               hasMore={more}
               height={height}>
@@ -177,9 +196,15 @@ export default function ArticleView() {
                 <div className='articleContent' dangerouslySetInnerHTML={{ __html: info.content }}></div>
                 <div className='articleComment'>
                   <div className='commentInfo'>
-                    <span className='sp1'>评论 {params && params.comment_count}</span>
-                    <span className='sp2'>{params && params.praise_count} 赞 
-                    <label style={{ margin: '0 6px' }}></label>  {params && params.collect_count} 收藏</span>
+                    <Popover
+                      placement="left"
+                      actions={actions}
+                      onSelect={selectEvent}
+                      reference={<div className='infoToggle'>
+                        <Exchange />
+                        {actions[toggleIdx].text}
+                      </div>}
+                    />
                   </div>
                   {
                     commentList.length ? (
@@ -207,7 +232,7 @@ export default function ArticleView() {
             <Sticky position="bottom">
               <_NavBar cb={() => {
                 setOffset(1)
-                getCommentData(1)
+                getCommentData(1, actions[toggleIdx].type)
               }} ref={navbarRef} params={params}></_NavBar>
             </Sticky>
           </div>
