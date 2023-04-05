@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Typography, Tag } from 'react-vant';
 import "./commentItem.less"
 
@@ -11,7 +11,7 @@ interface IProps {
   time: number
 }
 
-export default function CommentItem(props: IProps) {
+export default memo(function CommentItem(props: IProps) {
   return (
     <div className='_CommentItem'>
       <div className='itemInfo'>
@@ -68,4 +68,4 @@ export default function CommentItem(props: IProps) {
       </div>
     </div>
   )
-}
+}) 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { MoreO } from '@react-vant/icons'
 import { Button, Tag, Typography } from 'react-vant'
 import "./reportItem.less"
@@ -13,7 +13,7 @@ interface IProps {
   detailEvent?: (index: number) => void
 }
 
-export default function ReportItem(props: IProps) {
+export default memo(function ReportItem(props: IProps) {
   return (
     <div className='ReportItem'>
       <div className='infoItem'>
@@ -64,4 +64,4 @@ export default function ReportItem(props: IProps) {
       </div>
     </div>
   )
-}
+}) 

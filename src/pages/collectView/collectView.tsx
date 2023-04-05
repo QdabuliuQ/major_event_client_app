@@ -37,7 +37,6 @@ export default function CollectView() {
   }
 
   const getData = (type: number = 0, _offset: number = 1) => {
-    
     if (type == 0) {
       getCollectList({
         offset: _offset
@@ -55,12 +54,11 @@ export default function CollectView() {
     } else if (type == 1) {
       getCollectVideo({
         offset: _offset as number,
-        pageSize: 5
+        pageSize: 30
       }).then((res: any) => {
         if (res.status) {
           return Toast.fail('网络错误')
         }
-        
         if (_offset == 1) {
           setCollect(res.data)
         } else {
@@ -69,7 +67,11 @@ export default function CollectView() {
         setMore(res.more)
       })
     }
+  }
 
+  const collectCb = (i: number) => {  // 取消收藏回调
+    collect.splice(i, 1)
+    setCollect([...collect])
   }
 
   useEffect(() => {
@@ -122,7 +124,7 @@ export default function CollectView() {
               type == 1 && collect[0].video_id && (
                 <div className='collectVideoContainer'>
                   {
-                    collect.map((item: any) => <VideoItem
+                    collect.map((item: any, index: number) => <VideoItem
                       key={item.video_id}
                       cover_img={item.cover_img}
                       id={item.video_id}
@@ -131,6 +133,9 @@ export default function CollectView() {
                       nickname={item.nickname}
                       user_pic={item.user_pic}
                       user_id={item.user_id}
+                      collect={true}
+                      index={index}
+                      collectCb={collectCb}
                     />)
                   }
                 </div>

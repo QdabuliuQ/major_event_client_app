@@ -1,0 +1,33 @@
+.MessageItem {
+  padding: 12px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.MessageItem:not(:last-child) {
+  border-bottom: 1px solid #ebebeb;
+}
+.MessageItem .itemInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.MessageItem .itemInfo:not(:last-child) {
+  padding-bottom: 12px;
+}
+.MessageItem .itemInfo .itemLeft {
+  color: #b1b1b1;
+}
+.MessageItem .itemInfo .itemRight {
+  display: flex;
+  align-items: center;
+}
+.MessageItem .itemInfo .itemRight .linkSpan {
+  color: var(--color);
+}
+.MessageItem .itemInfo .itemRight .rv-image {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+}

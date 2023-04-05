@@ -32,3 +32,13 @@ export function getVideoReportList(data: {
     method: 'get'
   })
 }
+
+export function getMessageReportList(data: {
+  offset: number
+}) {
+  return ajax({
+    url: '/rep/getMessageReportList',
+    params: data,
+    method: 'get'
+  })
+}

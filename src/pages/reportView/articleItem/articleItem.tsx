@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Image, Typography } from 'react-vant';
 import "./articleItem.less"
@@ -10,7 +10,7 @@ interface IProps {
   art_id: string
 }
 
-export default function ArticleItem(props: IProps) {
+export default memo(function ArticleItem(props: IProps) {
 
   const router = useNavigate()
 
@@ -23,4 +23,4 @@ export default function ArticleItem(props: IProps) {
       <Image fit='cover' width='30vw' height='20vw' src={props.cover_img} />
     </div>
   )
-}
+}) 

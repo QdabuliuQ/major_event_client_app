@@ -11,10 +11,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 13px;
 }
 ._CommentItem .itemInfo:not(:last-child) {
-  padding-bottom: 6px;
+  padding-bottom: 10px;
 }
 ._CommentItem .itemInfo .itemLeft {
   color: #b1b1b1;

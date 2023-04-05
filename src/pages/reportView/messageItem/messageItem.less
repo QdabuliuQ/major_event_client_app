@@ -1,4 +1,4 @@
-._CommentItem {
+.MessageItem {
   padding: 12px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
   border-radius: 8px;
@@ -12,7 +12,7 @@
     justify-content: space-between;
     font-size: 13px;
     &:not(:last-child) {
-      padding-bottom: 10px;
+      padding-bottom: 12px;
     }
     .itemLeft {
       color: #b1b1b1;
@@ -20,6 +20,14 @@
     .itemRight {
       display: flex;
       align-items: center;
+      .linkSpan {
+        color: var(--color);
+      }
+      .rv-image {
+        width: 25px;
+        height: 25px;
+        margin-right: 5px;
+      }
     }
   }
 }
