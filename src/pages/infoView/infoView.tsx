@@ -9,6 +9,7 @@ import { addChatObject } from "@/network/messageView/messageView";
 import ScrollList from "@/components/scrollList/scrollList";
 import { InfoArticle } from "./infoArticle/infoArticle";
 import { InfoCollect } from "./infoCollect/infoCollect";
+import { InfoEvent } from "./infoEvent/infoEvent";
 import InfoVideo from './infoVideo/infoVideo';
 import "./infoView.less"
 
@@ -32,16 +33,20 @@ export default function InfoView() {
 
   let tabsList = [
     {
+      name: '动态',
+      component: <InfoEvent ref={comRefs[0]} />
+    },
+    {
       name: '文章',
-      component: <InfoArticle ref={comRefs[0]} />
+      component: <InfoArticle ref={comRefs[1]} />
     },
     {
       name: '视频',
-      component: <InfoVideo ref={comRefs[1]} />
+      component: <InfoVideo ref={comRefs[2]} />
     },
     {
       name: '收藏',
-      component: <InfoCollect toggleEvent={toggleEvent} ref={comRefs[2]} />
+      component: <InfoCollect toggleEvent={toggleEvent} ref={comRefs[3]} />
     },
   ]
 
@@ -85,8 +90,7 @@ export default function InfoView() {
   }
   // 加载数据
   const loadData = () => {
-    if (idx == 2) {
-
+    if (idx == 3) {
       (comRefs[idx].current as any).getData((comRefs[idx].current as any).getType())
     } else {
       (comRefs[idx].current as any).getData()

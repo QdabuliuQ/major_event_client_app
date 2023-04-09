@@ -1,0 +1,36 @@
+#PubEventView {
+  .eventContainer {
+    padding: 12px;
+    .rv-textarea {
+      .rv-textarea__control {
+        font-size: 14px;
+      }
+    }
+    .imageContainer {
+      width: 100%;
+      min-height: 110px;
+      margin: 10px 0;
+      .rv-uploader {
+        width: 100%;
+        min-height: 110px;
+      }
+      .rv-uploader__wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 10px;
+        min-height: 110px;
+        .rv-uploader__upload {
+          width: 100%;
+          min-height: 110px;
+        }
+        .rv-uploader__preview {
+          aspect-ratio: 1/1;
+        }
+        .rv-uploader__preview-image {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

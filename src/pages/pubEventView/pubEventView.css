@@ -1,0 +1,32 @@
+#PubEventView .eventContainer {
+  padding: 12px;
+}
+#PubEventView .eventContainer .rv-textarea .rv-textarea__control {
+  font-size: 14px;
+}
+#PubEventView .eventContainer .imageContainer {
+  width: 100%;
+  min-height: 110px;
+  margin: 10px 0;
+}
+#PubEventView .eventContainer .imageContainer .rv-uploader {
+  width: 100%;
+  min-height: 110px;
+}
+#PubEventView .eventContainer .imageContainer .rv-uploader__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  min-height: 110px;
+}
+#PubEventView .eventContainer .imageContainer .rv-uploader__wrapper .rv-uploader__upload {
+  width: 100%;
+  min-height: 110px;
+}
+#PubEventView .eventContainer .imageContainer .rv-uploader__wrapper .rv-uploader__preview {
+  aspect-ratio: 1/1;
+}
+#PubEventView .eventContainer .imageContainer .rv-uploader__wrapper .rv-uploader__preview-image {
+  width: 100%;
+  height: 100%;
+}

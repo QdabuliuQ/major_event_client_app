@@ -10,6 +10,7 @@ import ScrollList from "@/components/scrollList/scrollList";
 import { getVideoList, pubVideoComment, getVideoComment } from "@/network/videoView/videoView";
 import { getReportReason } from "@/network/reportView/reportView";
 import { add_message_info } from '@/reduxs/actions/message';
+import { add_event_info } from '@/reduxs/actions/event';
 import "./videoView.less"
 
 let offset = 1
@@ -18,7 +19,8 @@ export default function VideoView() {
 
   let more = true
   const options = [
-    { name: '发送', icon: <div className='articleMenuItem'><img src={require("@/assets/images/send.png")} alt="" /></div> },
+    { name: '分享', icon: <div className='articleMenuItem'><img src={require("@/assets/images/event.png")} alt="" /></div> },
+    { name: '转发', icon: <div className='articleMenuItem'><img src={require("@/assets/images/send.png")} alt="" /></div> },
     { name: '举报', icon: <div className='articleMenuItem'><img src={require("@/assets/images/report.png")} alt="" /></div> },
   ]
   const router = useNavigate()
@@ -63,7 +65,7 @@ export default function VideoView() {
     is_collect: number
     video_url: string
   }[]>([])
-  
+
 
   const getData = () => {
     if (more) {
@@ -80,7 +82,7 @@ export default function VideoView() {
   }
 
   const onChange = (e: number) => {
-    
+
     if (e != -1) {
       // 下拉加载 下一页数据
       if (e == list.length - 1) {
@@ -163,13 +165,20 @@ export default function VideoView() {
         onSelect={(option, index) => {
           switch (index) {
             case 0:
+              dispatch(add_event_info({
+                type: '3',
+                resource_info: list[idx]
+              }))
+              router(`/pubEvent`)
+              break;
+            case 1:
               dispatch(add_message_info({  // 存入 redux 当中
                 type: '3',
                 resource_info: list[idx]
               }))
               router(`/sendList`)
               break;
-            case 1:
+            case 2:
               router(`/report/${vid}/2`)
               break;
           }

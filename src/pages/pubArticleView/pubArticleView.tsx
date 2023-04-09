@@ -228,8 +228,6 @@ export default function PubArticleView() {
                 maxCount={1}
                 maxSize={500 * 1024}
                 onChange={(v: any) => {
-                  console.log(v);
-                  
                   setCover(v[0].file)
                 }}
                 onOversize={() => Toast.info('文件大小不能超过500kb')}

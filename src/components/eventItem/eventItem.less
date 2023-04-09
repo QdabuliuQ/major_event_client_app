@@ -1,0 +1,67 @@
+.EventItem {
+  &:not(:last-child) {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .userInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    .rv-image {
+      width: 45px;
+      height: 45px;
+    }
+    .userData {
+      flex: 1;
+      margin-left: 10px;
+      .nickname {
+        font-size: 14px;
+        margin-bottom: 5px;
+        .type {
+          display: inline-block;
+          margin-left: 10px;
+          color: #b7b7b7;
+        }
+      }
+      .pubTime {
+        color: #b7b7b7;
+        font-size: 12px;
+      }
+    }
+  }
+  .eventInfo {
+    margin-left: 55px;
+    .eventContent {
+      margin-bottom: 7px;
+      .rv-typography__ellipsis {
+        font-size: 14px;
+        word-break: break-all;
+        a {
+          color: var(--color);
+          cursor: pointer;
+        }
+      }
+    }
+    .eventImages {
+      margin-bottom: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 7px;
+      .rv-image {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+    }
+    .Event_ArticleItem {
+      margin-bottom: 13px;
+    }
+    .Event_VideoItem {
+      background-color: #ececec;
+      margin-bottom: 13px;
+    }
+  }
+}

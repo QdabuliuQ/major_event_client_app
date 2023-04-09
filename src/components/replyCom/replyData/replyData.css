@@ -1,0 +1,19 @@
+.ReplyData {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ReplyData .dataItem {
+  display: flex;
+  align-items: center;
+  color: #909090;
+  font-family: '宋体';
+}
+.ReplyData .dataItem .rv-icon {
+  font-size: 22px;
+}
+.ReplyData .dataItem span {
+  display: inline-block;
+  margin-left: 3px;
+  font-size: 14px;
+}

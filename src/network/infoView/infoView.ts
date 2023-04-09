@@ -64,3 +64,15 @@ export function updateFollowUser(data: {
     method: 'post'
   })
 }
+
+// 获取动态列表
+export function getEventListById(data: {
+  offset: number
+  id: string
+}) {
+  return ajax({
+    url: '/eve/getEventListById',
+    params: data,
+    method: 'get'
+  })
+}

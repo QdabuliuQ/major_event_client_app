@@ -1,0 +1,25 @@
+.Event_ArticleItem {
+  padding: 10px 12px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+.Event_ArticleItem .leftCover .rv-image {
+  width: 80px;
+  height: 80px;
+}
+.Event_ArticleItem .rightInfo {
+  margin-left: 10px;
+  flex: 1;
+}
+.Event_ArticleItem .rightInfo .rv-typography__text {
+  font-size: 14px;
+  word-break: break-all;
+}
+.Event_ArticleItem .rightInfo .context {
+  display: block;
+  font-size: 12px !important;
+  color: #959595;
+  margin-top: 5px;
+}

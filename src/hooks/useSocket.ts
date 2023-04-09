@@ -1,5 +1,6 @@
 import { Toast } from "react-vant";
 import { useSelector, useDispatch } from "react-redux";
+import v from "@/utils/globarVar";
 import { init_socket } from "@/reduxs/actions/socket";
 
 function useSocket() {
@@ -8,7 +9,7 @@ function useSocket() {
   const socket = useSelector((state: any) => state.socket)
   if(socket) return socket
   
-  const ws = new WebSocket(`ws://127.0.0.1:8080/socketServer/${id}`);
+  const ws = new WebSocket(`ws://${v.domain}/socketServer/${id}`);
   ws.onerror = () => { // 错误
     Toast.fail('网络错误')
   };

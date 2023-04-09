@@ -31,6 +31,7 @@ const ReplyDetailView = lazy(() => import("@/pages/replyDetailView/replyDetailVi
 const PraiseDetailView = lazy(() => import("@/pages/praiseDetailView/praiseDetailView"))
 const ChatView = lazy(() => import("@/pages/chatView/chatView"))
 const SendListView = lazy(() => import("@/pages/sendListView/sendListView"))
+const PubEventView = lazy(() => import("@/pages/pubEventView/pubEventView"))
 
 
 export default [
@@ -156,6 +157,10 @@ export default [
   {
     path: '/pubArticle',
     element: <PubArticleView/>
+  },
+  {
+    path: '/pubEvent',
+    element: <PubEventView/>
   },
   {
     path: '/search',

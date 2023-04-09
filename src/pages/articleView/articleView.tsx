@@ -10,8 +10,9 @@ import { _NavBar } from "./component/navBar/navBar";
 import { add_message_info } from "@/reduxs/actions/message";
 import CommentItem from "@/components/commentItem/commentItem";
 import ScrollList from "@/components/scrollList/scrollList";
-import "./articleView.less"
 import { useGetHeight } from '@/hooks/useGetHeight';
+import { add_event_info } from '@/reduxs/actions/event';
+import "./articleView.less"
 
 export default function ArticleView() {
   const router = useNavigate()
@@ -51,7 +52,8 @@ export default function ArticleView() {
   const [info, setInfo] = useState<any>(null)
   const [more, setMore] = useState(true)
   const options = [
-    { name: '发送', icon: <div className='articleMenuItem'><img src={require("@/assets/images/send.png")} alt="" /></div> },
+    { name: '分享', icon: <div className='articleMenuItem'><img src={require("@/assets/images/event.png")} alt="" /></div> },
+    { name: '转发', icon: <div className='articleMenuItem'><img src={require("@/assets/images/send.png")} alt="" /></div> },
     { name: '举报', icon: <div className='articleMenuItem'><img src={require("@/assets/images/report.png")} alt="" /></div> },
   ]
   let height = useGetHeight([
@@ -88,9 +90,12 @@ export default function ArticleView() {
   const menuClick = (_: any, index: number) => {
     switch (index) {
       case 0:
-        router(`/sendList`)
+        router(`/pubEvent`)
         break;
       case 1:
+        router(`/sendList`)
+        break;
+      case 2:
         router(`/report/${id}/1`)
         break;
     }
@@ -102,6 +107,10 @@ export default function ArticleView() {
       if (res.status == 0) {
         setInfo(res.data)
         dispatch(add_message_info({
+          type: '2',
+          resource_info: res.data
+        }))
+        dispatch(add_event_info({
           type: '2',
           resource_info: res.data
         }))

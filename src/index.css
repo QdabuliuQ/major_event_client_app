@@ -15,7 +15,7 @@ body {
   --rv-nav-bar-title-font-size: 14px;
 }
 
-@media screen and (min-width: 680px) {
+/* @media screen and (min-width: 680px) {
   #App {
     width: 40vw;
     margin: 0 auto;
@@ -28,4 +28,4 @@ body {
     width: 100vw;
     height: 100vh; 
   }
-}
+} */
