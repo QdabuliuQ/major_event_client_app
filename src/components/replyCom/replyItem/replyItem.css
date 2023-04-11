@@ -1,0 +1,41 @@
+.ReplyItem {
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  padding: 10px 12px;
+}
+.ReplyItem .reply_userInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.ReplyItem .reply_userInfo .reply_userData {
+  font-size: 14px;
+  margin-left: 0 !important;
+}
+.ReplyItem .reply_userInfo .reply_userData .nickname {
+  margin-bottom: 5px;
+}
+.ReplyItem .reply_userInfo .reply_userData .nickname .name {
+  color: var(--color);
+}
+.ReplyItem .reply_userInfo .reply_userData .nickname .type {
+  display: inline-block;
+  margin-left: 10px;
+  color: #b7b7b7;
+}
+.ReplyItem .reply_userInfo .reply_userData .pubTime {
+  color: #b7b7b7;
+  font-size: 12px;
+}
+.ReplyItem .eventInfo {
+  margin-left: 0 !important;
+}
+.ReplyItem .eventInfo .Event_ArticleItem {
+  background-color: #fff;
+  margin-bottom: 0 !important;
+}
+.ReplyItem .eventInfo .Event_VideoItem {
+  background-color: #fff;
+  margin-bottom: 0 !important;
+}

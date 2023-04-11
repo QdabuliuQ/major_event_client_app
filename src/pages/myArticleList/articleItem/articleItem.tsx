@@ -38,7 +38,7 @@ export default function MyArticleItem(props: IProps) {
         <div className='itemRight'>
           {
             props.state == '2' ? <Tag type="danger">封禁</Tag>
-              : props.is_delete == '1' ? <Tag type="warning">删除</Tag>
+              : props.state == '3' ? <Tag type="warning">删除</Tag>
                 : <Tag type="success">正常</Tag>
           }
         </div>
@@ -69,8 +69,8 @@ export default function MyArticleItem(props: IProps) {
         </div>
       </div>
       <div className='btnList'>
-        <Button onClick={clickEvent} style={{marginRight: '2vw'}} size='small' icon={<OrdersO/>} disabled={props.state == '2' || props.is_delete == '1'} type='primary'>查看文章</Button>
-        <Button onClick={() => props.deleteEvent && props.deleteEvent(props.id, props.index)} size='small' icon={<DeleteO/>} disabled={props.state == '2' || props.is_delete == '1'} type='danger'>删除文章</Button>
+        <Button onClick={clickEvent} style={{marginRight: '2vw'}} size='small' icon={<OrdersO/>} disabled={props.state != '1'} type='primary'>查看文章</Button>
+        <Button onClick={() => props.deleteEvent && props.deleteEvent(props.id, props.index)} size='small' icon={<DeleteO/>} disabled={props.state != '1'} type='danger'>删除文章</Button>
       </div>
     </div>
   )

@@ -22,10 +22,10 @@ interface IProps {
   reply?: number
   showReply?: boolean
   click?: boolean
-  praiseClick?: ()=>void
+  praiseClick?: (data: any, cb: Function) => void
   reason?: {
     name: string
-  }[] 
+  }[]
 }
 
 export default memo(function CommentItem({
@@ -40,8 +40,8 @@ export default memo(function CommentItem({
   reply,
   praise,
   is_praise,
-  showReply=true,
-  click=true,
+  showReply = true,
+  click = true,
   reason,
   praiseClick
 }: IProps) {
@@ -53,32 +53,44 @@ export default memo(function CommentItem({
   // 点赞评论
   const praiseEvent = () => {
     let pState = praiseState ? 0 : 1
-    if(art_id) {
-      praiseComment({
-        comment_id,
-        art_id: art_id as string,
-        is_praise: pState
-      }).then((res: any) => {
-        if(res.status) {
-          return Toast.fail(res.msg)
-        }
+    if (praiseClick) {
+      praiseClick({
+        pState,
+        comment_id
+      }, () => {
         setPraiseCount(pState ? praiseCount + 1 : praiseCount - 1)
         setPraiseState(pState ? 1 : 0)
       })
-    } else if (video_id) {
-      praiseVideoComment({
-        comment_id,
-        video_id: video_id as string,
-        is_praise: pState
-      }).then((res: any) => {
-        if(res.status) {
-          return Toast.fail(res.msg)
-        }
-        setPraiseCount(pState ? praiseCount + 1 : praiseCount - 1)
-        setPraiseState(pState ? 1 : 0)
-      })
+
+    } else {
+      if (art_id) {
+        praiseComment({
+          comment_id,
+          art_id: art_id as string,
+          is_praise: pState
+        }).then((res: any) => {
+          if (res.status) {
+            return Toast.fail(res.msg)
+          }
+          setPraiseCount(pState ? praiseCount + 1 : praiseCount - 1)
+          setPraiseState(pState ? 1 : 0)
+        })
+      } else if (video_id) {
+        praiseVideoComment({
+          comment_id,
+          video_id: video_id as string,
+          is_praise: pState
+        }).then((res: any) => {
+          if (res.status) {
+            return Toast.fail(res.msg)
+          }
+          setPraiseCount(pState ? praiseCount + 1 : praiseCount - 1)
+          setPraiseState(pState ? 1 : 0)
+        })
+      }
     }
-    
+
+
   }
 
   const selectEvent = (e: any) => {
@@ -87,7 +99,7 @@ export default memo(function CommentItem({
       reason: e.name,
       type: art_id ? '1' : '2'
     }).then((res: any) => {
-      if(res.status) return Toast.fail(res.msg)
+      if (res.status) return Toast.fail(res.msg)
       Toast.success(res.msg)
       setVisible(false)
     })
@@ -99,14 +111,14 @@ export default memo(function CommentItem({
   }, [praise, is_praise])
 
   return (
-    <div onClick={() => click && router('/comment/'+comment_id)} className='CommentItem'>
+    <div onClick={() => click && router('/comment/' + comment_id)} className='CommentItem'>
       <div className='itemAvatar'>
         <Image round fit='cover' src={user_pic} />
       </div>
       <div className='itemInfo'>
         <div className='topInfo'>
           <div className='leftInfo'>
-            { nickname }
+            {nickname}
           </div>
           <div onClick={(e) => {
             e.stopPropagation();
@@ -114,24 +126,24 @@ export default memo(function CommentItem({
             praiseEvent()
           }} className='rightInfo'>
             {
-              praiseState ? <GoodJob color='#409eff' fontSize='15px'/> :<GoodJobO fontSize='15px' />
+              praiseState ? <GoodJob color='#409eff' fontSize='15px' /> : <GoodJobO fontSize='15px' />
             }
-            <span style={{color: praiseState ? '#409eff' : '#9e9e9e'}}>{praiseCount}</span>
+            <span style={{ color: praiseState ? '#409eff' : '#9e9e9e' }}>{praiseCount}</span>
           </div>
         </div>
         <div className='contentInfo'>
-          { content }
+          {content}
         </div>
         <div className='detailInfo'>
           <div className='leftInfo'>
             {
               showReply && (
                 <div className='replyInfo'>
-                  {reply ? reply : ''} 回复<Arrow style={{marginLeft: '3px'}} />
+                  {reply ? reply : ''} 回复<Arrow style={{ marginLeft: '3px' }} />
                 </div>
               )
             }
-            { moment(time).format('YYYY-MM-DD HH:mm')}
+            {moment(time).format('YYYY-MM-DD HH:mm')}
           </div>
           <div className='rightInfo'>
             <WarningO onClick={(e) => {
@@ -142,10 +154,10 @@ export default memo(function CommentItem({
           </div>
         </div>
       </div>
-      <ActionSheet 
-        closeOnClickOverlay={true} 
+      <ActionSheet
+        closeOnClickOverlay={true}
         onSelect={(e) => selectEvent(e)}
-        actions={reason} 
+        actions={reason}
         visible={visible}
         onCancel={() => setVisible(false)}>
       </ActionSheet>

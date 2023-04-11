@@ -30,7 +30,7 @@ export default memo(function ArticleItem(props: IProps) {
       <div className='rightInfo'>
         <Typography.Text ellipsis={2}>{props.title}</Typography.Text>
         <Typography.Text className='context' ellipsis={1}>{props.content.replace(/<[^>]+>/ig, '')}</Typography.Text>
-        <span className='context'>发布时间：{(React as any).$moment(props.pub_date).format('YYYY-MM-DD HH:mm:ss')}</span>
+        <span className='context'>{(React as any).$moment(props.pub_date).format('YYYY-MM-DD HH:mm:ss')}</span>
       </div> 
     </div>
   )

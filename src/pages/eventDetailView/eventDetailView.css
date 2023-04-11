@@ -1,0 +1,39 @@
+#EventDetailView .eventContainer {
+  padding: 10px;
+}
+#EventDetailView .eventContainer .time {
+  color: #9e9e9e;
+  font-size: 13px;
+}
+#EventDetailView .eventContainer .EventItem {
+  border-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 5px;
+}
+#EventDetailView .eventContainer .rv-tabs__wrap {
+  box-sizing: border-box;
+  border-bottom: 1px solid #ebebeb;
+}
+#EventDetailView .eventContainer .CommentItem:first-child {
+  margin-top: 10px;
+}
+#EventDetailView .inputContainer {
+  padding: 8px 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 14px 0 rgba(0, 0, 0, 0.1);
+}
+#EventDetailView .inputContainer input {
+  width: 90%;
+  padding: 10px 12px;
+  background-color: #f7f7f7;
+  outline: none;
+  border: 0;
+  border-radius: 20px;
+  font-size: 13px;
+}

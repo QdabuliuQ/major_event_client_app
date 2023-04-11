@@ -1,58 +1,45 @@
 import React, { memo, useEffect } from 'react'
-import { Image, ImagePreview, Toast, Typography } from 'react-vant'
-import { useRouter } from '@/hooks/useRouter';
-import { praiseEvent } from '@/network/eventDetailView/eventDetailView';
-import ArticleItem from "@/components/replyCom/articleItem/articleItem";
-import VideoItem from "@/components/replyCom/videoItem/videoItem";
-import ReplyItem from "@/components/replyCom/replyItem/replyItem";
-import ReplyData from "@/components/replyCom/replyData/replyData";
-import "./eventItem.less"
+import { useNavigate } from 'react-router-dom';
+import { Typography, Image, ImagePreview } from 'react-vant';
+import ArticleItem from '../articleItem/articleItem';
+import VideoItem from '../videoItem/videoItem';
+import "./replyItem.less";
 
 interface IProps {
-  ev_id: string
-  user_id: string
-  nickname: string
-  user_pic: string
-  time: number
-  type: string
   content: string
+  ev_id: string
   images: { link: string }[]
+  nickname: string
   resource_id: string
   resource_info: any
-  commentCount: number
-  is_praise: number
-  praise_count: number
+  time: number
+  type: string
+  user_id: string
 }
 
-export default memo(function EventItem(props: IProps) {
+export default memo(function ReplyItem(props: IProps) {
+  const router = useNavigate()
   let images: string[] = []
-  const { router } = useRouter()
-
   const imgClick = (e: any, idx: number) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
     ImagePreview.open({ images, startPosition: idx  })
   }
 
-  const toDetail = () => {
+  const itemClick = (e: any) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
     sessionStorage.setItem('event', JSON.stringify(props))
     router('/eventDetail/'+props.ev_id)
   }
 
-  const praiseCB = (data: any, cb: Function) => {
-    praiseEvent({
-      ev_id: props.ev_id,
-      is_praise: data.pState
-    }).then((res: any) => {
-      if(res.status) return Toast.fail(res.msg)
-      let eventData = {
-        ...props
+  const userClick = (e: any) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    router('/info', {
+      state: {
+        id: props.user_id
       }
-      eventData.is_praise = data.pState
-      eventData.praise_count = data.pState ? eventData.praise_count + 1 : eventData.praise_count-1
-      sessionStorage.removeItem('event')
-      sessionStorage.setItem('event', JSON.stringify(eventData))
-      cb()
     })
   }
 
@@ -65,12 +52,11 @@ export default memo(function EventItem(props: IProps) {
   }, [props.images])
 
   return (
-    <div onClick={toDetail} className='EventItem'>
-      <div className='userInfo'>
-        <Image round fit='cover' src={props.user_pic} />
-        <div className='userData'>
+    <div onClick={(e) => itemClick(e)} className='ReplyItem'>
+      <div className='reply_userInfo'>
+        <div className='reply_userData'>
           <div className='nickname'>
-            {props.nickname}
+            <span onClick={(e) => userClick(e)} className='name'>{props.nickname}</span>
             <span className='type'>
               {
                 props.type == '1' ? '发布动态'
@@ -87,7 +73,7 @@ export default memo(function EventItem(props: IProps) {
       </div>
       <div className='eventInfo'>
         {
-          props.content ? <div className='eventContent'>
+          props.content ? <div style={{marginBottom: '1vw'}} className='eventContent'>
             <Typography.Text
               ellipsis={{
                 rows: 4,
@@ -126,15 +112,8 @@ export default memo(function EventItem(props: IProps) {
               time={props.resource_info.time}
               title={props.resource_info.title}
               toDetail={true}
-            /> : props.resource_info && props.type == '4' ? <ReplyItem {...props.resource_info}/> : ''
+            /> : ''
         }
-        <ReplyData 
-          praiseCount={props.praise_count}
-          isPraise={props.is_praise}
-          commentCount={props.commentCount}
-          replyCount={0}
-          praiseCB={praiseCB}
-        />
       </div>
     </div>
   )

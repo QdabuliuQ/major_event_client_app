@@ -32,6 +32,7 @@ const PraiseDetailView = lazy(() => import("@/pages/praiseDetailView/praiseDetai
 const ChatView = lazy(() => import("@/pages/chatView/chatView"))
 const SendListView = lazy(() => import("@/pages/sendListView/sendListView"))
 const PubEventView = lazy(() => import("@/pages/pubEventView/pubEventView"))
+const EventDetailView = lazy(() => import("@/pages/eventDetailView/eventDetailView"))
 
 
 export default [
@@ -185,6 +186,10 @@ export default [
   {
     path: '/sendList',
     element: <SendListView/>
+  },
+  {
+    path: '/eventDetail/:id',
+    element: <EventDetailView/>
   },
   {
     path: '/',

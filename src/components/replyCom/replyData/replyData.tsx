@@ -7,12 +7,26 @@ interface IProps {
   isPraise: number
   commentCount: number
   replyCount: number
+  praiseCB?: Function
 }
 
 export default memo(function ReplyData(props: IProps) {
 
   const [_isPraise, setIsPraise] = useState(0)
   const [_praiseCount, setPraiseCount] = useState(0)
+
+  const praiseClick = (e: any) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    let pState = _isPraise ? 0 : 1
+    props.praiseCB && props.praiseCB({
+      pState
+    }, () => {
+      setPraiseCount(pState ? _praiseCount + 1 : _praiseCount - 1)
+      setIsPraise(pState ? 1 : 0)
+    })
+  }
+
   useEffect(() => {
     setIsPraise(props.isPraise)
     setPraiseCount(props.praiseCount)
@@ -20,7 +34,7 @@ export default memo(function ReplyData(props: IProps) {
 
   return (
     <div className='ReplyData'>
-      <div style={{color: _isPraise ? '#409eff' : '#909090'}} className='dataItem'>
+      <div onClick={(e) => praiseClick(e)} style={{color: _isPraise ? '#409eff' : '#909090'}} className='dataItem'>
         {
           _isPraise ? <GoodJob /> : <GoodJobO />
         }

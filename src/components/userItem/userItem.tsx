@@ -12,6 +12,7 @@ interface IProps {
   intro: string | null
   id: string
   click?: Function
+  rightSlot?: any
 }
 
 export default memo(function UserItem(props: IProps) {
@@ -52,7 +53,7 @@ export default memo(function UserItem(props: IProps) {
   return (
     <div onClick={itemClick} className='UserItem'>
       <div className='itemLeft'>
-        <Image round fit={'cover'} width='14vw' height='14vw' src={props.user_pic} />
+        <Image round fit='cover' src={props.user_pic} />
         <div className='userInfo'>
           <div>
             <div className='userName'>
@@ -74,6 +75,9 @@ export default memo(function UserItem(props: IProps) {
               is_follow={follow} />
           </div>
         ) : ''
+      }
+      {
+        props.rightSlot ? props.rightSlot : ''
       }
     </div>
   )

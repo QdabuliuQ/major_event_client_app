@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Empty, Toast } from 'react-vant'
 import { getEventListById } from '@/network/infoView/infoView'
 import EventItem from '@/components/eventItem/eventItem'
+import { EventInt } from '@/interface/global'
 import "./infoEvent.less"
 let infoEvent_offset = 1
 
@@ -10,7 +11,7 @@ export const InfoEvent = forwardRef(({ }, ref) => {
   const { id } = useLocation().state
   const router = useNavigate()
   const [more, setMore] = useState(true)
-  const [list, setList] = useState<any>([])
+  const [list, setList] = useState<EventInt[]>([])
 
   useImperativeHandle(ref, () => ({
     getData,
@@ -47,6 +48,8 @@ export const InfoEvent = forwardRef(({ }, ref) => {
           list.map((item: any) => (
             <EventItem
               key={item.ev_id}
+              commentCount={item.commentCount}
+              ev_id={item.ev_id}
               nickname={item.nickname}
               user_id={item.user_id}
               user_pic={item.user_pic}
@@ -56,6 +59,8 @@ export const InfoEvent = forwardRef(({ }, ref) => {
               images={item.images}
               resource_id={item.resource_info}
               resource_info={item.resource_info}
+              is_praise={item.isPraise}
+              praise_count={item.praiseCount}
             />
           ))
         ) : <Empty description="暂无发布动态" />

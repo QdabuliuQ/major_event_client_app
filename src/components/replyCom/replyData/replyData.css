@@ -8,12 +8,13 @@
   align-items: center;
   color: #909090;
   font-family: '宋体';
+  font-weight: bold;
 }
 .ReplyData .dataItem .rv-icon {
-  font-size: 22px;
+  font-size: 20px;
 }
 .ReplyData .dataItem span {
   display: inline-block;
   margin-left: 3px;
-  font-size: 14px;
+  font-size: 13px;
 }

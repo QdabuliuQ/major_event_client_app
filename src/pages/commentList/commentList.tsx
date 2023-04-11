@@ -37,7 +37,6 @@ export default function CommentList() {
   const onKeyUpEvent = () => {
     let val = (inputRef.current as HTMLInputElement).value.trim()
     if(val == '' || val.length > 100) return
-    console.log(comment.art_id, comment.comment_id);
     
     pubArticleComment({
       art_id: comment.art_id,

@@ -20,6 +20,7 @@ export default function InfoView() {
   const comRefs = [
     useRef(null),
     useRef(null),
+    useRef(null),
     useRef(null)
   ]
   const [more, setMore] = useState(true)

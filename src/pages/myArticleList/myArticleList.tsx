@@ -33,7 +33,7 @@ export default function MyArticleList() {
   }
 
   const deleteEvent = (id: string, i: number) => {
-    if(list[i].state == '2' || list[i].is_delete == '1') return
+    if(list[i].state != '1') return
     deleteArticleById({
       id
     }).then((res: any) => {
