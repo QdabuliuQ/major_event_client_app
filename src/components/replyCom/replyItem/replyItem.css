@@ -4,6 +4,18 @@
   background-color: #f8f8f8;
   padding: 10px 12px;
 }
+.ReplyItem .eventImages {
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 7px;
+}
+.ReplyItem .eventImages .rv-image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 6px;
+  overflow: hidden;
+}
 .ReplyItem .reply_userInfo {
   display: flex;
   align-items: center;

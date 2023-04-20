@@ -8,10 +8,10 @@ interface IProps {
   commentCount: number
   replyCount: number
   praiseCB?: Function
+  shareEvent?: Function
 }
 
 export default memo(function ReplyData(props: IProps) {
-
   const [_isPraise, setIsPraise] = useState(0)
   const [_praiseCount, setPraiseCount] = useState(0)
 
@@ -25,6 +25,12 @@ export default memo(function ReplyData(props: IProps) {
       setPraiseCount(pState ? _praiseCount + 1 : _praiseCount - 1)
       setIsPraise(pState ? 1 : 0)
     })
+  }
+
+  const shareItem = (e: any) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    props.shareEvent && props.shareEvent()
   }
 
   useEffect(() => {
@@ -44,7 +50,7 @@ export default memo(function ReplyData(props: IProps) {
         <ChatO  />
         <span>{props.commentCount ? props.commentCount : '评论'}</span>
       </div>
-      <div className='dataItem'>
+      <div onClick={(e) => shareItem(e)} className='dataItem'>
         <ShareO  />
         <span>{props.replyCount ? props.replyCount : '转发'}</span>
       </div>

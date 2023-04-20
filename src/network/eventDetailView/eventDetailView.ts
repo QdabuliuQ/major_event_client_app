@@ -60,3 +60,14 @@ export function getEventPraiseList(data: {
     method: 'get'
   })
 }
+
+// 动态删除
+export function deleteEvent(data: {
+  ev_id: string
+})  {
+  return ajax({
+    url: '/eve/deleteEvent',
+    data,
+    method: 'post'
+  })
+}

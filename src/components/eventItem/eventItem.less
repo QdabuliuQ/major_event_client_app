@@ -17,7 +17,15 @@
   .userInfo {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 5px;
+    .rv-icon {
+      font-size: 16px;
+    }
+    .leftInfo {
+      display: flex;
+      align-items: center;
+    }
     .rv-image {
       width: 45px;
       height: 45px;
@@ -43,10 +51,11 @@
   .eventInfo {
     margin-left: 55px;
     .eventContent {
-      margin-bottom: 7px;
+      margin-bottom: 4px;
       .rv-typography__ellipsis {
         font-size: 14px;
         word-break: break-all;
+        line-height: 20px;
         a {
           color: var(--color);
           cursor: pointer;

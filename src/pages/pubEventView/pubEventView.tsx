@@ -8,15 +8,16 @@ import { pubEvent } from '@/network/pubEventView/pubEventView'
 import { useSelector } from 'react-redux'
 import ArticleItem from "@/components/replyCom/articleItem/articleItem";
 import VideoItem from "@/components/replyCom/videoItem/videoItem";
+import ReplyItem from '@/components/replyCom/replyItem/replyItem'
 
 
 export default function PubEventView() {
   const info = useSelector((state: any) => state.event)
   const { router } = useRouter()
-  const replyInfo = info ? info.resource_info : null
-  console.log(replyInfo, info ? info.type : null);
-
+  
   let images: any = [], eventType = info ? info.type : '1', input = ''
+  let resourceData = eventType == '4' ? info.resource_info.type == '4' ? info.resource_info.resource_info : info.resource_info : null
+  
   let timer: any = null, flag = true
   // 上传监听回调
   const uploadEvent = (e: any) => {
@@ -89,8 +90,10 @@ export default function PubEventView() {
             return Toast.fail('请输入内容')
           }
           uploadInfo(val, imagUrl, '')
-        } else {
+        } else if(eventType != '4') {
           uploadInfo(val, imagUrl, info.resource_info.id)
+        } else {
+          uploadInfo(val, imagUrl, resourceData.ev_id)
         }
       } else {
         Toast.fail('图片格式错误')
@@ -134,11 +137,13 @@ export default function PubEventView() {
               content={info.resource_info.content}
               id={info.resource_info.id}
             />
-          ) : eventType == '3' ? <VideoItem 
-              cover_img={info.resource_info.cover_img}
-              title={info.resource_info.title}
-              time={info.resource_info.time}
-              id={info.resource_info.id}
+          ) : eventType == '3' ? <VideoItem
+            cover_img={info.resource_info.cover_img}
+            title={info.resource_info.title}
+            time={info.resource_info.time}
+            id={info.resource_info.id}
+          /> : eventType == '4' ? <ReplyItem
+            {...resourceData}
           /> : ''
         }
       </div>

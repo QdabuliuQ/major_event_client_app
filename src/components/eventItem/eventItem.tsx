@@ -1,12 +1,16 @@
-import React, { memo, useEffect } from 'react'
-import { Image, ImagePreview, Toast, Typography } from 'react-vant'
+import React, { memo, useEffect, useRef } from 'react'
+import ReactDOM from 'react-dom';
+import { Image, ImagePreview, Popover, Toast, Typography } from 'react-vant'
 import { useRouter } from '@/hooks/useRouter';
-import { praiseEvent } from '@/network/eventDetailView/eventDetailView';
+import { praiseEvent, deleteEvent } from '@/network/eventDetailView/eventDetailView';
 import ArticleItem from "@/components/replyCom/articleItem/articleItem";
 import VideoItem from "@/components/replyCom/videoItem/videoItem";
 import ReplyItem from "@/components/replyCom/replyItem/replyItem";
 import ReplyData from "@/components/replyCom/replyData/replyData";
+import { useDispatch } from 'react-redux';
+import { add_event_info } from '@/reduxs/actions/event'
 import "./eventItem.less"
+import { DeleteO, Ellipsis, InfoO } from '@react-vant/icons';
 
 interface IProps {
   ev_id: string
@@ -20,23 +24,46 @@ interface IProps {
   resource_id: string
   resource_info: any
   commentCount: number
+  shareCount: number
   is_praise: number
   praise_count: number
 }
 
 export default memo(function EventItem(props: IProps) {
+  const dispatch = useDispatch()
+  const eventItemPopoverRef = useRef(null)
   let images: string[] = []
+  const actions = [
+    { text: '举报', icon: <InfoO  /> },
+  ]
+  if(props.user_id == localStorage.getItem('id')) {
+    actions.push({ text: '删除', icon: <DeleteO  /> })
+  }
   const { router } = useRouter()
+
+  const selectItem = (e: any) => {
+    if(e.text == '删除') {
+      deleteEvent({
+        ev_id: props.ev_id
+      }).then((res: any) => {
+        if(res.status) {
+          return Toast.fail(res.msg)
+        }
+        Toast.success(res.msg);
+        (document.getElementById('EventItem_'+props.ev_id) as HTMLDivElement).remove()
+      })
+    }
+  }
 
   const imgClick = (e: any, idx: number) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-    ImagePreview.open({ images, startPosition: idx  })
+    ImagePreview.open({ images, startPosition: idx })
   }
 
   const toDetail = () => {
     sessionStorage.setItem('event', JSON.stringify(props))
-    router('/eventDetail/'+props.ev_id)
+    router('/eventDetail/' + props.ev_id)
   }
 
   const praiseCB = (data: any, cb: Function) => {
@@ -44,16 +71,25 @@ export default memo(function EventItem(props: IProps) {
       ev_id: props.ev_id,
       is_praise: data.pState
     }).then((res: any) => {
-      if(res.status) return Toast.fail(res.msg)
+      if (res.status) return Toast.fail(res.msg)
       let eventData = {
         ...props
       }
       eventData.is_praise = data.pState
-      eventData.praise_count = data.pState ? eventData.praise_count + 1 : eventData.praise_count-1
+      eventData.praise_count = data.pState ? eventData.praise_count + 1 : eventData.praise_count - 1
       sessionStorage.removeItem('event')
       sessionStorage.setItem('event', JSON.stringify(eventData))
       cb()
     })
+  }
+
+  const shareEvent = () => {
+
+    dispatch(add_event_info({
+      type: '4',
+      resource_info: props
+    }))
+    router('/pubEvent')
   }
 
   useEffect(() => {
@@ -65,24 +101,47 @@ export default memo(function EventItem(props: IProps) {
   }, [props.images])
 
   return (
-    <div onClick={toDetail} className='EventItem'>
+    <div onClick={toDetail} id={'EventItem_'+props.ev_id} className='EventItem'>
       <div className='userInfo'>
-        <Image round fit='cover' src={props.user_pic} />
-        <div className='userData'>
-          <div className='nickname'>
-            {props.nickname}
-            <span className='type'>
-              {
-                props.type == '1' ? '发布动态'
-                  : props.type == '2' ? '分享文章'
-                    : props.type == '3' ? '分享视频'
-                      : '转发动态'
-              }
-            </span>
+        <div className='leftInfo'>
+          <Image round fit='cover' src={props.user_pic} />
+          <div className='userData'>
+            <div className='nickname'>
+              {props.nickname}
+              <span className='type'>
+                {
+                  props.type == '1' ? '发布动态'
+                    : props.type == '2' ? '分享文章'
+                      : props.type == '3' ? '分享视频'
+                        : '转发动态'
+                }
+              </span>
+            </div>
+            <div className='pubTime'>
+              {(React as any).$moment(props.time).format('YYYY-MM-DD HH:mm:ss')}
+            </div>
           </div>
-          <div className='pubTime'>
-            {(React as any).$moment(props.time).format('YYYY-MM-DD HH:mm:ss')}
-          </div>
+        </div>
+        <div className='rightOpe'>
+          <Popover
+            ref={eventItemPopoverRef}
+            actions={actions}
+            onSelect={selectItem}
+            trigger='manual'
+            onClosed={() => {
+              console.log(111);
+              
+              (document.getElementsByClassName('rv-popup')[0] as any).style.display = 'none'
+            }}
+            placement="left-start"
+            overlay={true}
+            offset={[-9, 13]}
+            reference={<Ellipsis onClick={(e) => {
+              e.stopPropagation()
+              e.nativeEvent.stopImmediatePropagation();
+              (eventItemPopoverRef.current as any).show()
+            }} />}
+          />
         </div>
       </div>
       <div className='eventInfo'>
@@ -126,14 +185,15 @@ export default memo(function EventItem(props: IProps) {
               time={props.resource_info.time}
               title={props.resource_info.title}
               toDetail={true}
-            /> : props.resource_info && props.type == '4' ? <ReplyItem {...props.resource_info}/> : ''
+            /> : props.resource_info && props.type == '4' ? <ReplyItem {...props.resource_info} /> : ''
         }
-        <ReplyData 
+        <ReplyData
           praiseCount={props.praise_count}
           isPraise={props.is_praise}
           commentCount={props.commentCount}
-          replyCount={0}
+          replyCount={props.shareCount}
           praiseCB={praiseCB}
+          shareEvent={shareEvent}
         />
       </div>
     </div>

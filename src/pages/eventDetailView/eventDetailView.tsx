@@ -137,6 +137,7 @@ export default function EventDetailView() {
                 resource_info={event.resource_info}
                 is_praise={event.is_praise}
                 praise_count={event.praise_count}
+                shareCount={event.shareCount}
               />
               <Tabs onChange={tabChange} defaultActive={idx} align='start'>
                 <Tabs.TabPane title='点赞'>

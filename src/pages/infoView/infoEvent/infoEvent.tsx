@@ -61,6 +61,7 @@ export const InfoEvent = forwardRef(({ }, ref) => {
               resource_info={item.resource_info}
               is_praise={item.isPraise}
               praise_count={item.praiseCount}
+              shareCount={item.shareCount}
             />
           ))
         ) : <Empty description="暂无发布动态" />
