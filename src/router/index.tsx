@@ -195,15 +195,17 @@ export default [
   },
   {
     path: '/error',
-    element: <ErrorView/>
-  },
-  {
-    path: '/404',
-    element: <NoFoundView/>
+    element: <ErrorView/>,
+    token: false
   },
   {
     path: '/',
     element: <Navigate to='/login'/>,
     token: false
-  }
+  },
+  {
+    path: '*',
+    element: <NoFoundView/>,
+    token: false
+  },
 ]

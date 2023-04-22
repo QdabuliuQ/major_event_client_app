@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
-import { Empty, Tabs, Sticky } from 'react-vant'
+import { Empty, Tabs } from 'react-vant'
 import { useNavigate } from "react-router-dom";
-import { Plus, Search } from '@react-vant/icons';
+import ReportSheet from '@/components/reportSheet/reportSheet';
 import { getArticleList } from "@/network/indexView/indexView"
 import { getArticleCate } from "@/network/pubArticleView/pubArticleView";
 import ArticleItem from "@/components/articleItem/articleItem";
@@ -101,6 +101,7 @@ export default function IndexView() {
 
   return (
     <div id='IndexView'>
+      <ReportSheet/>
       <SearchNav onKeyup={onKeyup} />
       <div className='cateNavBar'>
         {

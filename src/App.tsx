@@ -1,20 +1,34 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import './App.css';
-import { useRoutes } from "react-router-dom";
-import { RouterGurad } from "@/router/routerGurad";
+import { useLocation, useNavigate, useRoutes } from "react-router-dom";
 import route from "@/router/index";
 import LoadingView from "@/components/loadingView/loadingView";
-import ReportSheet from "@/components/reportSheet/reportSheet";
 
 function App() {
-  // const element = useRoutes(route)
-  
+  const element = useRoutes(route)
+  const router = useNavigate()
+  const location = useLocation()
+
+  const isMobile = () => {
+    let flag = navigator.userAgent.match(
+      /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+    );
+    return flag;
+  }
+
+  // 监听路由变化
+  useEffect(() => {
+    // 如果不是移动设备则 跳转到错误页面
+    if(location.pathname != '/error' && !isMobile()) {
+      router('/error')
+    }
+  }, [location.pathname])
+
   return (
     <div id="App">
       <Suspense fallback={<LoadingView/ >}>
-        { RouterGurad(route) }
+        { element }
       </Suspense>
-      <ReportSheet/>
     </div>
   );
 }
