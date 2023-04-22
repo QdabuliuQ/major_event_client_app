@@ -1,16 +1,19 @@
 import React, { memo, useEffect, useRef } from 'react'
-import ReactDOM from 'react-dom';
+import PubSub from 'pubsub-js'
+import { DeleteO, Ellipsis, InfoO } from '@react-vant/icons';
+import { useLocation } from 'react-router-dom';
 import { Image, ImagePreview, Popover, Toast, Typography } from 'react-vant'
 import { useRouter } from '@/hooks/useRouter';
-import { praiseEvent, deleteEvent } from '@/network/eventDetailView/eventDetailView';
+import { praiseEvent, deleteEvent, reportEvent } from '@/network/eventDetailView/eventDetailView';
 import ArticleItem from "@/components/replyCom/articleItem/articleItem";
 import VideoItem from "@/components/replyCom/videoItem/videoItem";
 import ReplyItem from "@/components/replyCom/replyItem/replyItem";
 import ReplyData from "@/components/replyCom/replyData/replyData";
 import { useDispatch } from 'react-redux';
 import { add_event_info } from '@/reduxs/actions/event'
+
 import "./eventItem.less"
-import { DeleteO, Ellipsis, InfoO } from '@react-vant/icons';
+
 
 interface IProps {
   ev_id: string
@@ -31,6 +34,8 @@ interface IProps {
 
 export default memo(function EventItem(props: IProps) {
   const dispatch = useDispatch()
+  const { pathname } = useLocation()
+  
   const eventItemPopoverRef = useRef(null)
   let images: string[] = []
   const actions = [
@@ -41,6 +46,17 @@ export default memo(function EventItem(props: IProps) {
   }
   const { router } = useRouter()
 
+  const report = (e: any) => {
+    console.log(e);
+    reportEvent({
+      ev_id: props.ev_id,
+      reason: e.name
+    }).then((res: any) => {
+      if(res.status) return Toast.fail(res.msg)
+      Toast.success(res.msg)
+    })
+  }
+
   const selectItem = (e: any) => {
     if(e.text == '删除') {
       deleteEvent({
@@ -50,7 +66,15 @@ export default memo(function EventItem(props: IProps) {
           return Toast.fail(res.msg)
         }
         Toast.success(res.msg);
-        (document.getElementById('EventItem_'+props.ev_id) as HTMLDivElement).remove()
+        if (pathname.includes('/eventDetail')) {
+          router(-1)
+        } else {
+          (document.getElementById('EventItem_'+props.ev_id) as HTMLDivElement).remove()
+        }
+      })
+    } else if(e.text == '举报') {
+      PubSub.publish('reportSheet', {
+        cb: report
       })
     }
   }
@@ -129,8 +153,6 @@ export default memo(function EventItem(props: IProps) {
             onSelect={selectItem}
             trigger='manual'
             onClosed={() => {
-              console.log(111);
-              
               (document.getElementsByClassName('rv-popup')[0] as any).style.display = 'none'
             }}
             placement="left-start"

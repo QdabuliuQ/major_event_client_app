@@ -5,7 +5,6 @@ import { ActionSheet, Button, Empty, Input, ShareSheet, Toast } from 'react-vant
 import { ArrowLeft, WarnO } from '@react-vant/icons';
 import { pubVideoComment, getVideoComment } from "@/network/videoView/videoView";
 import { getVideoDetail } from "@/network/videoDetail/videoDetail";
-import { getReportReason } from "@/network/reportView/reportView";
 import CommentItem from "@/components/commentItem/commentItem";
 import ScrollList from '@/components/scrollList/scrollList';
 import VideoContent from "@/pages/videoView/videoContent/videoContent";
@@ -22,9 +21,6 @@ export default function VideoDetail() {
   const [status, setStatus] = useState(0)
   const [info, setInfo] = useState<any>(null)
   const [val, setVal] = useState('')
-  const [reason, setReason] = useState<{
-    name: string
-  }[]>([])
   const [commentOffset, setCommentOffset] = useState(1)
   const [commentMore, setCommentMore] = useState(true)
   const [commentList, setCommentList] = useState<{
@@ -92,11 +88,6 @@ export default function VideoDetail() {
       setInfo(res.data)
     })
 
-    getReportReason({
-      type: '2'
-    }).then((res: any) => {
-      setReason(res.data)
-    })
 
     // 消息订阅
     PubSub.subscribe('commentDetail', (msg: string, id: string) => {
@@ -151,7 +142,7 @@ export default function VideoDetail() {
                       click={false}
                       praise={item.praise_count}
                       is_praise={item.is_praise}
-                      reason={reason}
+                      type='2'
                     />
                   ))
                 }

@@ -2,7 +2,8 @@ import { memo, useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { WarningO, GoodJob, GoodJobO, Arrow } from '@react-vant/icons';
 import moment from "moment";
-import { ActionSheet, Image, Toast } from 'react-vant';
+import PubSub from 'pubsub-js'
+import { Image, Toast } from 'react-vant';
 import { praiseComment } from "@/network/articleView/articleView";
 import { praiseVideoComment } from "@/network/videoView/videoView";
 import { addCommentReport } from "@/network/reportView/reportView";
@@ -23,9 +24,7 @@ interface IProps {
   showReply?: boolean
   click?: boolean
   praiseClick?: (data: any, cb: Function) => void
-  reason?: {
-    name: string
-  }[]
+  type?: string
 }
 
 export default memo(function CommentItem({
@@ -42,11 +41,10 @@ export default memo(function CommentItem({
   is_praise,
   showReply = true,
   click = true,
-  reason,
-  praiseClick
+  praiseClick,
+  type
 }: IProps) {
   const router = useNavigate()
-  const [visible, setVisible] = useState(false)
   const [praiseCount, setPraiseCount] = useState(0)
   const [praiseState, setPraiseState] = useState(0)
 
@@ -89,19 +87,24 @@ export default memo(function CommentItem({
         })
       }
     }
-
-
   }
 
   const selectEvent = (e: any) => {
     addCommentReport({
       comment_id,
       reason: e.name,
-      type: art_id ? '1' : '2'
+      type: type as string
     }).then((res: any) => {
       if (res.status) return Toast.fail(res.msg)
       Toast.success(res.msg)
-      setVisible(false)
+    })
+  }
+
+  const report = (e: any) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    PubSub.publish('reportSheet', {
+      cb: selectEvent
     })
   }
 
@@ -146,21 +149,17 @@ export default memo(function CommentItem({
             {moment(time).format('YYYY-MM-DD HH:mm')}
           </div>
           <div className='rightInfo'>
-            <WarningO onClick={(e) => {
-              e.stopPropagation();
-              e.nativeEvent.stopImmediatePropagation();
-              setVisible(true)
-            }} fontSize='15px' />
+            <WarningO onClick={(e) => report(e)} fontSize='15px' />
           </div>
         </div>
       </div>
-      <ActionSheet
+      {/* <ActionSheet
         closeOnClickOverlay={true}
         onSelect={(e) => selectEvent(e)}
         actions={reason}
         visible={visible}
         onCancel={() => setVisible(false)}>
-      </ActionSheet>
+      </ActionSheet> */}
     </div>
   )
 }) 

@@ -71,3 +71,38 @@ export function deleteEvent(data: {
     method: 'post'
   })
 }
+
+// 动态转发
+export function getEventReplyList(data: {
+  offset: number
+  ev_id: string
+}) {
+  return ajax({
+    url: '/eve/getEventReplyList',
+    params: data,
+    method: 'get'
+  })
+}
+
+// 获取动态数据
+export function getEventData(data: {
+  ev_id: string
+}) {
+  return ajax({
+    url: '/eve/getEventData',
+    params: data,
+    method: 'get'
+  })
+}
+
+// 举报动态
+export function reportEvent(data: {
+  ev_id: string
+  reason: string
+}) {
+  return ajax({
+    url: '/eve/reportEvent',
+    data,
+    method: 'post'
+  })
+}

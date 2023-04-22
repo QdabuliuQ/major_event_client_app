@@ -2,13 +2,13 @@ import React, { memo, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Image, Popover, PopoverInstance, Toast, Typography } from 'react-vant';
 import { MenuInt, MessageInt } from "@/interface/global";
-import "./articleMessage.less"
 import PubSub from 'pubsub-js';
 import MenuItem from '@/components/menuItem/menuItem';
 import { useDispatch } from 'react-redux';
 import { add_message_info } from '@/reduxs/actions/message';
 import { collectArticle } from '@/network/articleView/articleView';
 import { touchStateEvent, tourchEndEvent } from '@/utils/tools';
+import "./articleMessage.less"
 
 export default memo(function ArticleMessage(props: MessageInt) {
   const router = useNavigate()

@@ -5,7 +5,6 @@ import ScrollList from "@/components/scrollList/scrollList";
 import CommentItem from "@/components/commentItem/commentItem";
 import { getCommentDetail, getCommentFloor } from "@/network/commentList/commentList";
 import { pubArticleComment } from "@/network/articleView/navBar";
-import { getReportReason } from "@/network/reportView/reportView";
 import "./commentList.less"
 
 export default function CommentList() {
@@ -14,14 +13,9 @@ export default function CommentList() {
 
   const inputRef = useRef<HTMLInputElement>(null)
   let offset = 1, artId = '', commentId = ''
-  const [reason, setReason] = useState<{
-    name: string
-  }[]>([])
   const [height, setHeight] = useState(0)
   const [count, setCount] = useState(0)
   const [comment, setComment] = useState<any>(null)
-  // const [comment, setComment] = useCallbackState(null)
-  // const [commentList, setCommentList] = useCallbackState([])
   const [commentList, setCommentList] = useState<{
     content: string
     time: number
@@ -81,13 +75,6 @@ export default function CommentList() {
       getData(res.data.art_id, res.data.comment_id)
     })
 
-    getReportReason({
-      type: '2'
-    }).then((res: any) => {
-      setReason(res.data)
-
-    })
-
     setHeight(document.documentElement.clientHeight - 46 - document.getElementsByClassName('inputContainer')[0].clientHeight)
   }, [])
 
@@ -115,7 +102,7 @@ export default function CommentList() {
                 is_praise={comment.is_praise}
                 showReply={false}
                 click={false}
-                reason={reason}
+                type='1'
               />
               <div className='replyContainer'>
                 <div className='replyTitle'>全部回复</div>
@@ -123,7 +110,6 @@ export default function CommentList() {
                   commentList.length ? (
                     commentList.map((item: any) => (
                       <CommentItem
-                        reason={reason}
                         key={item.comment_id}
                         praise={item.praise}
                         is_praise={item.is_praise}
@@ -136,6 +122,7 @@ export default function CommentList() {
                         user_id={item.user_id}
                         showReply={false}
                         click={false}
+                        type='1'
                       />
                     ))
                   ) : (

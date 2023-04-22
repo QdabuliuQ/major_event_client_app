@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { Toast, Sticky, ShareSheet, NavBar, Typography, Image, Empty, Popover } from 'react-vant';
 import { useParams, useNavigate } from "react-router-dom";
 import { getArticleDetail, getArticleParams, getArticleComment } from "@/network/articleView/articleView";
-import { getReportReason } from "@/network/reportView/reportView";
 import { _NavBar } from "./component/navBar/navBar";
 import { add_message_info } from "@/reduxs/actions/message";
 import CommentItem from "@/components/commentItem/commentItem";
@@ -33,9 +32,6 @@ export default function ArticleView() {
   const [params, setParams] = useState<any>(null)
   const [visible, setVisible] = useState(false)
   const [toggleIdx, setToggleIdX] = useState(0)
-  const [reason, setReason] = useState<{
-    name: string
-  }[]>([])
   const [commentList, setCommentList] = useState<{
     content: string
     time: number
@@ -128,12 +124,6 @@ export default function ArticleView() {
     })
 
     getCommentData(1, actions[toggleIdx].type)
-
-    getReportReason({
-      type: '2'
-    }).then((res: any) => {
-      setReason(res.data)
-    })
 
   }, [])
 
@@ -230,7 +220,7 @@ export default function ArticleView() {
                           comment_id={item.comment_id}
                           user_id={item.user_id}
                           reply={item.reply}
-                          reason={reason}
+                          type='1'
                         />
                       ))
                     ) : <Empty description="暂无评论" />

@@ -4,10 +4,17 @@ import { Empty, NavBar, Tabs, Toast } from 'react-vant'
 import EventItem from '@/components/eventItem/eventItem'
 import { useGetHeight } from '@/hooks/useGetHeight'
 import ScrollList from '@/components/scrollList/scrollList'
-import { addEventComment, getEventComment, getEventPraiseList, praiseComment } from '@/network/eventDetailView/eventDetailView'
-import "./eventDetailView.less"
+import {
+  addEventComment,
+  getEventComment,
+  getEventPraiseList,
+  praiseComment,
+  getEventReplyList,
+  getEventData
+} from '@/network/eventDetailView/eventDetailView'
 import CommentItem from '@/components/commentItem/commentItem'
 import UserItem from '@/components/userItem/userItem'
+import "./eventDetailView.less"
 
 
 export default function EventDetailView() {
@@ -16,8 +23,9 @@ export default function EventDetailView() {
   const { router } = useRouter()
   const [idx, setIdx] = useState(1)
   const [mores, setMores] = useState<boolean[]>([true, true, true])
-  const [offsets, setOffsetS] = useState<number[]>([1,1,1])
+  const [offsets, setOffsets] = useState<number[]>([1, 1, 1])
   const [event, setEvent] = useState<any>(null)
+  const [replyList, setReplyList] = useState<any>([])
   const [praiseList, setPraiseList] = useState<any>([])
   const [comment, setComment] = useState<any>([])
   let height = useGetHeight([
@@ -27,13 +35,13 @@ export default function EventDetailView() {
 
   // 获取数据
   const getData = (offset: number, idx: number, ev_id: string) => {
-    if(idx == 0) {   // 点赞用户数据
+    if (idx == 0) {   // 点赞用户数据
       getEventPraiseList({
         offset,
         ev_id,
       }).then((res: any) => {
-        if(res.status) return Toast.fail(res.msg)
-        if(offset == 1) {
+        if (res.status) return Toast.fail(res.msg)
+        if (offset == 1) {
           setPraiseList(res.data)
         } else {
           setPraiseList([...praiseList, ...res.data])
@@ -41,13 +49,13 @@ export default function EventDetailView() {
         mores[idx] = res.more
         setMores([...mores])
       })
-    } else if(idx == 1) {
+    } else if (idx == 1) {
       getEventComment({
         offset,
         ev_id,
       }).then((res: any) => {
-        if(res.status) return Toast.fail(res.msg)
-        if(offset == 1) {
+        if (res.status) return Toast.fail(res.msg)
+        if (offset == 1) {
           setComment(res.data)
         } else {
           setComment([...comment, ...res.data])
@@ -56,7 +64,19 @@ export default function EventDetailView() {
         setMores([...mores])
       })
     } else {
-
+      getEventReplyList({
+        offset,
+        ev_id
+      }).then((res: any) => {
+        if (res.status) return Toast.fail(res.msg)
+        if (offset == 1) {
+          setReplyList(res.data)
+        } else {
+          setReplyList([...comment, ...res.data])
+        }
+        mores[idx] = res.more
+        setMores([...mores])
+      })
     }
   }
 
@@ -69,7 +89,7 @@ export default function EventDetailView() {
       ev_id: event.ev_id,
       content: val
     }).then((res: any) => {
-      if(res.status) return Toast.fail(res.msg)
+      if (res.status) return Toast.fail(res.msg)
       Toast.success('发表成功');
       (inputRef.current as HTMLInputElement).value = ''
     })
@@ -82,15 +102,16 @@ export default function EventDetailView() {
       comment_id: data.comment_id,
       is_praise: data.pState
     }).then((res: any) => {
-      if(res.status) return Toast.fail(res.msg)
+      if (res.status) return Toast.fail(res.msg)
       cb()
     })
   }
 
   // 切换tab回调
   const tabChange = (_: any, i: number) => {
-    if((i == 0 && praiseList.length == 0) 
-    || (i == 1 && comment.length == 0)) {
+    if ((i == 0 && praiseList.length == 0)
+      || (i == 1 && comment.length == 0)
+      || (i == 2 && replyList.length == 0)) {
       getData(offsets[i], i, event.ev_id)
     }
     setIdx(i)
@@ -98,10 +119,20 @@ export default function EventDetailView() {
 
   useEffect(() => {
     _event = JSON.parse(sessionStorage.getItem('event') as string)
-    console.log(_event);
-    
-    setEvent(_event)
     getData(1, 1, _event.ev_id)
+
+    getEventData({
+      ev_id: _event.ev_id,
+    }).then((res: any) => {
+      _event.commentCount = res.data.commentCount
+      _event.is_praise = res.data.isPraise
+      _event.praise_count = res.data.praiseCount
+      _event.shareCount = res.data.shareCount
+      console.log(_event);
+      
+      setEvent(_event)
+    })
+
   }, [])
 
   return (
@@ -114,11 +145,11 @@ export default function EventDetailView() {
       />
       {
         event ? (
-          <ScrollList 
+          <ScrollList
             cb={() => {
-              getData(offsets[idx]+1, idx, event.ev_id)
-              offsets[idx] = offsets[idx]+1
-              setOffsetS([...offsets])
+              getData(offsets[idx] + 1, idx, event.ev_id)
+              offsets[idx] = offsets[idx] + 1
+              setOffsets([...offsets])
             }}
             hasMore={mores[idx]}
             height={height}>
@@ -144,16 +175,16 @@ export default function EventDetailView() {
                   {
                     praiseList.length ? (
                       praiseList.map((item: any) => (
-                        <UserItem 
+                        <UserItem
                           key={item.user_id}
-                          is_follow={null} 
-                          nickname={item.nickname} 
-                          user_pic={item.user_pic} 
-                          intro={null} 
-                          id={item.user_id} 
+                          is_follow={null}
+                          nickname={item.nickname}
+                          user_pic={item.user_pic}
+                          intro={null}
+                          id={item.user_id}
                           rightSlot={
                             <span className='time'>{(React as any).$moment(item.time).fromNow()}</span>
-                          }                         
+                          }
                         />
                       ))
                     ) : <Empty description="暂无点赞记录" />
@@ -176,12 +207,31 @@ export default function EventDetailView() {
                           click={false}
                           praise={item.praiseCount}
                           praiseClick={praiseClick}
+                          type='3'
                         />
                       ))
                     ) : <Empty description="暂无评论" />
                   }
                 </Tabs.TabPane>
-                <Tabs.TabPane title='转发' />
+                <Tabs.TabPane title='转发'>
+                  {
+                    replyList.length ? (
+                      replyList.map((item: any) => (
+                        <UserItem
+                          key={item.id}
+                          is_follow={null}
+                          nickname={item.nickname}
+                          user_pic={item.user_pic}
+                          intro={null}
+                          id={item.id}
+                          rightSlot={
+                            <span className='time'>{(React as any).$moment(item.time).fromNow()}</span>
+                          }
+                        />
+                      ))
+                    ) : <Empty description="暂无转发记录" />
+                  }
+                </Tabs.TabPane>
               </Tabs>
             </div>
           </ScrollList>

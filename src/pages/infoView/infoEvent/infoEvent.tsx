@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Empty, Toast } from 'react-vant'
+import { ActionSheet, Empty, Toast } from 'react-vant'
 import { getEventListById } from '@/network/infoView/infoView'
 import EventItem from '@/components/eventItem/eventItem'
 import { EventInt } from '@/interface/global'
@@ -22,6 +22,8 @@ export const InfoEvent = forwardRef(({ }, ref) => {
   const setOffset = () => {
     infoEvent_offset = 1
   }
+
+  // 获取数据
   const getData = () => {
     getEventListById({
       id: id as string,

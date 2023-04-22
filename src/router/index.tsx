@@ -33,6 +33,8 @@ const ChatView = lazy(() => import("@/pages/chatView/chatView"))
 const SendListView = lazy(() => import("@/pages/sendListView/sendListView"))
 const PubEventView = lazy(() => import("@/pages/pubEventView/pubEventView"))
 const EventDetailView = lazy(() => import("@/pages/eventDetailView/eventDetailView"))
+const ErrorView = lazy(() => import("@/pages/errorView/errorView"))
+const NoFoundView = lazy(() => import("@/pages/noFoundView/noFoundView"))
 
 
 export default [
@@ -192,7 +194,16 @@ export default [
     element: <EventDetailView/>
   },
   {
+    path: '/error',
+    element: <ErrorView/>
+  },
+  {
+    path: '/404',
+    element: <NoFoundView/>
+  },
+  {
     path: '/',
-    element: <Navigate to='/login'/>
+    element: <Navigate to='/login'/>,
+    token: false
   }
 ]

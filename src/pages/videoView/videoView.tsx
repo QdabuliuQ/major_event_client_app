@@ -8,7 +8,6 @@ import VideoContent from "./videoContent/videoContent";
 import CommentItem from "@/components/commentItem/commentItem";
 import ScrollList from "@/components/scrollList/scrollList";
 import { getVideoList, pubVideoComment, getVideoComment } from "@/network/videoView/videoView";
-import { getReportReason } from "@/network/reportView/reportView";
 import { add_message_info } from '@/reduxs/actions/message';
 import { add_event_info } from '@/reduxs/actions/event';
 import "./videoView.less"
@@ -25,9 +24,6 @@ export default function VideoView() {
   ]
   const router = useNavigate()
   const dispatch = useDispatch()
-  const [reason, setReason] = useState<{
-    name: string
-  }[]>([])
   const [sheetVisible, setSheetVisible] = useState(false)
   const [vid, setVid] = useState('')
   const [commentOffset, setCommentOffset] = useState(1)
@@ -149,11 +145,6 @@ export default function VideoView() {
       setSheetVisible(true)
     })
 
-    getReportReason({
-      type: '2'
-    }).then((res: any) => {
-      setReason(res.data)
-    })
   }, [])
 
   return (
@@ -211,7 +202,7 @@ export default function VideoView() {
                       click={false}
                       praise={item.praise_count}
                       is_praise={item.is_praise}
-                      reason={reason}
+                      type='2'
                     />
                   ))
                 }

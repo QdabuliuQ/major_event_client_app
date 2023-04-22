@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
 import { useRouter } from '@/hooks/useRouter'
-import "./pubEventView.less"
 import { Input, NavBar, Toast, Uploader } from 'react-vant'
 import { fileType } from '@/utils/tools'
 import { updateImage } from '@/network/editProfileView/editProfileView'
@@ -9,6 +8,7 @@ import { useSelector } from 'react-redux'
 import ArticleItem from "@/components/replyCom/articleItem/articleItem";
 import VideoItem from "@/components/replyCom/videoItem/videoItem";
 import ReplyItem from '@/components/replyCom/replyItem/replyItem'
+import "./pubEventView.less"
 
 
 export default function PubEventView() {
