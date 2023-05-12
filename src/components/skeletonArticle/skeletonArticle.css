@@ -1,0 +1,24 @@
+#SkeletonArticle .skeletonItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+#SkeletonArticle .skeletonItem:not(:last-child) {
+  box-sizing: border-box;
+  border-bottom: 1px solid #e9e9e9;
+}
+#SkeletonArticle .skeletonItem .leftSkeleton {
+  flex: 1;
+  margin-right: 10px;
+}
+#SkeletonArticle .skeletonItem .rightSkeleton {
+  width: 40%;
+  height: 20vw;
+}
+#SkeletonArticle .skeletonItem .rightSkeleton .rv-skeleton {
+  height: 100%;
+}
+#SkeletonArticle .skeletonItem .rv-skeleton {
+  padding: 0 0 !important;
+}

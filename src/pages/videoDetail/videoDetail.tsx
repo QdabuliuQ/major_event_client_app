@@ -8,12 +8,19 @@ import { getVideoDetail } from "@/network/videoDetail/videoDetail";
 import CommentItem from "@/components/commentItem/commentItem";
 import ScrollList from '@/components/scrollList/scrollList';
 import VideoContent from "@/pages/videoView/videoContent/videoContent";
+import { add_message_info } from '@/reduxs/actions/message';
+import { add_event_info } from '@/reduxs/actions/event';
+import { useDispatch } from 'react-redux';
 import "./videoDetail.less"
+
 
 export default function VideoDetail() {
   const router = useNavigate()
+  const dispatch = useDispatch()
   const options = [
-    { name: '举报', icon: <div className='videoMenuItem'><WarnO fontSize={'20px'} /></div> },
+    { name: '分享', icon: <div className='videoActionMenuItem'><img src={require("@/assets/images/event.png")} alt="" /></div> },
+    { name: '转发', icon: <div className='videoActionMenuItem'><img src={require("@/assets/images/send.png")} alt="" /></div> },
+    { name: '举报', icon: <div className='videoActionMenuItem'><img src={require("@/assets/images/report.png")} alt="" /></div> },
   ]
   const [sheetVisible, setSheetVisible] = useState(false)
   const [visible, setVisible] = useState(false)
@@ -110,6 +117,20 @@ export default function VideoDetail() {
         onSelect={(option, index) => {
           switch (index) {
             case 0:
+              dispatch(add_event_info({
+                type: '3',
+                resource_info: info
+              }))
+              router(`/pubEvent`)
+              break;
+            case 1:
+              dispatch(add_message_info({  // 存入 redux 当中
+                type: '3',
+                resource_info: info
+              }))
+              router(`/sendList`)
+              break;
+            case 2:
               router(`/report/${id}/2`)
               break;
           }

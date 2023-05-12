@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import moment from "moment";
 import { Ellipsis, Exchange } from '@react-vant/icons';
 import { useDispatch } from "react-redux";
-import { Toast, Sticky, ShareSheet, NavBar, Typography, Image, Empty, Popover } from 'react-vant';
+import { Skeleton, Toast, Sticky, ShareSheet, NavBar, Typography, Image, Empty, Popover } from 'react-vant';
 import { useParams, useNavigate } from "react-router-dom";
 import { getArticleDetail, getArticleParams, getArticleComment } from "@/network/articleView/articleView";
 import { _NavBar } from "./component/navBar/navBar";
@@ -28,6 +28,7 @@ export default function ArticleView() {
     type: 'new'
   }]
   const { id } = useParams()
+  const [loading, setLoading] = useState(true)
   const [offset, setOffset] = useState(1)
   const [params, setParams] = useState<any>(null)
   const [visible, setVisible] = useState(false)
@@ -60,7 +61,7 @@ export default function ArticleView() {
   const selectEvent = (_: unknown, idx: number) => {
     setOffset(1)
     setToggleIdX(idx)
-    if(commentList.length) getCommentData(1, actions[idx].type)
+    if (commentList.length) getCommentData(1, actions[idx].type)
   }
 
   // 获取评论数据
@@ -110,6 +111,7 @@ export default function ArticleView() {
           type: '2',
           resource_info: res.data
         }))
+        setLoading(false)
       } else {
         setStatus(res.status)
       }
@@ -144,7 +146,7 @@ export default function ArticleView() {
         onClickRight={() => setVisible(true)}
       />
       {
-        status == 0 && info ? (
+        status == 0 ? (
           <div>
             <ScrollList
               cb={() => {
@@ -155,44 +157,52 @@ export default function ArticleView() {
               height={height}>
               <div className='articleInfoContainer'>
                 <div className='articleTitle'>
-                  <Typography.Text ellipsis={2}>{info.title}</Typography.Text>
-                </div>
-                <div className='articleTarget'>
-                  <div className='cateTarget targetItem'>
-                    {info.cate_name}
-                  </div>
                   {
-                    info.targets && info.targets.map((item: any) => (
-                      <div key={item.value} className='tItem targetItem'>
-                        {item.label}
-                      </div>
-                    ))
+                    loading && !info ? <Skeleton loading={loading} rowHeight={25} row={0} title /> : <Typography.Text ellipsis={2}>{info.title}</Typography.Text>
                   }
                 </div>
-                <div className='articleAuthor'>
-                  <Image round fit='cover' src={info.user_pic} />
-                  <div onClick={() => {
-                    router('/info', {
-                      state: {
-                        id: info.author_id
-                      }
-                    })
-                  }} className='authorInfo'>
-                    <div className='leftInfo'>
-                      <div className='authorNickname'>
-                        <Typography.Text ellipsis>
-                          {info.nickname} {
-                            info.intro && <span>({info.intro})</span>
-                          }
-                        </Typography.Text>
-                      </div>
-                      <div className='authorOther'>
-                        发布时间：{moment(info.pub_date).format('YYYY-MM-DD HH:mm')}
+                {
+                  loading && !info ? <Skeleton loading={loading && !info} style={{ marginBottom: '13px' }} row={2} rowHeight={15} /> : <div className='articleTarget'>
+                    <div className='cateTarget targetItem'>
+                      {info.cate_name}
+                    </div>
+                    {
+                      info.targets && info.targets.map((item: any) => (
+                        <div key={item.value} className='tItem targetItem'>
+                          {item.label}
+                        </div>
+                      ))
+                    }
+                  </div>
+                }
+                {
+                  loading && !info ? <Skeleton loading={loading && !info} rowWidth={'70vw'} className='avatarSkeleton' row={1} avatarSize={'12vw'} avatar /> : <div className='articleAuthor'>
+                    <Image round fit='cover' src={info.user_pic} />
+                    <div onClick={() => {
+                      router('/info', {
+                        state: {
+                          id: info.author_id
+                        }
+                      })
+                    }} className='authorInfo'>
+                      <div className='leftInfo'>
+                        <div className='authorNickname'>
+                          <Typography.Text ellipsis>
+                            {info.nickname} {
+                              info.intro && <span>({info.intro})</span>
+                            }
+                          </Typography.Text>
+                        </div>
+                        <div className='authorOther'>
+                          发布时间：{moment(info.pub_date).format('YYYY-MM-DD HH:mm')}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className='articleContent' dangerouslySetInnerHTML={{ __html: info.content }}></div>
+                }
+                {
+                  loading && !info ? <Skeleton style={{ margin: '10px 0' }} loading={loading && !info} row={8} rowHeight={17} /> : <div className='articleContent' dangerouslySetInnerHTML={{ __html: info.content }}></div>
+                }
                 <div className='articleComment'>
                   <div className='commentInfo'>
                     <Popover
@@ -205,6 +215,7 @@ export default function ArticleView() {
                       </div>}
                     />
                   </div>
+
                   {
                     commentList.length ? (
                       commentList.map(item => (

@@ -16,7 +16,7 @@ interface IProps {
 
 export default memo(function ReplyItem(props: IProps) {
   return (
-    <div className='ReplyItem'>
+    <div className='CommentReplyItem'>
       <div className='userInfo'>
         <div className='leftInfo'>
           <Image round fit='cover' src={props.user_pic} />

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { Empty, Tabs } from 'react-vant'
+import { Skeleton, Empty, Tabs } from 'react-vant'
 import { useNavigate } from "react-router-dom";
 import ReportSheet from '@/components/reportSheet/reportSheet';
 import { getArticleList } from "@/network/indexView/indexView"
@@ -7,6 +7,7 @@ import { getArticleCate } from "@/network/pubArticleView/pubArticleView";
 import ArticleItem from "@/components/articleItem/articleItem";
 import SearchNav from "@/components/searchNav/searchNav";
 import ScrollList from "@/components/scrollList/scrollList";
+import SkeletonArticle from "@/components/skeletonArticle/skeletonArticle";
 import "./indexView.less"
 
 export default function IndexView() {
@@ -17,6 +18,7 @@ export default function IndexView() {
     cate_name: '全部',
     cate_id: '0'
   }])
+  const [loading, setLoading] = useState(true)
   const [cateId, setCateId] = useState('0')
   const [show, setShow] = useState(true)
   const [height, setHeight] = useState(0)
@@ -29,12 +31,12 @@ export default function IndexView() {
     title: string
   }[]>([])
 
-  let timer: any;
 
   const tabsRef = useRef(null)
 
   // 获取数据
   const getData = (id: string, _offset: number) => {
+    if (_offset == 1) setLoading(true)
     if (id == '0') {
       getArticleList({
         offset: _offset,
@@ -45,6 +47,7 @@ export default function IndexView() {
         } else {
           setArtList([...artList, ...res.data])
         }
+        setLoading(false)
         setMore(res.more)
       })
     } else {
@@ -58,6 +61,7 @@ export default function IndexView() {
         } else {
           setArtList([...artList, ...res.data])
         }
+        setLoading(false)
         setMore(res.more)
       })
     }
@@ -101,7 +105,7 @@ export default function IndexView() {
 
   return (
     <div id='IndexView'>
-      <ReportSheet/>
+      <ReportSheet />
       <SearchNav onKeyup={onKeyup} />
       <div className='cateNavBar'>
         {
@@ -117,24 +121,22 @@ export default function IndexView() {
       </div>
       <div>
         {
-          artList.length ? (
-            <ScrollList
-              cb={() => {
-                getData(cateId, offset + 1)
-                setOffset(offset + 1)
-              }}
-              height={height}
-              hasMore={more}
-            >
-              <div className='articleContainer'>
-                {
-                  artList.map((item: any) => (
-                    <ArticleItem browse_count={item.browse_count} key={item.id} id={item.id} clickEvent={itemClick} title={item.title} content={item.content} cover={item.cover_img} time={item.pub_date} />
-                  ))
-                }
-              </div>
-            </ScrollList>
-          ) : <Empty description="暂无内容" />
+          <ScrollList
+            cb={() => {
+              getData(cateId, offset + 1)
+              setOffset(offset + 1)
+            }}
+            height={height}
+            hasMore={more}
+          >
+            <div className='articleContainer'>
+              {
+                loading ? <SkeletonArticle cnt={5} /> : !loading && artList.length ? artList.map((item: any) => (
+                  <ArticleItem browse_count={item.browse_count} key={item.id} id={item.id} clickEvent={itemClick} title={item.title} content={item.content} cover={item.cover_img} time={item.pub_date} />
+                )) : <Empty description="暂无内容" />
+              }
+            </div>
+          </ScrollList>
         }
       </div>
     </div>

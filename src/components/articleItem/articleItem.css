@@ -41,3 +41,8 @@
   align-items: center;
   margin-right: 10px;
 }
+.ArticleItem .articleInfo .articleTime div .rv-icon {
+  font-size: 20px;
+  position: relative;
+  top: 2px;
+}

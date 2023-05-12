@@ -1,41 +1,41 @@
-.ReplyItem {
+.CommentReplyItem {
   padding: 12px 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
   border-radius: 6px;
 }
-.ReplyItem .actSpan {
+.CommentReplyItem .actSpan {
   color: #407af7;
 }
-.ReplyItem .rv-typography__text {
+.CommentReplyItem .rv-typography__text {
   width: 100%;
   font-size: 15px;
 }
-.ReplyItem .userInfo {
+.CommentReplyItem .userInfo {
   display: flex;
 }
-.ReplyItem .userInfo .leftInfo {
+.CommentReplyItem .userInfo .leftInfo {
   width: 40px;
   height: 40px;
 }
-.ReplyItem .userInfo .leftInfo .rv-image {
+.CommentReplyItem .userInfo .leftInfo .rv-image {
   width: 100%;
   height: 100%;
 }
-.ReplyItem .userInfo .rightInfo {
+.CommentReplyItem .userInfo .rightInfo {
   margin-top: 10px;
   width: 80%;
   margin-left: 8px;
   word-wrap: break-word;
 }
-.ReplyItem .userInfo .rightInfo .pubTime {
+.CommentReplyItem .userInfo .rightInfo .pubTime {
   color: #a5a5a5;
   font-size: 13px;
   display: flex;
   justify-content: flex-end;
   margin-top: 6px;
 }
-.ReplyItem .pCommentInfo {
+.CommentReplyItem .pCommentInfo {
   padding: 10px 10px 5px 10px;
   margin-left: 45px;
   margin-top: 8px;

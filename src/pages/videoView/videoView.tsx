@@ -78,7 +78,6 @@ export default function VideoView() {
   }
 
   const onChange = (e: number) => {
-
     if (e != -1) {
       // 下拉加载 下一页数据
       if (e == list.length - 1) {

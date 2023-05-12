@@ -1,0 +1,16 @@
+#SkeletonChat .skeletonItem {
+  padding: 10px 0;
+}
+#SkeletonChat .skeletonItem:not(:last-child) {
+  box-sizing: border-box;
+  border-bottom: 1px solid #ebebeb;
+}
+#SkeletonChat .rv-skeleton {
+  padding: 0 0 !important;
+}
+#SkeletonChat .rv-skeleton .rv-skeleton__avatar {
+  margin-right: 10px;
+}
+#SkeletonChat .rv-skeleton .rv-skeleton__content {
+  padding-top: 10px;
+}

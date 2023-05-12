@@ -7,6 +7,7 @@ import { useGetHeight } from "@/hooks/useGetHeight";
 import { useSocket } from "@/hooks/useSocket";
 import { getChatObject } from '@/network/messageView/messageView';
 import ChatItem from "@/components/chatItem/chatItem";
+import SkeletonChat from "@/components/skeletonChat/skeletonChat";
 import "./messageView.less"
 
 interface ListInt {
@@ -24,6 +25,7 @@ interface ListInt {
 export default function MessageView() {
   const router = useNavigate()
   let id = localStorage.getItem('id')
+  const [loading, setLoading] = useState(true)
   const [offset, setOffset] = useState(1)
   const [more, setMore] = useState(true)
   const [list, setList] = useState<ListInt[]>([])
@@ -45,6 +47,7 @@ export default function MessageView() {
     '.rv-tabbar'
   ])
   const getData = (offset: number) => {
+    if(offset == 1) setLoading(true)
     getChatObject({
       offset,
       pageSize: 10
@@ -54,6 +57,7 @@ export default function MessageView() {
       } else {
         setList([...list, ...res.data])
       }
+      setLoading(false)
       setMore(res.more)
     })
   }
@@ -121,7 +125,7 @@ export default function MessageView() {
         </div>
         <div className='messageList'>
           {
-            list.length ? (
+            loading ? <SkeletonChat cnt={5} /> : !loading && list.length ? (
               list.map(item => (
                 <ChatItem
                   key={item.room_id}

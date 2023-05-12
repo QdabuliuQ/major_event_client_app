@@ -31,7 +31,7 @@ export default function ArticleItem(props: IProps) {
           {
             props.browse_count != null && (
               <div>
-                <EyeO fontSize={20} /> <span style={{ marginLeft: '4px' }}>{props.browse_count ?? 0}</span>
+                <EyeO /> <span style={{ marginLeft: '4px' }}>{props.browse_count ?? 0}</span>
               </div>
             )
           }
@@ -39,7 +39,7 @@ export default function ArticleItem(props: IProps) {
         </div>
       </div>
       <div className='articleCover'>
-        <Image fit='cover' width='100%' height='100%' src={props.cover} />
+        <Image lazyload fit='cover' width='100%' height='100%' src={props.cover} />
       </div>
     </div>
   )

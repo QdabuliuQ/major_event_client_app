@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+import { Image } from 'react-vant';
 import "./chatItem.less"
 
 interface IProps {
@@ -14,7 +15,7 @@ export default memo(function ChatItem(props: IProps) {
   return (
     <div onClick={() => props.click && props.click()} className='ChatItem'>
       <div className='leftImg'>
-        <img src={props.img} alt="" />
+        <Image round fit='cover' src={props.img} />
       </div>
       <div className='rightInfo'>
         <div className='info_name'>

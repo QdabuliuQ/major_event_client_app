@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Toast, Empty } from 'react-vant';
 import { getUserArticleById } from "@/network/infoView/infoView";
 import ArticleItem from "@/components/articleItem/articleItem";
+import SkeletonArticle from "@/components/skeletonArticle/skeletonArticle";
 import "./infoArticle.less"
 
 let infoArticle_offset = 1
@@ -15,7 +16,7 @@ export const InfoArticle = forwardRef(({ }, ref) => {
     more,
     setOffset
   }))
-
+  const [loading, setLoading] = useState(true)
   const [more, setMore] = useState(true)
   const [list, setList] = useState<any>([])
   
@@ -23,6 +24,7 @@ export const InfoArticle = forwardRef(({ }, ref) => {
     infoArticle_offset = 1
   }
   const getData = () => {
+    if(infoArticle_offset) setLoading(true)
     getUserArticleById({
       id: id as string,
       offset: infoArticle_offset
@@ -32,6 +34,7 @@ export const InfoArticle = forwardRef(({ }, ref) => {
       }
       setMore(res.more)
       setList([...list, ...res.data])
+      setLoading(false)
       infoArticle_offset ++
     })
   }
@@ -43,8 +46,9 @@ export const InfoArticle = forwardRef(({ }, ref) => {
 
   return (
     <div id='InfoArticle'>
+      
       {
-        list.length ? (
+        loading ? <SkeletonArticle cnt={4} /> : !loading && list.length ? (
           list.map((item: any) => (
             <ArticleItem key={item.id} browse_count={item.browse_count} id={item.art_id} clickEvent={() => router('/article/' + item.id)} title={item.title} content={item.content} cover={item.cover_img} time={item.pub_date} />
           ))

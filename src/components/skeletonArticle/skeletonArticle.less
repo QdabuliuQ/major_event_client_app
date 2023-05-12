@@ -1,0 +1,26 @@
+#SkeletonArticle {
+  .skeletonItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    &:not(:last-child) {
+      box-sizing: border-box;
+      border-bottom: 1px solid #e9e9e9;
+    }
+    .leftSkeleton {
+      flex: 1;
+      margin-right: 10px;
+    }
+    .rightSkeleton {
+      width: 40%;
+      height: 20vw;
+      .rv-skeleton {
+        height: 100%;
+      }
+    }
+    .rv-skeleton {
+      padding: 0 0 !important;
+    }
+  }
+}
