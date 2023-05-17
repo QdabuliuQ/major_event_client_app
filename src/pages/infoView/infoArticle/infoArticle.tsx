@@ -14,7 +14,8 @@ export const InfoArticle = forwardRef(({ }, ref) => {
   useImperativeHandle(ref, () => ({
     getData,
     more,
-    setOffset
+    setOffset,
+    loading
   }))
   const [loading, setLoading] = useState(true)
   const [more, setMore] = useState(true)

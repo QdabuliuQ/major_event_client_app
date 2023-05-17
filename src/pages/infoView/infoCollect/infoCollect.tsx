@@ -1,9 +1,11 @@
-  import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
+import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
 import { Toast, Empty } from 'react-vant';
 import { getUserCollectById, getUserCollectVideoById } from "@/network/infoView/infoView";
 import ArticleItem from "@/components/articleItem/articleItem";
 import VideoItem from "@/components/videoItem/videoItem";
+import SkeletonArticle from "@/components/skeletonArticle/skeletonArticle";
+import SkeletonVideo from "@/components/skeletonVideo/skeletonVideo";
 import "./infoCollect.less"
 
 let infoCollect_offset = 1
@@ -20,9 +22,11 @@ export const InfoCollect = forwardRef((props: IProps, ref) => {
     more,
     setOffset,
     getType,
-    getMore
+    getMore,
+    loading
   }))
 
+  const [loading, setLoading] = useState(true)
   const [type, setType] = useState(0)
   const [list, setList] = useState<any>([])
   const [more, setMore] = useState(true)
@@ -42,6 +46,7 @@ export const InfoCollect = forwardRef((props: IProps, ref) => {
     infoCollect_offset = 1
   }
   const getData = (type: number) => {
+    if(infoCollect_offset == 1) setLoading(true)
     if(type == 0) {
       getUserCollectById({
         id: id as string,
@@ -57,6 +62,7 @@ export const InfoCollect = forwardRef((props: IProps, ref) => {
         }
         setMore(res.more)
         infoCollect_offset ++
+        setLoading(false)
       })
     } else {
       getUserCollectVideoById({
@@ -73,6 +79,7 @@ export const InfoCollect = forwardRef((props: IProps, ref) => {
         }
         setMore(res.more)
         infoCollect_offset ++
+        setLoading(false)
       })
     }
   }
@@ -89,30 +96,28 @@ export const InfoCollect = forwardRef((props: IProps, ref) => {
         <div onClick={() => toggleType(1)} className={`typeItem ${type == 1 ? 'activeItem' :'' }`}>视频</div>
       </div>
       {
-        list.length ? (
-          type == 0 ? (
-            list.map((item: any) => (
-              <ArticleItem key={item.id} browse_count={item.browse_count} id={item.art_id} clickEvent={() => router('/article/'+item.id)} title={item.title} content={item.content} cover={item.cover_img} time={item.pub_date} />
-            ))
-          ) : (
-            <div className='collectVideoList'>
-              {
-                list.map((item: any) => (
-                  <VideoItem
-                    key={item.id}
-                    cover_img={item.cover_img}
-                    id={item.id}
-                    title={item.title}
-                    time={item.pub_date}
-                    nickname={item.nickname}
-                    user_pic={item.user_pic}
-                    user_id={item.user_id}
-                  />
-                ))
-              }
-            </div>
-          )
-        ) : <Empty description={`暂无收藏${type == 0 ? '文章' : '视频'}`} />
+        type == 0 ? (
+          loading ? <SkeletonArticle cnt={4} /> : !loading && list.length ? list.map((item: any) => (
+            <ArticleItem key={item.id} browse_count={item.browse_count} id={item.art_id} clickEvent={() => router('/article/'+item.id)} title={item.title} content={item.content} cover={item.cover_img} time={item.pub_date} />
+          )) : <Empty description={`暂无收藏文章`} />
+        ) : (
+          loading ? <SkeletonVideo /> : !loading && list.length ? <div className='collectVideoList'>
+            {
+              list.map((item: any) => (
+                <VideoItem
+                  key={item.id}
+                  cover_img={item.cover_img}
+                  id={item.id}
+                  title={item.title}
+                  time={item.pub_date}
+                  nickname={item.nickname}
+                  user_pic={item.user_pic}
+                  user_id={item.user_id}
+                />
+              ))
+            }
+          </div> : <Empty description={`暂无收藏视频`} />
+        )
       }
     </div>
   )

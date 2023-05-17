@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
-import { lazy } from "react";
+import { lazy, ReactNode, Suspense } from "react";
 
+import LoadingView from "@/components/loadingView/loadingView";
 const LoginView = lazy(() => import("@/pages/loginView/loginView"))
 const RegisterView = lazy(() => import("@/pages/registerView/registerView"))
 const ForgetView = lazy(() => import("@/pages/forgetView/forgetView"))
@@ -14,6 +15,8 @@ const CollectView = lazy(() => import("@/pages/collectView/collectView"))
 const ReportView = lazy(() => import("@/pages/reportView/reportView"))
 const CommentList = lazy(() => import("@/pages/commentList/commentList"))
 const PraiseView = lazy(() => import("@/pages/praiseView/praiseView"))
+const PraiseArticle = lazy(() => import("@/pages/praiseView/praiseArticle/praiseArticle"))
+const PraiseVideo = lazy(() => import("@/pages/praiseView/praiseVideo/praiseVideo"))
 const InfoView = lazy(() => import("@/pages/infoView/infoView"))
 const UserListView = lazy(() => import("@/pages/userListView/userListView"))
 const VideoView = lazy(() => import("@/pages/videoView/videoView"))
@@ -35,7 +38,12 @@ const PubEventView = lazy(() => import("@/pages/pubEventView/pubEventView"))
 const EventDetailView = lazy(() => import("@/pages/eventDetailView/eventDetailView"))
 const ErrorView = lazy(() => import("@/pages/errorView/errorView"))
 const NoFoundView = lazy(() => import("@/pages/noFoundView/noFoundView"))
-
+// 解决子路由页面闪动
+const lazyload = (children: ReactNode): ReactNode => {
+  return <Suspense fallback={<LoadingView/ >}>
+    {children}
+  </Suspense>
+}
 
 export default [
   {
@@ -131,7 +139,21 @@ export default [
   },
   {
     path: '/praise',
-    element: <PraiseView/>
+    element: <PraiseView/>,
+    children: [
+      {
+        path: 'article',
+        element: lazyload(<PraiseArticle />)
+      },
+      {
+        path: 'video',
+        element: lazyload(<PraiseVideo />)
+      },
+      {
+        path: '/praise',
+        element: <Navigate to='article'/>
+      },
+    ]
   },
   {
     path: '/browse',

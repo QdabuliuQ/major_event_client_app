@@ -85,20 +85,22 @@ export default function InfoView() {
     addChatObject({
       to_id: id
     }).then((res: any) => {
-      if(res.status) return Toast.fail(res.msg)
+      if (res.status) return Toast.fail(res.msg)
       router(`/chat/${id}/${res.room_id}`)
     })
   }
   // 加载数据
   const loadData = () => {
-    if (idx == 3) {
-      (comRefs[idx].current as any).getData((comRefs[idx].current as any).getType())
-    } else {
-      (comRefs[idx].current as any).getData()
+    if (!(comRefs[idx].current as any).loading) {
+      if (idx == 3) {
+        (comRefs[idx].current as any).getData((comRefs[idx].current as any).getType())
+      } else {
+        (comRefs[idx].current as any).getData()
+      }
+      setTimeout(() => {
+        setMore((comRefs[idx].current as any).more)
+      }, 100);
     }
-    setTimeout(() => {
-      setMore((comRefs[idx].current as any).more)
-    }, 100);
   }
 
   useEffect(() => {

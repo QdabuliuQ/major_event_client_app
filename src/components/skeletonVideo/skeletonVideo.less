@@ -1,0 +1,36 @@
+#skeletonVideo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  .skeletonItem {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid #e0e0e0;
+    .cover {
+      width: 100%;
+      aspect-ratio: 1/1.2;
+      .rv-skeleton {
+        height: 100%;
+        padding: 0;
+        .rv-skeleton__row {
+          height: 100%;
+        }
+      }
+    }
+    .info {
+      padding: 8px 6px;
+      .rv-skeleton {
+        padding: 0;
+        .rv-skeleton__row {
+          &:not(:first-child) {
+            margin-top: 6px;
+          }
+        }
+      }
+    }
+  }
+}

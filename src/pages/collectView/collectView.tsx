@@ -4,6 +4,8 @@ import { Tabs, Toast, SwipeCell, Empty, Button, NavBar } from 'react-vant';
 import ArticleItem from "@/components/articleItem/articleItem";
 import VideoItem from "@/components/videoItem/videoItem";
 import ScrollList from "@/components/scrollList/scrollList";
+import SkeletonArticle from "@/components/skeletonArticle/skeletonArticle";
+import SkeletonVideo from "@/components/skeletonVideo/skeletonVideo";
 import { getCollectList, getCollectVideo } from "@/network/collectView/collectView";
 import { collectArticle } from "@/network/articleView/articleView";
 import "./collectView.less"
@@ -17,6 +19,7 @@ export default function CollectView() {
   const [collect, setCollect] = useState<any>([])
   const [height, setHeight] = useState<number>(0)
   const [more, setMore] = useState<boolean>(true)
+  const [loading, setLoading] = useState(true)
 
   const itemClick = (id: string) => {
     router('/article/' + id)
@@ -37,6 +40,7 @@ export default function CollectView() {
   }
 
   const getData = (type: number = 0, _offset: number = 1) => {
+    if(_offset == 1) setLoading(true)
     if (type == 0) {
       getCollectList({
         offset: _offset
@@ -50,6 +54,7 @@ export default function CollectView() {
           setCollect([...collect, ...res.data])
         }
         setMore(res.more)
+        setLoading(false)
       })
     } else if (type == 1) {
       getCollectVideo({
@@ -65,6 +70,7 @@ export default function CollectView() {
           setCollect([...collect, ...res.data])
         }
         setMore(res.more)
+        setLoading(false)
       })
     }
   }
@@ -106,7 +112,7 @@ export default function CollectView() {
             hasMore={more}
             height={height}>
             {
-              type == 0 && collect[0].art_id && collect.map((item: any, index: number) => {
+              type == 0 ? (loading ? <SkeletonArticle cnt={5} /> : !loading && collect[0].art_id && collect.map((item: any, index: number) => {
                 return <div key={item.id} className='collectItem'>
                 <SwipeCell
                   rightAction={
@@ -118,10 +124,8 @@ export default function CollectView() {
                   <ArticleItem browse_count={item.browse_count} id={item.art_id} clickEvent={itemClick} title={item.title} content={item.content} cover={item.cover_img} time={item.pub_date}></ArticleItem>
                 </SwipeCell>
               </div>
-              })
-            }
-            {
-              type == 1 && collect[0].video_id && (
+              })) : (
+                loading ? <SkeletonVideo /> : collect[0].video_id &&
                 <div className='collectVideoContainer'>
                   {
                     collect.map((item: any, index: number) => <VideoItem
@@ -141,6 +145,8 @@ export default function CollectView() {
                 </div>
               )
             }
+            
+            
           </ScrollList>
 
         ) : <Empty description="暂无收藏文章" />
@@ -148,3 +154,25 @@ export default function CollectView() {
     </div >
   )
 }
+
+// {
+            //   type == 1 && collect[0].video_id && (
+            //     <div className='collectVideoContainer'>
+            //       {
+            //         collect.map((item: any, index: number) => <VideoItem
+            //           key={item.video_id}
+            //           cover_img={item.cover_img}
+            //           id={item.video_id}
+            //           title={item.title}
+            //           time={item.pub_date}
+            //           nickname={item.nickname}
+            //           user_pic={item.user_pic}
+            //           user_id={item.user_id}
+            //           collect={true}
+            //           index={index}
+            //           collectCb={collectCb}
+            //         />)
+            //       }
+            //     </div>
+            //   )
+            // }

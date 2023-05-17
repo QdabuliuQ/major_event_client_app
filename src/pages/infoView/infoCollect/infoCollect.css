@@ -16,6 +16,9 @@
   background-color: #40a0ff34;
   color: #409eff;
 }
+#InfoCollect #skeletonVideo {
+  margin-top: 10px;
+}
 #InfoCollect .collectVideoList {
   display: grid;
   grid-template-columns: 1fr 1fr;

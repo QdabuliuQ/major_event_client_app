@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Empty, Toast } from 'react-vant';
 import { getUserVideoById } from "@/network/infoView/infoView";
 import VideoItem from "@/components/videoItem/videoItem";
+import SkeletonVideo from "@/components/skeletonVideo/skeletonVideo";
 import "./infoVideo.less"
 
 let infoVideo_offset = 1
@@ -12,9 +13,11 @@ const InfoVideo = forwardRef(({ }, ref) => {
   useImperativeHandle(ref, () => ({
     getData,
     more,
-    setOffset
+    setOffset,
+    loading
   }))
 
+  const [loading, setLoading] = useState(true)
   const [list, setList] = useState<any>([])
   const [more, setMore] = useState(true)
 
@@ -23,6 +26,7 @@ const InfoVideo = forwardRef(({ }, ref) => {
   }
 
   const getData = () => {
+    if (infoVideo_offset == 1) setLoading(true)
     getUserVideoById({
       id: id as string,
       offset: infoVideo_offset
@@ -33,6 +37,7 @@ const InfoVideo = forwardRef(({ }, ref) => {
       setMore(res.more)
       setList([...list, ...res.data])
       infoVideo_offset++
+      setLoading(false)
     })
   }
 
@@ -42,7 +47,7 @@ const InfoVideo = forwardRef(({ }, ref) => {
   }, [])
 
   return (
-    list.length ? <div id="InfoVideo">
+    loading ? <SkeletonVideo /> : !loading && list.length ? <div id="InfoVideo">
       {
         list.map((item: any) => (
           <VideoItem
