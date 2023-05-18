@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import { NavBar, Tabs } from 'react-vant';
 import { useGetHeight } from '@/hooks/useGetHeight';
@@ -9,9 +9,14 @@ export default function PraiseView() {
   const location = useLocation()
 
   let path = location.pathname
-  let height = useGetHeight([
+  let type: string = path.includes('praise') ? 'praise' : 'browse'
+  const [active, setActive] = useState(0)  
+  
+  let height = useGetHeight(type == 'praise' ? [
     '.rv-nav-bar',
     '.rv-tabs__wrap'
+  ] : [
+    '.rv-nav-bar'
   ])
 
   const onChange = (name: string | number, tabIndex: number) => {
@@ -30,7 +35,14 @@ export default function PraiseView() {
   }
 
   useEffect(() => {
-    // getData(1)
+    if(type == 'praise') {
+      if(path == '/praise' || path == '/praise/article') setActive(0)
+      else setActive(1)
+    } else {
+      if(path == '/browse' || path == '/browse/article') setActive(0)
+      else setActive(1)
+    }
+    
   }, [])
 
   return (
@@ -38,13 +50,15 @@ export default function PraiseView() {
       <NavBar
         fixed={true}
         placeholder={true}
-        title={path == '/praise' ? '点赞文章' : '浏览记录'}
-        onClickLeft={() => router(-1)}
+        title={path.includes('praise') ? '点赞记录' : '浏览记录'}
+        onClickLeft={() => router(-2)}
       />
-      <Tabs onChange={onChange}>
-        <Tabs.TabPane title='文章' />
-        <Tabs.TabPane title='视频' />
-      </Tabs>
+      {
+        type == 'praise' ? <Tabs active={active} onChange={onChange}>
+          <Tabs.TabPane title='文章' />
+          <Tabs.TabPane title='视频' />
+        </Tabs> : ''
+      }
       <div style={{height}}>
         <Outlet></Outlet>
       </div>

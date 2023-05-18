@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Empty, Toast } from 'react-vant'
+import { useLocation, useNavigate } from 'react-router-dom';
 import ArticleItem from "@/components/articleItem/articleItem";
 import ScrollList from "@/components/scrollList/scrollList";
 import SkeletonArticle from "@/components/skeletonArticle/skeletonArticle";
 import { useGetHeight } from '@/hooks/useGetHeight';
-import { useLocation, useNavigate } from 'react-router-dom';
-import "./praiseArticle.less"
 import { getBrowseList, getPraiseList } from '@/network/praiseView/praiseView';
+import "./praiseArticle.less"
 
 export default function PraiseArticle() {
   const router = useNavigate()
@@ -33,7 +33,7 @@ export default function PraiseArticle() {
   ])
 
   const getData = (offset: number) => {
-    if (path == '/praise') {
+    if (path == '/praise/article') {
       getPraiseList({
         offset
       }).then((res: any) => {
@@ -83,7 +83,7 @@ export default function PraiseArticle() {
             loading ? <SkeletonArticle cnt={5} /> : !loading && list && list.length ? (
               list.map(item => (
                 <ArticleItem
-                  key={item.id + (item.b_time ? item.b_time : '')}
+                  key={item.id}
                   id={item.id}
                   browse_count={item.browse_count}
                   clickEvent={() => router('/article/' + item.id)}

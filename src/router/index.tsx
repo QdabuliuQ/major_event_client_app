@@ -157,7 +157,21 @@ export default [
   },
   {
     path: '/browse',
-    element: <PraiseView/>
+    element: <PraiseView/>,
+    children: [
+      {
+        path: 'article',
+        element: lazyload(<PraiseArticle />)
+      },
+      {
+        path: 'video',
+        element: lazyload(<PraiseVideo />)
+      },
+      {
+        path: '/browse',
+        element: <Navigate to='article'/>
+      },
+    ]
   },
   {
     path: '/myComment',
