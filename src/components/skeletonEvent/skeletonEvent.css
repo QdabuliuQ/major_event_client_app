@@ -1,0 +1,17 @@
+#SkeletonEvent .rv-skeleton {
+  padding: 0;
+}
+#SkeletonEvent .rv-skeleton:not(:last-child) {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ebebeb;
+}
+#SkeletonEvent .rv-skeleton .rv-skeleton__avatar {
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+}
+#SkeletonEvent .rv-skeleton .rv-skeleton__row:nth-last-child(2) {
+  border-radius: 10px !important;
+}

@@ -43,7 +43,6 @@ export default memo(function CommentItem(props: IProps) {
             ellipsis={{
               rows: 2,
               symbol: '......',
-              suffixCount: 10,
             }}
           >
             {props.content}

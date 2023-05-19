@@ -20,7 +20,7 @@ export default memo(function SkeletonVideo({
                 <Skeleton round={false} row={1} />
               </div>
               <div className='info'>
-                <Skeleton rowWidth={['50%', '70%', '70%']} rowHeight={10} row={3} />
+                <Skeleton rowWidth={['50%', '70%', '70%']} rowHeight={['1.5vh','1.5vh','3vh']} row={3} />
               </div>
             </div>)
           }

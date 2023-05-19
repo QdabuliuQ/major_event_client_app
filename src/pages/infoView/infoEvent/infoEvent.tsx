@@ -1,15 +1,17 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ActionSheet, Empty, Toast } from 'react-vant'
+import { Empty, Toast } from 'react-vant'
 import { getEventListById } from '@/network/infoView/infoView'
 import EventItem from '@/components/eventItem/eventItem'
 import { EventInt } from '@/interface/global'
+import SkeletonEvent from "@/components/skeletonEvent/skeletonEvent";
 import "./infoEvent.less"
 let infoEvent_offset = 1
 
 export const InfoEvent = forwardRef(({ }, ref) => {
   const { id } = useLocation().state
   const router = useNavigate()
+  const [loading, setLoading] = useState(true)
   const [more, setMore] = useState(true)
   const [list, setList] = useState<EventInt[]>([])
 
@@ -25,6 +27,7 @@ export const InfoEvent = forwardRef(({ }, ref) => {
 
   // 获取数据
   const getData = () => {
+    if(infoEvent_offset == 1) setLoading(true)
     getEventListById({
       id: id as string,
       offset: infoEvent_offset
@@ -34,6 +37,7 @@ export const InfoEvent = forwardRef(({ }, ref) => {
       }
       setMore(res.more)
       setList([...list, ...res.data])
+      setLoading(false)
       infoEvent_offset++
     })
   }
@@ -46,7 +50,7 @@ export const InfoEvent = forwardRef(({ }, ref) => {
   return (
     <div id='InfoEvent'>
       {
-        list.length ? (
+        loading ? <SkeletonEvent /> : !loading && list.length ? (
           list.map((item: any) => (
             <EventItem
               key={item.ev_id}

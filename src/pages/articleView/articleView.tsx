@@ -9,6 +9,7 @@ import { _NavBar } from "./component/navBar/navBar";
 import { add_message_info } from "@/reduxs/actions/message";
 import CommentItem from "@/components/commentItem/commentItem";
 import ScrollList from "@/components/scrollList/scrollList";
+import SkeletonComment from '@/components/skeletonComment/skeletonComment';
 import { useGetHeight } from '@/hooks/useGetHeight';
 import { add_event_info } from '@/reduxs/actions/event';
 import "./articleView.less"
@@ -215,9 +216,8 @@ export default function ArticleView() {
                       </div>}
                     />
                   </div>
-
                   {
-                    commentList.length ? (
+                    loading ? <SkeletonComment / > : !loading && commentList.length ? (
                       commentList.map(item => (
                         <CommentItem
                           art_id={item.art_id}

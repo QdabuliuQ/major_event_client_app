@@ -7,6 +7,7 @@ import VideoNav from "./videoNav/videoNav";
 import VideoContent from "./videoContent/videoContent";
 import CommentItem from "@/components/commentItem/commentItem";
 import ScrollList from "@/components/scrollList/scrollList";
+import SkeletonComment from "@/components/skeletonComment/skeletonComment";
 import { getVideoList, pubVideoComment, getVideoComment } from "@/network/videoView/videoView";
 import { add_message_info } from '@/reduxs/actions/message';
 import { add_event_info } from '@/reduxs/actions/event';
@@ -26,6 +27,7 @@ export default function VideoView() {
   const dispatch = useDispatch()
   const [sheetVisible, setSheetVisible] = useState(false)
   const [vid, setVid] = useState('')
+  const [loading, setLoading] = useState(true)
   const [commentOffset, setCommentOffset] = useState(1)
   const [commentMore, setCommentMore] = useState(true)
   const [commentList, setCommentList] = useState<{
@@ -103,14 +105,14 @@ export default function VideoView() {
       }
       setCommentOffset(1)
       getCommentData('', 1)
-      Toast.success(res.msg)
-
       setVal('')
+      Toast.success(res.msg)
     })
   }
   // 获取评论数据
   const getCommentData = (vid?: string, offset?: number) => {
     let _offset = offset ? offset : commentOffset
+    if(_offset == 1) setLoading(true)
     getVideoComment({
       video_id: vid ? vid : video_id,
       offset: _offset,
@@ -123,6 +125,7 @@ export default function VideoView() {
       } else {
         setCommentList([...commentList, ...res.data])
       }
+      setLoading(false)
       setCommentMore(res.more)
       setCommentOffset(commentOffset + 1)
     })
@@ -144,6 +147,10 @@ export default function VideoView() {
       setSheetVisible(true)
     })
 
+    return () => {
+      PubSub.unsubscribe('moreEvent')
+      PubSub.unsubscribe('commentDetail')
+    }
   }, [])
 
   return (
@@ -177,7 +184,7 @@ export default function VideoView() {
       />
       <ActionSheet closeable={false} title='视频评论' visible={visible} onCancel={() => setVisible(false)}>
         {
-          commentList.length ? (
+          loading ? <SkeletonComment cnt={2} /> : !loading && commentList.length ? (
             <ScrollList
               cb={() => {
                 getCommentData()
@@ -206,7 +213,6 @@ export default function VideoView() {
                   ))
                 }
               </div>
-
             </ScrollList>
           ) : (
             <div style={{ height: '60vh' }}>

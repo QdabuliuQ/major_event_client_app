@@ -18,7 +18,8 @@ export default function NavView() {
 
   useEffect(() => {
     let i = location.pathname.substring(location.pathname.lastIndexOf('/')+1)
-    setindex(i)
+    if(i == 'index') setindex('home')
+    else setindex(i)
   }, [])
 
   return (

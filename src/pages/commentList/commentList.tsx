@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { NavBar, Empty, Toast } from 'react-vant';
 import ScrollList from "@/components/scrollList/scrollList";
 import CommentItem from "@/components/commentItem/commentItem";
+import SkeletonComment from "@/components/skeletonComment/skeletonComment";
 import { getCommentDetail, getCommentFloor } from "@/network/commentList/commentList";
 import { pubArticleComment } from "@/network/articleView/navBar";
 import "./commentList.less"
@@ -12,7 +13,10 @@ export default function CommentList() {
   const { id } = useParams()
 
   const inputRef = useRef<HTMLInputElement>(null)
-  let offset = 1, artId = '', commentId = ''
+  
+  const [offset, setOffset] = useState(1)
+  const [loading, setLoading] = useState(true)
+  const [more, setMore] = useState(true)
   const [height, setHeight] = useState(0)
   const [count, setCount] = useState(0)
   const [comment, setComment] = useState<any>(null)
@@ -30,25 +34,26 @@ export default function CommentList() {
 
   const onKeyUpEvent = () => {
     let val = (inputRef.current as HTMLInputElement).value.trim()
-    if(val == '' || val.length > 100) return
-    
+    if (val == '' || val.length > 100) return
+
     pubArticleComment({
       art_id: comment.art_id,
       content: val,
       parent_id: comment.comment_id,
     }).then((res: any) => {
-      if(res.status) {
+      if (res.status) {
         return Toast.fail('发表失败')
       }
       (inputRef.current as HTMLInputElement).value = ''
       Toast.success('发表成功')
-      offset = 1
       setCommentList([])
-      getData(comment.art_id, comment.comment_id)
+      setOffset(1)
+      getData(comment.art_id, comment.comment_id, 1)
     })
   }
 
-  const getData = (art_id: string, comment_id: string) => {
+  const getData = (art_id: string, comment_id: string, offset: number) => {
+    if (offset == 1) setLoading(true)
     getCommentFloor({
       art_id,
       comment_id,
@@ -56,10 +61,12 @@ export default function CommentList() {
       limit: 15,
     }).then((res: any) => {
       setCount(res.count)
-      if(offset == 1) setCommentList(res.data)
+      if (offset == 1) setCommentList(res.data)
       else {
         setCommentList([...commentList, ...res.data])
       }
+      setLoading(false)
+      setMore(res.more)
     })
   }
 
@@ -72,7 +79,7 @@ export default function CommentList() {
         router(-1)
       }
       setComment(res.data)
-      getData(res.data.art_id, res.data.comment_id)
+      getData(res.data.art_id, res.data.comment_id, 1)
     })
 
     setHeight(document.documentElement.clientHeight - 46 - document.getElementsByClassName('inputContainer')[0].clientHeight)
@@ -88,26 +95,34 @@ export default function CommentList() {
       />
       {
         comment && (
-          <ScrollList height={height}>
+          <ScrollList 
+            hasMore={more} 
+            height={height}
+            cb={() => {
+              setOffset(offset + 1)
+              getData(comment.art_id, comment.comment_id, offset + 1)
+            }}>
             <div className='listContainer'>
-              <CommentItem
-                content={comment.content}
-                time={comment.time}
-                nickname={comment.nickname}
-                user_pic={comment.user_pic}
-                comment_id={comment.comment_id}
-                user_id={comment.user_id}
-                art_id={comment.art_id}
-                praise={comment.praise}
-                is_praise={comment.is_praise}
-                showReply={false}
-                click={false}
-                type='1'
-              />
+              {
+                loading ? <SkeletonComment cnt={1} /> : !loading && comment && <CommentItem
+                  content={comment.content}
+                  time={comment.time}
+                  nickname={comment.nickname}
+                  user_pic={comment.user_pic}
+                  comment_id={comment.comment_id}
+                  user_id={comment.user_id}
+                  art_id={comment.art_id}
+                  praise={comment.praise}
+                  is_praise={comment.is_praise}
+                  showReply={false}
+                  click={false}
+                  type='1'
+                />
+              }
               <div className='replyContainer'>
                 <div className='replyTitle'>全部回复</div>
                 {
-                  commentList.length ? (
+                  loading ? <SkeletonComment /> : !loading && commentList.length ? (
                     commentList.map((item: any) => (
                       <CommentItem
                         key={item.comment_id}

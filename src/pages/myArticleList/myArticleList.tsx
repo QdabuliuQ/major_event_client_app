@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { Empty, Toast, Tabs, NavBar } from 'react-vant';
+import { Dialog, Empty, Toast, Tabs, NavBar } from 'react-vant';
 import { getArticleById, deleteArticleById } from "@/network/myArticleList/myArticleList";
 import ArticleItem from "./articleItem/articleItem";
 import ScrollList from "@/components/scrollList/scrollList";
@@ -33,17 +33,24 @@ export default function MyArticleList() {
   }
 
   const deleteEvent = (id: string, i: number) => {
-    if(list[i].state != '1') return
-    deleteArticleById({
-      id
-    }).then((res: any) => {
-      if(res.status) {
-        return Toast.fail('删除失败')
+    if (list[i].state != '1') return
+    Dialog.alert({
+      message: '是否确认删除文章（删除后无法恢复）',
+      showCancelButton: true,
+      onConfirm: () => {
+        deleteArticleById({
+          id
+        }).then((res: any) => {
+          if (res.status) {
+            return Toast.fail('删除失败')
+          }
+          list.splice(i, 1)
+          setList([...list])
+          Toast.success('删除成功')
+        })
       }
-      list.splice(i, 1)
-      setList([...list])
-      Toast.success('删除成功')
     })
+
   }
 
   useEffect(() => {
@@ -64,7 +71,7 @@ export default function MyArticleList() {
         setOffset(1)
         setType(e)
         setMore(true)
-        
+
         getData(e.toString(), 1)
       }}>
         <Tabs.TabPane title='全部' />
@@ -90,7 +97,7 @@ export default function MyArticleList() {
                     deleteEvent={deleteEvent}
                     index={index}
                     {
-                      ...item
+                    ...item
                     }
                   />
                 ))

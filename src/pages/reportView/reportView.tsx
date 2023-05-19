@@ -112,7 +112,6 @@ export default function ReportView() {
               maxCount={4}
               maxSize={500 * 1024}
               onChange={(v: any) => {
-                console.log(v);
                 let formData = []
                 for (let item of v) {
                   formData.push(item.file)

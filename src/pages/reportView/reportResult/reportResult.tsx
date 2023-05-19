@@ -176,10 +176,10 @@ export default function ReportResult() {
               comments.length ? (
                 comments.map(item => (
                   <CommentItem
-                    key={item.id}
+                    key={item.comment_id+item.time}
                     comment_id={item.comment_id}
                     content={item.content}
-                    id={item.id}
+                    id={item.comment_id}
                     reason={item.reason}
                     state={item.state}
                     time={item.time}

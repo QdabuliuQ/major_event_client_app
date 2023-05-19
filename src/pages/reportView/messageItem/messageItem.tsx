@@ -19,8 +19,6 @@ interface IProps {
 export default memo(function MessageItem(props: IProps) {
   const router = useNavigate()
   const toDetail = () => {
-    console.log(props.type);
-    
     switch (props.type) {
       case '2':
         router('/article/' + props.resource)
@@ -32,7 +30,7 @@ export default memo(function MessageItem(props: IProps) {
   }
 
   return (
-    <div className='MessageItem'>
+    <div className='Report_MessageItem'>
       <div className='itemInfo'>
         <div className='itemLeft'>
           举报结果

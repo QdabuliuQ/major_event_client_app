@@ -23,9 +23,10 @@ export default function CommentItem(props: IProps) {
   const pathChange = () => {
     if (props.art_id) {
       router('/article/'+props.art_id)
+    } else {
+      router('/video/'+props.video_id)
     }
   }
-
 
   return (
     <div className='_CommentItem'>
@@ -66,7 +67,7 @@ export default function CommentItem(props: IProps) {
         }
       </div>
       <div className='commentBtn'>
-        <Button onClick={pathChange} icon={<OrdersO/>} style={{marginRight: '2vw'}} size='small' type='primary'>查看文章</Button>
+        <Button onClick={pathChange} icon={<OrdersO/>} style={{marginRight: '2vw'}} size='small' type='primary'>查看{props.art_id ? '文章' : '视频'}</Button>
         <Button onClick={() => props.deleteEvent && props.deleteEvent(props.comment_id, props.art_id ? '1' : '2', props.index)} icon={<DeleteO  />} size='small' type='danger'>删除评论</Button>
       </div>
     </div>
