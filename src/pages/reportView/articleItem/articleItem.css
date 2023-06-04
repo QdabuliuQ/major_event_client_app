@@ -4,8 +4,20 @@
   justify-content: space-between;
   padding-bottom: 6px;
 }
+._ArticleItem .leftInfo {
+  width: 100%;
+}
 ._ArticleItem .title {
+  width: 100%;
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+._ArticleItem .content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

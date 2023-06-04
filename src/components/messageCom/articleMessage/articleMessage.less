@@ -5,40 +5,55 @@
     background-color: #fff;
     border-radius: 7px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+
     .articleInfo {
       display: flex;
       align-items: center;
       padding-bottom: 10px;
       border-bottom: 1px solid #e9e9e9;
     }
+
     .target {
       padding-top: 5px;
       font-size: 13px;
       color: var(--color);
       font-weight: bold;
     }
+
     .cover {
       width: 65px;
       height: 65px;
       border-radius: 6px;
       overflow: hidden;
     }
+
     .articleTitle {
       width: 60%;
       margin-left: 10px;
+
       .rv-typography__text {
         font-size: 14px;
       }
+
       .desc {
         margin-top: 5px;
         font-size: 13px;
         color: #ccc;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        /* 这里是超出几行省略 */
+        overflow: hidden;
       }
     }
   }
+
   .myMessage {
     position: relative;
     margin-right: 12px;
+
     &::after {
       width: 0;
       height: 0;
@@ -52,11 +67,13 @@
       top: 12px;
     }
   }
+
   .messageOther {
-    
+
     .otherMessage {
       position: relative;
       margin-left: 12px;
+
       &::after {
         width: 0;
         height: 0;

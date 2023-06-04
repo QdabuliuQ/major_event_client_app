@@ -17,8 +17,8 @@ export default memo(function ArticleItem(props: IProps) {
   return (
     <div onClick={() => router('/article/' + props.art_id)} className='_ArticleItem'>
       <div className='leftInfo'>
-        <Typography.Text className='title' ellipsis={2}>{props.title}</Typography.Text>
-        <Typography.Text ellipsis>{props.content}</Typography.Text>
+        <Typography.Text className='title' ellipsis={1}>{props.title}</Typography.Text>
+        <Typography.Text className='content' ellipsis>{props.content}</Typography.Text>
       </div>
       <Image fit='cover' width='30vw' height='20vw' src={props.cover_img} />
     </div>

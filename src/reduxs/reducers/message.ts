@@ -4,18 +4,17 @@ import {
   DELETE_MESSAGE_INFO 
 } from "../constants";
 
-export default function message(state: any, action: ActionInt) {
+export default function message(state: any = null, action: ActionInt) {
   const {
     type,
     data
   } = action
-
+  
   switch (type) {
-    case ADD_MESSAGE_INFO:
+    case ADD_MESSAGE_INFO: 
+      
       return data
-    case DELETE_MESSAGE_INFO:
-      return null
     default:
-      return null
+      return state
   }
 }

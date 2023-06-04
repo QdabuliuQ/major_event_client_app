@@ -91,6 +91,7 @@ export default function ArticleView() {
         router(`/pubEvent`)
         break;
       case 1:
+        
         router(`/sendList`)
         break;
       case 2:
@@ -104,10 +105,12 @@ export default function ArticleView() {
     getArticleDetail({ id: id as string }).then((res: any) => {
       if (res.status == 0) {
         setInfo(res.data)
+        
         dispatch(add_message_info({
           type: '2',
           resource_info: res.data
         }))
+        
         dispatch(add_event_info({
           type: '2',
           resource_info: res.data

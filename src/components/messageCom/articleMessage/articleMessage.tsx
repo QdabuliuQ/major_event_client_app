@@ -106,11 +106,7 @@ export default memo(function ArticleMessage(props: MessageInt) {
               </Popover>
 
               <div className='userInfo'>
-                <Image onClick={() => router('/info', {
-                  state: {
-                    id: props.my_id
-                  }
-                })} round className='userImg' fit='cover' src={props.my_user_pic} />
+                <Image onClick={() => router('/info/'+props.my_id)} round className='userImg' fit='cover' src={props.my_user_pic} />
               </div>
             </div>
           </div>
@@ -118,11 +114,7 @@ export default memo(function ArticleMessage(props: MessageInt) {
           <div className='messageOther'>
             <div className='message_o'>
               <div className='userInfo'>
-                <Image onClick={() => router('/info', {
-                  state: {
-                    id: props.from_id
-                  }
-                })} round className='userImg' fit='cover' src={props.from_user_pic} />
+                <Image onClick={() => router('/info/'+props.from_id)} round className='userImg' fit='cover' src={props.from_user_pic} />
               </div>
               <Popover
                 ref={popoverRef}
