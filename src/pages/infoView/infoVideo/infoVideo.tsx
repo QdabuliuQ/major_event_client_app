@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Empty, Toast } from 'react-vant';
 import { getUserVideoById } from "@/network/infoView/infoView";
 import VideoItem from "@/components/videoItem/videoItem";
@@ -9,7 +9,7 @@ import "./infoVideo.less"
 let infoVideo_offset = 1
 
 const InfoVideo = forwardRef(({ }, ref) => {
-  const { id } = useLocation().state
+  const { id } = useParams()
   useImperativeHandle(ref, () => ({
     getData,
     more,

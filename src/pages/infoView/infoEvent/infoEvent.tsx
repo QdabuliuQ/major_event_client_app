@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { Empty, Toast } from 'react-vant'
 import { getEventListById } from '@/network/infoView/infoView'
 import EventItem from '@/components/eventItem/eventItem'
@@ -9,8 +9,8 @@ import "./infoEvent.less"
 let infoEvent_offset = 1
 
 export const InfoEvent = forwardRef(({ }, ref) => {
-  const { id } = useLocation().state
-  const router = useNavigate()
+  const { id } = useParams()
+  const location = useLocation()
   const [loading, setLoading] = useState(true)
   const [more, setMore] = useState(true)
   const [list, setList] = useState<EventInt[]>([])
@@ -36,7 +36,11 @@ export const InfoEvent = forwardRef(({ }, ref) => {
         return Toast.fail('网络错误')
       }
       setMore(res.more)
-      setList([...list, ...res.data])
+      if (infoEvent_offset == 1) {
+        setList(res.data)
+      } else {
+        setList([...list, ...res.data])
+      }
       setLoading(false)
       infoEvent_offset++
     })
@@ -45,7 +49,7 @@ export const InfoEvent = forwardRef(({ }, ref) => {
   useEffect(() => {
     infoEvent_offset = 1
     getData()
-  }, [])
+  }, [location.pathname])
 
   return (
     <div id='InfoEvent'>

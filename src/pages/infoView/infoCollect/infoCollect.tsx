@@ -1,5 +1,5 @@
 import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Toast, Empty } from 'react-vant';
 import { getUserCollectById, getUserCollectVideoById } from "@/network/infoView/infoView";
 import ArticleItem from "@/components/articleItem/articleItem";
@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export const InfoCollect = forwardRef((props: IProps, ref) => {
-  const { id } = useLocation().state
+  const { id } = useParams()
   const router = useNavigate()
   useImperativeHandle(ref, () => ({
     getData,

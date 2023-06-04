@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { Plus, ArrowLeft } from '@react-vant/icons'
 import { Sticky, Tag, Tabs, Typography, Image, Toast, Empty, NavBar } from 'react-vant';
 import moment from "moment";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import city from '@/utils/city'
 import { getUserInfoById, updateFollowUser } from "@/network/infoView/infoView";
 import { addChatObject } from "@/network/messageView/messageView";
@@ -14,9 +14,10 @@ import InfoVideo from './infoVideo/infoVideo';
 import "./infoView.less"
 
 export default function InfoView() {
-  const { id } = useLocation().state
+  const { id } = useParams()
   const router = useNavigate()
-
+  const location = useLocation()
+  
   const comRefs = [
     useRef(null),
     useRef(null),
@@ -83,7 +84,7 @@ export default function InfoView() {
   }
   const chatUser = () => {
     addChatObject({
-      to_id: id
+      to_id: id as string
     }).then((res: any) => {
       if (res.status) return Toast.fail(res.msg)
       router(`/chat/${id}/${res.room_id}`)
@@ -104,6 +105,9 @@ export default function InfoView() {
   }
 
   useEffect(() => {
+    setStatus('')
+    setMore(true)
+
     getUserInfoById({
       id: id as string,
     }).then((res: any) => {
@@ -121,7 +125,7 @@ export default function InfoView() {
       setMore((comRefs[idx].current as any).more)
     }, 200);
 
-  }, [])
+  }, [location.pathname])
 
   return (
     <div id='InfoView'>

@@ -1,6 +1,10 @@
 #ProfileView .noticeContainer {
   padding: 10px 12px;
 }
+#ProfileView .noticeContainer .notice-swipe {
+  height: 40px;
+  line-height: 40px;
+}
 #ProfileView .noticeContainer .rv-notice-bar {
   height: 35px;
 }

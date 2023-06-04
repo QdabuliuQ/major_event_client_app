@@ -79,6 +79,12 @@ export default function ProfileView() {
     })
   }
 
+  const infoDetail = (e: any) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    router('/info/' + info.id)
+  }
+
   useEffect(() => {
     let info = localStorage.getItem('info')
     if (!info) {
@@ -108,7 +114,7 @@ export default function ProfileView() {
           </div>
           <div className='user_data'>
             <div className='user_basic_info'>
-              <div className='top_info'>
+              <div onClick={(e) => infoDetail(e)} className='top_info'>
                 <Image round fit='cover' src={info.user_pic} />
                 <div className='info_nickname'>{info.nickname}</div>
               </div>
@@ -152,6 +158,7 @@ export default function ProfileView() {
                 autoplay={3000}
                 indicator={false}
                 vertical
+                className='notice-swipe'
               >
                 {
                   noticeList.map((item: any) => (

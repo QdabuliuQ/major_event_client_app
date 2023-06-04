@@ -30,6 +30,7 @@ export default function ReportResult() {
     reason: string
     state: string
     time: number
+    rep_id: string
   }[]>([])
   const [article, setArticle] = useState<{
     id: string
@@ -128,7 +129,6 @@ export default function ReportResult() {
         }}
         hasMore={more}
       >
-
         <div className='listContainer'>
           {
             type == 0 ? (
@@ -176,7 +176,7 @@ export default function ReportResult() {
               comments.length ? (
                 comments.map(item => (
                   <CommentItem
-                    key={item.comment_id+item.time}
+                    key={item.rep_id}
                     comment_id={item.comment_id}
                     content={item.content}
                     id={item.comment_id}

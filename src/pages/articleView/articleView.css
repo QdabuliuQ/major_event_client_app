@@ -90,8 +90,6 @@
 }
 #ArticleView .articleInfoContainer .articleContent img {
   width: 100%;
-  aspect-ratio: 2/1.2;
-  object-fit: cover;
 }
 #ArticleView .articleInfoContainer .articleContent video {
   width: 100%;

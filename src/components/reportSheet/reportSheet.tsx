@@ -5,9 +5,11 @@ import { useGetReason } from '@/hooks/useGetReason'
 
 let clickCB: Function | null = null
 export default function ReportSheet() {
+  const [type, setType] = useState('1')
   const [visible, setVisible] = useState(false)
-  const reason = useGetReason('2')
-
+  let reason1 = useGetReason('1')[0]
+  let reason2 = useGetReason('2')[1]
+  
   const selectEvent = (e: any) => {
     clickCB && clickCB(e);
     setVisible(false)
@@ -16,7 +18,9 @@ export default function ReportSheet() {
   useEffect(() => {
     PubSub.subscribe('reportSheet', (_, info: {
       cb: Function
+      type: string
     }) => {
+      setType(info.type)
       setVisible(true)
       clickCB = info.cb
     })
@@ -27,7 +31,7 @@ export default function ReportSheet() {
       <ActionSheet 
         closeOnClickOverlay={true} 
         onSelect={(e) => selectEvent(e)}
-        actions={reason} 
+        actions={type == '1' ? reason1 : reason2} 
         visible={visible}
         onCancel={() => setVisible(false)}>
       </ActionSheet>

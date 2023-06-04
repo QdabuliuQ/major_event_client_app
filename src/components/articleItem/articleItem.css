@@ -23,7 +23,7 @@
   font-weight: bold;
 }
 .ArticleItem .articleInfo .articleTitle .rv-typography__text {
-  font-size: 15px;
+  font-size: 14px;
 }
 .ArticleItem .articleInfo .articleContent .rv-typography__text {
   font-size: 12px;
@@ -35,6 +35,7 @@
   justify-content: space-between;
   color: #767676;
   zoom: 0.8;
+  font-size: 12px;
 }
 .ArticleItem .articleInfo .articleTime div {
   display: flex;

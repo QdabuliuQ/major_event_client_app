@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Typography, Image, ImagePreview } from 'react-vant';
 import ArticleItem from '../articleItem/articleItem';
 import VideoItem from '../videoItem/videoItem';
@@ -19,6 +19,7 @@ interface IProps {
 
 export default memo(function ReplyItem(props: IProps) {
   const router = useNavigate()
+  let { id } = useParams()
   let images: string[] = []
   const imgClick = (e: any, idx: number) => {
     e.stopPropagation();
@@ -36,11 +37,10 @@ export default memo(function ReplyItem(props: IProps) {
   const userClick = (e: any) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-    router('/info', {
-      state: {
-        id: props.user_id
-      }
-    })
+    if (id != props.user_id) {
+      router('/info/' + props.user_id)
+    }
+    
   }
 
   useEffect(() => {

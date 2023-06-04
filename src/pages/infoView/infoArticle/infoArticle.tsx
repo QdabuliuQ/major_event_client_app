@@ -1,5 +1,5 @@
 import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Toast, Empty } from 'react-vant';
 import { getUserArticleById } from "@/network/infoView/infoView";
 import ArticleItem from "@/components/articleItem/articleItem";
@@ -9,7 +9,7 @@ import "./infoArticle.less"
 let infoArticle_offset = 1
 
 export const InfoArticle = forwardRef(({ }, ref) => {
-  const { id } = useLocation().state
+  const { id } = useParams()
   const router = useNavigate()
   useImperativeHandle(ref, () => ({
     getData,

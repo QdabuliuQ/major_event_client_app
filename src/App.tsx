@@ -2,6 +2,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import './App.css';
 import { useLocation, useNavigate, useRoutes } from "react-router-dom";
 import route from "@/router/index";
+import ReportSheet from '@/components/reportSheet/reportSheet';
 import LoadingView from "@/components/loadingView/loadingView";
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
   // 监听路由变化
   useEffect(() => {
     // 如果不是移动设备则 跳转到错误页面
+    console.log(location.pathname);
+    
     if(location.pathname != '/error' && !isMobile()) {
       router('/error')
     }
@@ -26,6 +29,7 @@ function App() {
 
   return (
     <div id="App">
+      <ReportSheet />
       <Suspense fallback={<LoadingView/ >}>
         { element }
       </Suspense>

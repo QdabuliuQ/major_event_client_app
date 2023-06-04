@@ -130,7 +130,7 @@ export default [
     element: <PubVideoView/>
   },
   {
-    path: '/info',
+    path: '/info/:id',
     element: <InfoView/>
   },
   {

@@ -91,6 +91,9 @@ export default function EventDetailView() {
     }).then((res: any) => {
       if (res.status) return Toast.fail(res.msg)
       Toast.success('发表成功');
+      getData(1, 1, event.ev_id);
+      offsets[1] = 1
+      setOffsets([...offsets]);
       (inputRef.current as HTMLInputElement).value = ''
     })
   }
@@ -128,8 +131,6 @@ export default function EventDetailView() {
       _event.is_praise = res.data.isPraise
       _event.praise_count = res.data.praiseCount
       _event.shareCount = res.data.shareCount
-      console.log(_event);
-      
       setEvent(_event)
     })
 

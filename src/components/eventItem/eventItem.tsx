@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef } from 'react'
 import PubSub from 'pubsub-js'
 import { DeleteO, Ellipsis, InfoO } from '@react-vant/icons';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { Image, ImagePreview, Popover, Toast, Typography } from 'react-vant'
 import { useRouter } from '@/hooks/useRouter';
 import { praiseEvent, deleteEvent, reportEvent } from '@/network/eventDetailView/eventDetailView';
@@ -11,9 +11,7 @@ import ReplyItem from "@/components/replyCom/replyItem/replyItem";
 import ReplyData from "@/components/replyCom/replyData/replyData";
 import { useDispatch } from 'react-redux';
 import { add_event_info } from '@/reduxs/actions/event'
-
 import "./eventItem.less"
-
 
 interface IProps {
   ev_id: string
@@ -35,7 +33,7 @@ interface IProps {
 export default memo(function EventItem(props: IProps) {
   const dispatch = useDispatch()
   const { pathname } = useLocation()
-  
+  let { id } = useParams()
   const eventItemPopoverRef = useRef(null)
   let images: string[] = []
   const actions = [
@@ -47,7 +45,6 @@ export default memo(function EventItem(props: IProps) {
   const { router } = useRouter()
 
   const report = (e: any) => {
-    console.log(e);
     reportEvent({
       ev_id: props.ev_id,
       reason: e.name
@@ -74,7 +71,8 @@ export default memo(function EventItem(props: IProps) {
       })
     } else if(e.text == '举报') {
       PubSub.publish('reportSheet', {
-        cb: report
+        cb: report,
+        type: '1'
       })
     }
   }
@@ -107,8 +105,16 @@ export default memo(function EventItem(props: IProps) {
     })
   }
 
-  const shareEvent = () => {
+  const userDetail = (e: any) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    
+    if (id != props.user_id) {
+      router('/info/' + id)
+    }
+  }
 
+  const shareEvent = () => {
     dispatch(add_event_info({
       type: '4',
       resource_info: props
@@ -128,8 +134,8 @@ export default memo(function EventItem(props: IProps) {
     <div onClick={toDetail} id={'EventItem_'+props.ev_id} className='EventItem'>
       <div className='userInfo'>
         <div className='leftInfo'>
-          <Image round fit='cover' src={props.user_pic} />
-          <div className='userData'>
+          <Image onClick={(e) => userDetail(e)} round fit='cover' src={props.user_pic} />
+          <div onClick={(e) => userDetail(e)} className='userData'>
             <div className='nickname'>
               {props.nickname}
               <span className='type'>

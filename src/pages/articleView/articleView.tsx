@@ -112,21 +112,19 @@ export default function ArticleView() {
           type: '2',
           resource_info: res.data
         }))
+        getArticleParams({ id: id as string }).then((res: any) => {
+          if (res.status == 0) {
+            setParams(res.data)
+          } else {
+            setStatus(res.status)
+          }
+        })
+        getCommentData(1, actions[toggleIdx].type)
         setLoading(false)
       } else {
         setStatus(res.status)
       }
     })
-
-    getArticleParams({ id: id as string }).then((res: any) => {
-      if (res.status == 0) {
-        setParams(res.data)
-      } else {
-        setStatus(res.status)
-      }
-    })
-
-    getCommentData(1, actions[toggleIdx].type)
 
   }, [])
 
@@ -180,11 +178,7 @@ export default function ArticleView() {
                   loading && !info ? <Skeleton loading={loading && !info} rowWidth={'70vw'} className='avatarSkeleton' row={1} avatarSize={'12vw'} avatar /> : <div className='articleAuthor'>
                     <Image round fit='cover' src={info.user_pic} />
                     <div onClick={() => {
-                      router('/info', {
-                        state: {
-                          id: info.author_id
-                        }
-                      })
+                      router('/info/' + info.author_id)
                     }} className='authorInfo'>
                       <div className='leftInfo'>
                         <div className='authorNickname'>
@@ -248,7 +242,8 @@ export default function ArticleView() {
           </div>
         ) : (
           status == 1 ? <Empty image="network" description="网络错误" />
-            : <Empty image="error" description="文章内容被封禁" />
+            : status == 2 ? <Empty image="error" description="文章内容被封禁" />
+            : <Empty description="文章内容已删除" />
         )
       }
     </div>

@@ -108,6 +108,12 @@ export default memo(function CommentItem({
     })
   }
 
+  const infoDetail = (e: any) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    router('/info/' + user_id)
+  }
+
   useEffect(() => {
     setPraiseCount(praise as number)
     setPraiseState(is_praise as number)
@@ -116,11 +122,11 @@ export default memo(function CommentItem({
   return (
     <div onClick={() => click && router('/comment/' + comment_id)} className='CommentItem'>
       <div className='itemAvatar'>
-        <Image round fit='cover' src={user_pic} />
+        <Image onClick={(e) => infoDetail(e)} round fit='cover' src={user_pic} />
       </div>
       <div className='itemInfo'>
         <div className='topInfo'>
-          <div className='leftInfo'>
+          <div onClick={(e) => infoDetail(e)} className='leftInfo'>
             {nickname}
           </div>
           <div onClick={(e) => {

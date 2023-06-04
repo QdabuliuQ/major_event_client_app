@@ -35,7 +35,7 @@ export default function ArticleItem(props: IProps) {
               </div>
             )
           }
-          <div style={{ position: 'relative', top: '-1px' }}><ClockO fontSize={15} /> <span style={{ marginLeft: '4px' }}>{(React as any).$moment(props.time).fromNow()}</span></div>
+          <div style={{ position: 'relative' }}><ClockO fontSize={13} /> <span style={{ marginLeft: '4px' }}>{(React as any).$moment(props.time).fromNow()}</span></div>
         </div>
       </div>
       <div className='articleCover'>
